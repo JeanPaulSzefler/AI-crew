@@ -9,6 +9,7 @@ Research and blueprints for a small, supervised AI agent crew built on Claude Co
 | [`resources/`](resources/) | Input material: findings, notes and summaries from earlier sessions and outside sources |
 | [`blueprints/`](blueprints/) | Starting structures under development, such as the starter crew repo |
 | [`outputs/`](outputs/) | Finished deliverables: reports and knowledge articles |
+| [`recommendations/`](recommendations/) | Proposed decisions for the owner: what to adopt, where and when |
 
 ## Start here
 

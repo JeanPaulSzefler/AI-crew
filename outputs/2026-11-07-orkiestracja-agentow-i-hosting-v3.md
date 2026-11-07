@@ -1,10 +1,26 @@
 # Orkiestracja agentów (Herdr) i hosting (Hostinger): analiza dla AI-crew i projektów JvP, Nina's Drills i Influencer-AI
 
-7 listopada 2026 · **Wersja 2 (robocza)** · Punkt odniesienia: [`resources/raport-orkiestracja-agentow-herdr-hostinger.md`](../resources/raport-orkiestracja-agentow-herdr-hostinger.md)
+7 listopada 2026 · **Wersja 3 (robocza)** · Punkty odniesienia: [`resources/raport-orkiestracja-agentow-herdr-hostinger.md`](../resources/raport-orkiestracja-agentow-herdr-hostinger.md) oraz [analiza Codexa z 7.11](2026-11-07-codex-ai-crew-hosting-i-migracja.md)
 
-## Co się zmieniło względem wersji 1
+## Co się zmieniło
 
-Wersja 1 jest w historii repo (commit `6e83de0`). Wersja 2 uwzględnia odpowiedzi Ownera z 7 listopada:
+### Wersja 3: po weryfikacji raportu Codexa
+
+Codex przygotował równoległą analizę (commit `48d8031`, scalona z tą gałęzią w `00b7842`). Napisał ją **przed** odpowiedziami Ownera, więc zakłada JvP tylko z lokalną grą przez Wi-Fi. Jej twierdzenia sprawdziłem w kodzie i w dokumentacji pod przypiętymi wersjami (sekcja 8). Wersja 3 przejmuje z niej to, czego brakowało w wersji 2:
+
+1. **GitHub Pages nie nadaje się do stron komercyjnych.** Regulamin wyklucza biznes, sklep i SaaS. Polityka prywatności płatnej gry, sklep i Nina's Drills idą na Cloudflare Pages (sekcje 3.3 i 7).
+2. **Pliki APK nie zmieszczą się na Cloudflare Pages.** Limit to 25 MiB na plik, a Exam Drill 1.6 ma 26,6 MB, JvP 1.2.0 ma 57,7 MB. APK dystrybuować przez Google Play, wydania na GitHubie albo magazyn obiektowy.
+3. **Wersja webowa JvP to nie tylko eksport.** Godot Web obsługuje tylko renderer Compatibility (JvP używa Mobile), a przeglądarka nie ma UDP ani ENet. Nakama działa przez WebSocket, więc ten sam backend obsłuży przyszły klient webowy.
+4. **Herdr i `herdr-core` nie izolują agentów.**
+   - Po restarcie maszyny procesy nie przetrwają.
+   - `herdr-core` (CLI `hc`) działa z uprawnieniami konta i nie jest piaskownicą.
+   - Docker z jednym wolumenem to nie pełna izolacja: nie montować `docker.sock` i nie uruchamiać kontenerów uprzywilejowanych.
+5. **Koszt czasu Ownera.** Model Codexa wycenia godzinę pracy, przyjmując 100 zł. Przy backendzie gier czas administracji jest większą pozycją niż sam serwer (sekcja 5).
+6. **Szacunki nakładu przy przesiadce** w godzinach, ryzyko przedpłaty, przypisanie postępu w przeglądarce do domeny, Mac do budowania wersji iOS, bezpieczeństwo GitHub Actions (sekcje 2, 5, 6).
+
+### Wersja 2: odpowiedzi Ownera
+
+Wersja 1 jest w historii repo (commit `6e83de0`), wersja 2 w `9a61bea`. Wersja 2 uwzględniła odpowiedzi Ownera z 7 listopada:
 
 | Pytanie | Odpowiedź | Wpływ na wnioski |
 | --- | --- | --- |
@@ -30,6 +46,20 @@ Wersja 1 jest w historii repo (commit `6e83de0`). Wersja 2 uwzględnia odpowiedz
    - Merch przez druk na żądanie (Printful lub Printify) z Etsy albo Shopify.
    - Własny WooCommerce (np. na Hostingerze) dopiero przy skali, która uzasadnia administrację i rozliczenia VAT po Twojej stronie.
 5. **Agentów AI-crew na VPS nadal nie trzeba.** Jeśli kiedyś trafią na serwer, to na **osobny**, nie na ten z kontami i płatnościami graczy.
+6. **Strony na Cloudflare Pages, APK poza nim.**
+   - Strony komercyjne nie na GitHub Pages (regulamin).
+   - APK przez Google Play, wydania na GitHubie albo magazyn obiektowy (limit 25 MiB na plik).
+7. **Największy koszt to czas, nie serwer.** Administracja backendu gier to około 2–4 h miesięcznie. Przy wycenie 100 zł/h daje to więcej niż sam VPS (sekcja 5).
+
+Codex i ja doszliśmy niezależnie do tych samych głównych wniosków:
+
+- nie kupować dziś dużego VPS-a ani wieloletniego pakietu;
+- statyczne strony teraz;
+- produkcja oddzielona od agentów;
+- przenośny stos (Docker, Postgres);
+- domena na koncie Ownera.
+
+Różnica wynika z decyzji Ownera o grze online. Dla JvP serwer przestał być „potencjalny” i stał się planowany.
 
 Ceny są **orientacyjne**. Strona hostinger.com była zablokowana w tej sesji; dane pochodzą z serwisów porównawczych, często afiliacyjnych. Przed zakupem sprawdź w koszyku.
 
@@ -37,24 +67,40 @@ Ceny są **orientacyjne**. Strona hostinger.com była zablokowana w tej sesji; d
 
 | Teza raportu | Ocena | Komentarz |
 | --- | --- | --- |
-| Herdr (w raporcie „Herder”) zarządza kilkoma agentami i trzyma ich na serwerze po zamknięciu aplikacji | **Potwierdzone** | Otwartoźródłowy multiplekser terminala (Rust, AGPL). Śledzi stan agentów; obsługuje Claude Code i Codex. Windows w becie |
-| Skill `herder-core` | **Niepotwierdzone** | Źródła mówią o skillu do sterowania Herdrem, bez tej nazwy |
+| Herdr (w raporcie „Herder”) zarządza kilkoma agentami i trzyma ich na serwerze po zamknięciu aplikacji | **Potwierdzone, z zastrzeżeniem** | Otwartoźródłowy multiplekser terminala (Rust, AGPL). Śledzi stan agentów; obsługuje Claude Code i Codex. Windows w becie. **Po restarcie maszyny procesy nie przetrwają**; Herdr przywraca układ i może wznowić wspierane sesje agentów (README, potwierdzone przez Codexa i przeze mnie). Podobną podstawową trwałość daje tmux |
+| Skill `herder-core` | **Częściowo potwierdzone** | Istnieje osobne narzędzie **`herdr-core` z CLI `hc`**: terminale działające po wyjściu, API przez gniazdo. Według jego dokumentacji bezpieczeństwa działa z uprawnieniami konta i **nie jest piaskownicą ani brokerem uprawnień**. Nazwy „skill herder-core” nie potwierdzono |
 | Hermes Agent: trwała pamięć, sam pisze skille | **Potwierdzone** | Nous Research, MIT, luty 2026. Pamięć w `~/.hermes/`, skille w standardzie Agent Skills, bramka do komunikatorów |
 | Weryfikacja przez innego agenta podnosi jakość | **Kierunkowo trafne, niezmierzone** | Zgodne z raportem AI-crew z 31.10 (niezależny recenzent) |
 | Logowanie `root` z hasłem | **Zła praktyka** | Klucze SSH, użytkownik bez roota, firewall, fail2ban |
-| Hermes w Dockerze z jednym wolumenem | **Dobra praktyka** | Przyjąć dla agentów bez nadzoru |
+| Hermes w Dockerze z jednym wolumenem | **Dobra praktyka, ale nie pełna izolacja** | Przyjąć dla agentów bez nadzoru. Wolumen nadal może zostać usunięty lub zaszyfrowany. Zamontowany `docker.sock` albo kontener uprzywilejowany niweczą izolację. Dokumentacja bezpieczeństwa Hermesa też wskazuje izolację na poziomie systemu, a nie reguły wewnątrz procesu |
 | NVMe „wyeliminowało wąskie gardła” | **Marketing** | Agenci czekają głównie na API; ważniejsza jest pamięć RAM |
 | Kredyty AI Hostingera, 200+ modeli przez OpenRouter | **Niezweryfikowane** | Claude Code i Codex i tak korzystają z własnych subskrypcji |
 
 ## 2. AI-crew: wariant „crew wielodostawcowy”
 
-Bez zmian względem wersji 1.
+Zgodny z wariantami A–C Codexa (na żądanie → laboratorium zdalne → automatyzacja przez repo i CI). Kroki poniżej:
 
 | Krok | Co | Infrastruktura | Kiedy |
 | --- | --- | --- | --- |
 | **A. Recenzja krzyżowa** | Codex (GPT) jako drugi recenzent PR-ów pisanych przez Claude'a. Formalizuje to, co już robisz ręcznie w `education-games` i `educationInfluencer` | GitHub Actions albo ręcznie | Od razu |
 | **B. Powiadomienia i zgody z telefonu** | Aplikacja GitHub i aplikacja Claude; Telegram dopiero, gdy te nie wystarczą | Bez serwera | Przy większej liczbie PR-ów |
-| **C. Runner na VPS-ie (pilotaż)** | Herdr + Claude Code + Codex, każdy agent w kontenerze z jednym folderem | **Osobny** VPS, nigdy ten z backendem gry | Tylko przy konkretnym wyzwalaczu: długie zadania, zasoby spoza chmury, koordynacja agentów w czasie rzeczywistym |
+| **C. Runner na VPS-ie (pilotaż)** | Herdr + Claude Code + Codex. Każdy agent pod zwykłym użytkownikiem, w kontenerze z jednym folderem, z limitami RAM/CPU, bez `docker.sock` i bez trybu uprzywilejowanego. Najwyżej dwa aktywne zadania na start | **Osobny** VPS, nigdy ten z backendem gry. Krótki okres rozliczeniowy | Tylko przy konkretnym wyzwalaczu: długie zadania, zasoby spoza chmury, koordynacja agentów w czasie rzeczywistym |
+
+**Pomiar pilotażu (za Codexem).** Około 20 porównywalnych, małych zadań z aktywnych projektów. Porównać jednego agenta z parą wykonawca + recenzent. Zapisywać:
+
+- zaakceptowany wynik;
+- regresje;
+- koszt modeli;
+- czas człowieka;
+- liczbę ponowień.
+
+Więcej ról tylko wtedy, gdy obniżają koszt zaakceptowanej zmiany lub czas człowieka bez utraty jakości.
+
+**Bezpieczeństwo automatyzacji w GitHub Actions (za Codexem i dokumentacją `claude-code-action`):**
+
+- niezaufany PR nie może uruchamiać kodu z sekretami repo (ostrożnie z `pull_request_target` i `workflow_run`);
+- jednorazowe runnery zamiast trwałych runnerów na własnym serwerze;
+- alert rozliczeniowy to nie twardy limit, więc potrzebny jest własny mechanizm przerwania pracy.
 
 **Nowy wątek z wersji 2:** agenci mogą **budować i testować** backend JvP. Nakama działa w Dockerze, więc da się ją uruchomić w sesji Claude Code w chmurze i w GitHub Actions do testów integracyjnych. Nie potrzeba do tego produkcyjnego serwera. Dostęp agentów do **produkcyjnego** serwera z danymi graczy powinien być zablokowany. Wdrożenie wykonuje człowiek albo potok CI zatwierdzony przez Ownera.
 
@@ -93,6 +139,14 @@ Historii innych rozmów z Claude nie widzę z tej sesji. Uwzględniłem to, co z
 | Gra ze znajomym przez internet | Dobieranie przez kod znajomego, przekazywanie wiadomości między telefonami (relay) albo logika na serwerze |
 | Wydarzenia wspólne dla wszystkich | Czas serwera, zdalna konfiguracja wydarzeń |
 | Rankingi (opcjonalnie) | Tabele wyników |
+| Wersja przeglądarkowa (opcjonalnie) | Godot Web obsługuje tylko renderer **Compatibility**, a JvP używa **Mobile**: trzeba przełączyć renderer i przetestować grafikę. Przeglądarka nie ma UDP ani ENet; transport przez WebSocket lub WebRTC. Plik eksportu i strona gry osobno od APK |
+| Budowy Androida i testy w trybie headless | Linux z przypiętą wersją Godota, szablonami eksportu, JDK i Android SDK. Ograniczony dostęp do klucza wydania. Może to być CI albo laboratorium VPS, nie serwer produkcyjny |
+
+Codex zwraca uwagę na rzeczy, których nie da się po prostu „przenieść” na VPS:
+
+- wykrywanie przez rozgłoszenia w sieci lokalnej nie działa przez internet;
+- obecny kod JvP nie jest gotowym serwerem dedykowanym, bo jest powiązany z UI;
+- dodanie backendu unieważnia deklarację „Data Not Collected” z planu publikacji. Trzeba ją przeanalizować na nowo, a nie zostawić „na zapas”.
 
 #### Opcje techniczne
 
@@ -105,7 +159,13 @@ Historii innych rozmów z Claude nie widzę z tej sesji. Uwzględniłem to, co z
 | W4 Cloud (od twórców Godota) | Backend projektowany dla Godota | Natywna integracja z Godot Multiplayer API | Beta (AGPL); stan i ceny w 2026 niepotwierdzone | Nieznany. Obserwować, nie wybierać |
 | Własny serwer Godot (tryb headless) + Supabase | Pełna kontrola | Ten sam kod gry na serwerze | Najwięcej pracy | VPS + ewentualnie Supabase |
 
-**Dlaczego Nakama.** Pokrywa wszystkie cztery wymagania Ownera jedną usługą: konta Google, zakupy z weryfikacją, gra przez internet, dane na serwerze. Ma tryb **„relayed”**, w którym serwer tylko przekazuje wiadomości między telefonami. Pasuje to do obecnej architektury JvP, gdzie jeden telefon jest gospodarzem, więc logiki gry nie trzeba przepisywać na serwer. Lokalną grę przez Wi-Fi warto zostawić jako tryb zapasowy.
+**Dlaczego Nakama.** Pokrywa wszystkie cztery wymagania Ownera jedną usługą: konta Google, zakupy z weryfikacją, gra przez internet, dane na serwerze. Ma tryb **„relayed”**, w którym serwer tylko przekazuje wiadomości między telefonami. Pasuje to do obecnej architektury JvP, gdzie jeden telefon jest gospodarzem, więc logiki gry nie trzeba przepisywać na serwer. Lokalną grę przez Wi-Fi warto zostawić jako tryb zapasowy. Nakama komunikuje się w czasie rzeczywistym przez **WebSocket**, więc ten sam backend obsłuży przyszłą wersję przeglądarkową, w której nie ma UDP ani ENet.
+
+**Ekonomia na serwerze, rozgrywka u gospodarza.** Uzupełnienie przeglądu Codexa z 30.10 (w `education-games` sekcja 7, scalona w PR #4):
+
+- rubiny, roślimonety, nagrody i zakupy w portfelu na serwerze;
+- czas wydarzeń, ogrodu i limitów dziennych z serwera, bo zegar telefonu łatwo przestawić;
+- sama rozgrywka może dalej być prowadzona przez telefon gospodarza.
 
 #### Wymogi regulacyjne (gra dla dzieci)
 
@@ -118,6 +178,7 @@ Te punkty są ważniejsze niż wybór technologii i wymagają potwierdzenia u ź
 | **Brak otwartego czatu z nieznajomymi** | Google Play Families | Tylko gra ze **znajomymi przez kod**, gotowe emotki zamiast czatu tekstowego, bez publicznego dobierania obcych graczy |
 | Zakupy z bramką rodzica, bez nakłaniania dzieci | Google Play Families, wytyczne Apple dla kategorii Kids | Ekran zakupu za bramką rodzica (jest już w planie publikacji) |
 | **Sign in with Apple** obok Google na iOS | App Store, wytyczna 4.8 | Nakama obsługuje logowanie Apple; trzeba je dodać przed wydaniem na iOS |
+| Budowa wersji iOS | Apple (Xcode) | Wymaga macOS: własnego Maca albo Maca w chmurze. Linuksowy VPS go nie zastąpi |
 | Zakupy cyfrowe w aplikacji przez Google Play Billing | Zasady płatności Google Play | Opłata Google: według doniesień z czerwca 2026 około 10% opłaty serwisowej + 5% za rozliczenie przez Play Billing na pierwszy 1 mln USD rocznie (do potwierdzenia w Play Console) |
 | Polityka prywatności, rejestr przetwarzania danych | RODO, sklepy | Strona statyczna, dokument w repo, umowa powierzenia z dostawcą serwera |
 | Dane w UE | RODO (zalecane) | Serwer w centrum danych w UE (Hostinger i Hetzner mają takie lokalizacje) |
@@ -159,6 +220,13 @@ Warunek powrotu do kont, „kilku użytkowników”, spełnia się przy produkci
 
 **Wniosek:** jeśli Nina's Drills ma sprzedawać w obu kanałach, potrzebuje tych samych klocków co JvP: konta Google, weryfikacji zakupów, uprawnień, synchronizacji postępu.
 
+Uwagi z raportu Codexa, które przyjmuję:
+
+- **Postęp w przeglądarce jest przypisany do domeny** (origin `localStorage`). Ostateczną domenę wersji webowej trzeba wybrać przed publicznym startem. Zmiana domeny wymaga eksportu i importu postępu, chyba że są już konta z synchronizacją.
+- **Pobranego pliku nie da się chronić ukrytym adresem.** Płatne zestawy wymagają autoryzowanego pobrania (klucz licencyjny platformy albo konto).
+- **Dodanie hostingu nie dodaje klienta API.** Obecna aplikacja Godot ma `permissions/internet=false`. Konta i synchronizacja to nowa praca: uprawnienia, model danych, obsługa błędów i trybu offline.
+- **Nie publikować całego repo `learning_tools` jako strony.** Zawiera surowe materiały. Publiczny artefakt wybiera się osobno.
+
 | Wariant | Opis | Za | Przeciw |
 | --- | --- | --- | --- |
 | **Wspólna Nakama dla obu aplikacji (rekomendowany na start)** | Jedna instancja, osobne „projekty” danych; zestawy jako produkty z weryfikacją zakupów | Jeden serwer, jedna administracja, ten sam kod kont i zakupów; klient Godot Nina's Drills dzieli SDK z JvP | Nakama jest „growa”; dla wersji webowej trzeba klienta JavaScript (Nakama go ma) |
@@ -183,7 +251,10 @@ Warunek powrotu do kont, „kilku użytkowników”, spełnia się przy produkci
 | **Produkty cyfrowe** (planery Niny, karty z faktami, e-booki, zestawy pytań) | Lemon Squeezy (rozlicza VAT za sprzedawcę, około 5% + 0,50 USD) albo Payhip lub Ko-fi Shop (VAT po Twojej stronie). E-booki: Amazon KDP | Ta sama platforma; ewentualnie własny sklep | Brak |
 | **Merch** (koszulki, kubki, naklejki z postaciami i z JvP) | Printful lub Printify zintegrowane z **Etsy** (ruch z marketplace, bez abonamentu) albo z **Shopify** (około 30–40 USD/mies., niezweryfikowane) | Własny sklep na Shopify albo **WooCommerce** z wtyczką Printful | **Opcja:** WooCommerce na hostingu Business lub Cloud. Taniej w abonamencie, ale aktualizacje, bezpieczeństwo, RODO i VAT (procedura OSS) są po Twojej stronie |
 | **Strona marki i blog** | Strona statyczna (Astro lub Hugo; agenci piszą wpisy przez PR) na Cloudflare Pages | Ghost(Pro) albo WordPress | **Opcja:** WordPress na hostingu, jeśli wybierzesz WordPress |
-| **Polityka prywatności i usuwanie konta JvP** | Podstrony statyczne na domenie projektu | — | Brak |
+| **Polityka prywatności i usuwanie konta JvP** | Podstrony statyczne na domenie projektu (Cloudflare Pages) | — | Brak |
+| **Pliki APK do pobrania** | Google Play; testowe wersje przez wydania na GitHubie albo magazyn obiektowy (np. Cloudflare R2) | — | Opcja: VPS z HTTPS i sumami kontrolnymi |
+
+**Gdzie hostować strony.** TASK-0038 zakłada GitHub Pages. Regulamin GitHub Pages wyklucza jednak strony służące głównie biznesowi, sprzedaży albo SaaS. Strona źródeł będzie linkować Ko-fi, produkty i aplikacje, więc bezpieczniej od razu użyć **Cloudflare Pages** dla wszystkich stron projektów. Ograniczenie Cloudflare Pages to 25 MiB na plik, dlatego APK (26,6 MB i 57,7 MB) trzymać osobno. Publikować tylko wygenerowane, zatwierdzone treści, nigdy prywatnej wiki ani roboczych materiałów.
 
 **Rekomendacja dla sklepu:** zacząć od platform, czyli Lemon Squeezy dla cyfrowych oraz Etsy + Printful dla merchu.
 
@@ -231,6 +302,24 @@ Backend gier z danymi i płatnościami graczy powinien mieć **własny serwer**.
 
 Przy obu: konfiguracja w gicie (`docker-compose.yml` z Nakamą i Postgresem, proxy TLS, skrypt kopii) i kopie bazy codziennie **poza** dostawcą (np. tani magazyn obiektowy w innej firmie).
 
+**Przed zakupem** (lista z raportu Codexa) zebrać konkretną wycenę:
+
+- cena brutto za cały okres, płatność z góry, cena odnowienia;
+- kopie zapasowe i ich retencja, migawki, dodatkowe IP i dyski, transfer;
+- zasady rezygnacji i zwrotu;
+- region danych i umowa powierzenia;
+- zakres wsparcia.
+
+Ochrona DDoS i migawka u dostawcy nie zastępują kopii u innej firmy.
+
+**Adres API pod własną domeną** (np. `api.<domena projektu>`). Zmiana dostawcy nie wymaga wtedy aktualizacji aplikacji w sklepach.
+
+**Cel odtwarzania danych** (propozycja Codexa, do przyjęcia):
+
+- utrata najwyżej 24 h zwykłych danych;
+- odtworzenie w ciągu 4 h;
+- dla zakupów dziennik zdarzeń i ostrzejsze zasady.
+
 ## 5. Koszt łączny dla 24 miesięcy (orientacyjnie)
 
 | Pozycja | Scenariusz „platformy + Nakama” (rekomendowany) | Scenariusz „wszystko na swoim” |
@@ -247,7 +336,33 @@ Przy obu: konfiguracja w gicie (`docker-compose.yml` z Nakamą i Postgresem, pro
 | Opłaty sklepów od zakupów w aplikacjach | Około 15% przy Play Billing (według doniesień z 2026) | To samo |
 | **Razem stałe koszty infrastruktury przez 24 mies.** | **Około 700–1300 PLN** (bez Apple) | **Około 1500–2500 PLN** (bez Apple) + więcej administracji |
 
-Nie wliczono subskrypcji Claude i ChatGPT, kredytów Higgsfield (około 295 PLN/mies.), księgowości ani Twojego czasu na administrację. Przy backendzie gier warto zarezerwować **1–3 godziny miesięcznie** na aktualizacje, kopie i monitoring. Kurs orientacyjny: 1 USD ≈ 3,8–4,0 PLN, 1 EUR ≈ 4,3 PLN.
+Nie wliczono subskrypcji Claude i ChatGPT, kredytów Higgsfield (około 295 PLN/mies.) ani księgowości. Kurs orientacyjny: 1 USD ≈ 3,8–4,0 PLN, 1 EUR ≈ 4,3 PLN.
+
+### Czas Ownera: największa pozycja (metoda Codexa)
+
+Codex liczy koszt całkowity razem z wycenionym czasem (100 zł/h, założenie porównawcze). W tej wersji przyjmuję jego metodę:
+
+| Pozycja | Godziny | Wycena przez 24 mies. |
+| --- | --- | --- |
+| Administracja backendu gier: aktualizacje, kopie, monitoring, test odtworzenia | 2–4 h/mies. | **4800–9600 zł** |
+| Pierwsze uruchomienie serwera produkcyjnego (bez programowania funkcji online) | 8–16 h jednorazowo | 800–1600 zł |
+| Strony statyczne i domena | 2–4 h jednorazowo, potem około 0,5 h/mies. | 1400–1600 zł |
+
+**Wniosek:** gotówka za infrastrukturę to około 700–1300 PLN, a czas administracji jest kilkukrotnie droższy. Dlatego:
+
+- przy JvP online liczy się **mało ruchomych części** (jedna usługa Nakama zamiast kilku);
+- zautomatyzowane kopie i aktualizacje;
+- zarządzana usługa może się opłacić, jeśli zaoszczędzi więcej godzin, niż kosztuje.
+
+Dla porównania, scenariusze Codexa (z jego budżetami AI i czasem) dają przez 24 miesiące:
+
+- około 1900–2100 zł: same strony statyczne;
+- około 14 600 zł: laboratorium crew na VPS-ie;
+- około 29 200 zł: crew oddzielony od produkcji z API, bazą i mediami.
+
+Są to budżety, nie cenniki, i nie obejmują budowy funkcji aplikacji.
+
+**Przedpłata (przykład Codexa):** 48 miesięcy × 30 zł = 1440 zł z góry. Rezygnacja po 12 miesiącach zostawia 1080 zł niewykorzystanej przedpłaty, jeśli umowa nie przewiduje zwrotu. Oszczędność 40 zł/mies. na serwerze znika, jeśli przesiadka zajmie 8 h (zwrot po 20 miesiącach).
 
 ## 6. Uzależnienie i koszt przesiadki
 
@@ -264,6 +379,22 @@ Nie wliczono subskrypcji Claude i ChatGPT, kredytów Higgsfield (około 295 PLN/
 | WooCommerce na Hostingerze | Średnie | 1–3 dni, przerwa w sprzedaży | Kopie poza dostawcą |
 | Kreatory Website Builder i Horizons | **Wysokie** | Przebudowa od zera | Nie używać |
 | Zakupy w Google Play i App Store | Wysokie (z natury sklepów) | Brak przeniesienia zakupów między sklepami | Uprawnienia zapisane na koncie gracza w Nakamie, nie tylko w sklepie |
+| Postęp w przeglądarce (Nina's Drills, wersja webowa) | Średnie | Zmiana domeny gubi postęp zapisany lokalnie | Ostateczna domena przed startem; eksport i import postępu albo konta |
+| Subskrypcje płatne | Wysokie | Tokeny kart i zgody na płatności cykliczne zwykle nie przechodzą przez eksport CSV | Na start bez własnych subskrypcji; korzystać z platform |
+
+### Nakład pracy przy przesiadce (szacunki Codexa, przy 100 zł/h)
+
+| Co przenosimy | Nakład | Łącznie z gotówką na okres przejściowy |
+| --- | --- | --- |
+| Strona statyczna z własną domeną | 2–6 h | 200–650 zł |
+| VPS z kontenerami i PostgreSQL (np. Nakama) | 8–20 h | 900–2300 zł |
+| WordPress lub WooCommerce między hostami | 12–40 h | 1400–4600 zł |
+| Backend na funkcjach platformy (Auth, Storage, funkcje) | 20–60 h | 2200–6800 zł |
+| Sklep lub kreator silnie związany z platformą | 60–160 h | 6500–18 000 zł |
+| Herdr zastąpiony przez tmux, usługi systemd lub CI | 4–12 h | 400–1300 zł |
+| Pamięć Hermesa przeniesiona do innego narzędzia | 8–24 h | 800–2600 zł |
+
+Wiersze to różne zakresy; nie należy ich sumować. Dla JvP z Nakamą dochodzi jedna pozycja spoza tabeli: projekt Google Cloud i konto Apple muszą zostać przy Ownerze (pierwszy wiersz tabeli wyżej). Bez tego przesiadka oznacza utratę logowania graczy.
 
 ### Ryzyka do monitorowania
 
@@ -281,7 +412,9 @@ Nie wliczono subskrypcji Claude i ChatGPT, kredytów Higgsfield (około 295 PLN/
 | Teraz | Kupić domenę projektu u niezależnego rejestratora; założyć projekt Google Cloud i konto Play Console na koncie projektu | wszystkie |
 | Teraz | Strona statyczna na Cloudflare Pages: polityka prywatności JvP, strona usuwania konta, strona źródeł (TASK-0038) | JvP, Influencer-AI |
 | Teraz | Specyfikacja „JvP online”: zakres (znajomi przez kod, bez czatu), bramka rodzica, dane minimalne, usuwanie konta; wymogi prawne do potwierdzenia | JvP |
-| Teraz | Pilotaż recenzji krzyżowej Codexem na 5–10 PR-ach | AI-crew |
+| Teraz | Pilotaż recenzji krzyżowej Codexem na 5–10 PR-ach; potem pomiar na około 20 zadaniach (sekcja 2) | AI-crew |
+| Teraz | Scalić `jvp-notatki-2026-10-30` (wersja 1.2.0) z `master`; dodać testy regresji i CI (przegląd JvP, sekcja 7.4) | JvP |
+| Przed zakupem serwera | Konkretna wycena: brutto za cały okres, odnowienie, kopie, zwroty, region, umowa powierzenia (sekcja 4) | JvP |
 | Następnie | Nakama w Dockerze lokalnie i w CI; SDK Godota; konta, portfel, zakupy testowe Play Billing; gra przez relay obok lokalnego Wi-Fi | JvP |
 | Następnie | Osobne repo `nina-drills`; wersja webowa i sprzedaż zestawów przez Lemon Squeezy | Nina's Drills |
 | Przed testem zamkniętym JvP | VPS produkcyjny w UE (Hostinger KVM 2 albo Hetzner), kopie poza dostawcą, monitoring | JvP |
@@ -296,10 +429,46 @@ Nie wliczono subskrypcji Claude i ChatGPT, kredytów Higgsfield (około 295 PLN/
 3. **Wersja iOS:** w tym samym czasie co online, czy później? Od tego zależy Sign in with Apple i koszt konta Apple.
 4. **Nina's Drills:** od razu oba kanały (web i Google Play), czy najpierw tylko web?
 5. **Forma sprzedaży:** czy istnieje już działalność gospodarcza, czy sprzedaż ruszy w innej formie? To wpływa na wybór platform (VAT, faktury).
+6. **Wersja przeglądarkowa JvP:** czy jest w planach? Wymaga zmiany renderera na Compatibility i testów grafiki.
+
+## 8. Weryfikacja raportu Codexa
+
+**Zakres:**
+
+- commit `48d8031` (raport `outputs/2026-11-07-codex-ai-crew-hosting-i-migracja.md` i jeden wiersz w `outputs/README.md`);
+- scalenie `00b7842` (gałąź robocza Codexa `work` z moją gałęzią).
+
+**Integralność:** scalenie jest poprawne. Konflikt wystąpił tylko w `outputs/README.md` i zachowano oba wpisy. Raport Codexa nie zmienia żadnego innego pliku.
+
+| Twierdzenie Codexa | Sprawdzenie | Wynik |
+| --- | --- | --- |
+| Herdr: po restarcie maszyny procesy nie przetrwają | README `herdrdev/herdr` @ `ee5bfb5` | **Potwierdzone** („the original processes do not survive”) |
+| `herdr-core` ma CLI `hc`, działa z prawami konta, nie jest piaskownicą | README i `docs/security.md` `herdrdev/herdr-core` @ `9ce385d` | **Potwierdzone** |
+| Hermes: reguły wewnątrz procesu nie zastępują izolacji systemowej | `SECURITY.md` `NousResearch/hermes-agent` @ `9ffa7df` | **Potwierdzone** (sekcja „OS-Level Isolation”) |
+| GitHub Pages nie służy do biznesu, sprzedaży ani SaaS | `github/docs` @ `8cd1075`, `github-pages-limits.md` | **Potwierdzone** |
+| Cloudflare Pages: limit 25 MiB na plik | `cloudflare-docs` @ `53ce9b5`, `pages/platform/limits.mdx` | **Potwierdzone** |
+| Rozmiary APK: Exam Drill 1.6 = 26 613 508 B, JvP 1.2.0 = 57 705 396 B | `git ls-tree -l` w obu repozytoriach | **Potwierdzone** |
+| Godot Web: tylko Compatibility; brak UDP i ENet, dostępne WebSocket i WebRTC | `godot-docs` @ `0709b93`, `exporting_for_web.rst` | **Potwierdzone** |
+| JvP: renderer Mobile, protokół sieci 7, ENet i UDP | `project.godot`, `net_session.gd` @ `87655b7` | **Potwierdzone** |
+| Exam Drill APK bez dostępu do internetu | `godot/export_presets.cfg`: `permissions/internet=false` | **Potwierdzone** |
+| `work/NEXT-PC-SESSION.md` na gałęzi `ccr-d914ae0e-4gvx4c` | `git ls-tree` | **Potwierdzone** |
+| Ceny Cloudflare Workers Paid (5 USD/mies.) i R2 (0,015 USD/GB) | Nie sprawdzałem ponownie | Przyjęte za Codexem |
+| JvP: lokalna gra przez Wi-Fi jako punkt startu; online „potencjalnie” | — | **Nieaktualne:** Codex pisał przed decyzją Ownera o grze online |
+| Ceny Hostinger i Hetzner niepotwierdzone handlowo | — | Zgodne z moim stanem: strony ofert były zablokowane w obu sesjach |
+
+**Ocena:** raport Codexa jest rzetelny, ostrożny w twierdzeniach i dobrze udokumentowany przypiętymi źródłami. Nie znalazłem w nim błędu merytorycznego. Jego wkład przejąłem w tej wersji (lista na początku). Nie zmieniałem treści raportu Codexa.
 
 ## Źródła
 
 - Raport wejściowy: [`resources/raport-orkiestracja-agentow-herdr-hostinger.md`](../resources/raport-orkiestracja-agentow-herdr-hostinger.md)
+- [Analiza Codexa z 7.11.2026](2026-11-07-codex-ai-crew-hosting-i-migracja.md) (commit `48d8031`) i jej źródła pierwotne sprawdzone w tej sesji:
+  - [Herdr README](https://github.com/herdrdev/herdr/blob/ee5bfb5041bb3e4a49d591c72308aae3c81ecdde/README.md);
+  - [herdr-core security](https://github.com/herdrdev/herdr-core/blob/9ce385d9c8abb041dd4437476d770365b3fb5282/docs/security.md);
+  - [Hermes SECURITY](https://github.com/NousResearch/hermes-agent/blob/9ffa7dff23726d8daa8b3e167b20a5fabc2e04ef/SECURITY.md);
+  - [GitHub Pages limits](https://github.com/github/docs/blob/8cd1075179df75319912891d6620c9cb78eefb4d/content/pages/getting-started-with-github-pages/github-pages-limits.md);
+  - [Cloudflare Pages limits](https://github.com/cloudflare/cloudflare-docs/blob/53ce9b502646fdc019b8184b29b9f1054939e1b6/src/content/docs/pages/platform/limits.mdx);
+  - [Godot: eksport na Web](https://github.com/godotengine/godot-docs/blob/0709b93758c40d26c91e1d9e4f3afd262c4ed386/tutorials/export/exporting_for_web.rst).
+- Przegląd JvP z 30.10 z aktualizacją z 7.11: `education-games/review/2026-10-30_przeglad-repo_ChatGPT-Codex.md` (PR #4)
 - Repozytoria JeanPaulSzefler (stan z 7.11.2026): `education-games` (`junk-vs-plants/README.md`, `PLAN_PUBLIKACJI.md`, przegląd Codexa z 30.10), `learning_tools` (`CLAUDE.md`, decyzje 0002, 0004, 0006, 0007, `out-of-scope/backend-and-account-sync.md`), `educationInfluencer` (journal 021, 037, 040, 041; `wiki/proposals/monetisation-and-community.md`, `own-apps-for-personas.md`, `financial-scenarios.md`; TASK-0037, TASK-0038)
 - [Raport AI-crew z 31.10.2026](2026-10-31-efficient-ai-crew-and-repo-setup.md)
 - Herdr: [Bitdoze](https://www.bitdoze.com/herdr-agent-multiplexer/), [AI Weekly](https://aiweekly.co/alerts/herdr-adds-agent-state-awareness-to-terminal-multiplexing), [knightli](https://knightli.com/en/2026/07/06/herdr-terminal-agent-multiplexer/)
@@ -315,4 +484,4 @@ Nie wliczono subskrypcji Claude i ChatGPT, kredytów Higgsfield (około 295 PLN/
 - Platformy sprzedaży: [We Are Founders](https://www.wearefounders.uk/best-platforms-for-selling-digital-products-in-2026/)
 - Claude Code na VPS: [Autonomee](https://autonomee.ai/blog/claude-code-server-vps-authentication-guide/) (źródło wtórne; obowiązują aktualne warunki Anthropic)
 
-Ograniczenia: strona hostinger.com była zablokowana w tej sesji; ceny pochodzą ze źródeł wtórnych. Wymogi prawne (wiek zgody w Polsce, Families, opłaty Google, wytyczna 4.8, VAT) są streszczone ze źródeł wtórnych i wymagają potwierdzenia u źródła lub u prawnika przed wydaniem.
+Ograniczenia: strona hostinger.com była zablokowana w tej sesji (u Codexa strony ofert Hostinger, Hetzner i Render również); ceny pochodzą ze źródeł wtórnych. Dokumentację Herdr, Hermesa, GitHub Pages, Cloudflare i Godota sprawdziłem pod przypiętymi wersjami przez raw.githubusercontent.com. Wymogi prawne (wiek zgody w Polsce, Families, opłaty Google, wytyczna 4.8, VAT) są streszczone ze źródeł wtórnych i wymagają potwierdzenia u źródła lub u prawnika przed wydaniem.

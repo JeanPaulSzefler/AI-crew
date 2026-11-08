@@ -1,6 +1,16 @@
 # Śpiewnik na żywo (nazwa robocza): wymagania wstępne, ocena miejsca w repozytoriach i plan dla AI-crew
 
-8 listopada 2026 · **Wersja 1 (robocza, przed odpowiedziami Ownera)** · Zadanie startowe nowego repo: [`blueprints/spiewnik-live/TASK-000-bootstrap.md`](../blueprints/spiewnik-live/TASK-000-bootstrap.md)
+8 listopada 2026 · **Wersja 1.1 (robocza)** · Zadanie startowe nowego repo: [`blueprints/spiewnik-live/TASK-000-bootstrap.md`](../blueprints/spiewnik-live/TASK-000-bootstrap.md)
+
+> **Wersja 1.1:** dodany [rozdział 11 o OpenLP](#11-openlp-co-już-jest-i-co-można-rozwinąć-jako-wkład). Owner nie znał OpenLP (odpowiedź na pytanie 18).
+>
+> **Wniosek:** OpenLP pokrywa około połowy wymagań MVP: bibliotekę, listę wydarzenia, rzutnik, akordy, import i podgląd na żywo w sieci lokalnej. Brakuje tego, co w pomyśle najważniejsze dla uczestnika:
+>
+> - samodzielnego przeglądania z powrotem „na żywo”;
+> - dołączania kodem przez internet;
+> - tworzenia treści z telefonu.
+>
+> Dwie pierwsze luki da się w dużej części rozwinąć jako wkład w OpenLP na własnej gałęzi. Trzecia wymaga własnej aplikacji.
 
 ## W skrócie
 
@@ -287,7 +297,10 @@ Kodu nie współdzielić między repozytoriami. Każde ma własny cykl życia.
 15. Repo publiczne czy prywatne? Rekomenduję prywatne do czasu wyjaśnienia praw do przykładowych tekstów.
 16. Czy jest termin pierwszego prawdziwego użycia (pilotaż na wydarzeniu)?
 17. Czy pilotaż AI-crew ma ruszyć właśnie na tym projekcie (planista, wykonawca, recenzent; pomiar kosztu na zadanie)?
-18. Czy sprawdzałeś **OpenLP** lub podobne narzędzia? Czego w nich brakuje? Warto to wiedzieć przed budową własnej aplikacji.
+18. ~~Czy sprawdzałeś **OpenLP**?~~ **Odpowiedź Ownera: nie.** Analiza w rozdziale 11. Nowe pytania z niej wynikające to 19–21.
+19. Czy na typowym wydarzeniu jest **komputer (Windows, macOS, Linux) podłączony do rzutnika lub telewizora** i **sieć Wi-Fi**, do której mogą dołączyć uczestnicy? OpenLP tego wymaga.
+20. Czy prowadzący ma móc prowadzić wydarzenie **wyłącznie z telefonu**, bez komputera?
+21. Czy akceptujesz licencję **GPLv3** dla kodu rozwijanego jako wkład w OpenLP (kod pozostaje otwarty, także na własnej gałęzi)?
 
 ## 9. Plan realizacji przez AI-crew
 
@@ -360,10 +373,137 @@ Role: **P** planista (Sonnet), **W** wykonawca (Sonnet; Haiku dla zadań mechani
 
 ## 10. Następny krok
 
-1. Odpowiedzi na pytania z sekcji 8. Szczególnie ważne: 1, 2, 4, 5, 9, 10, 14, 15, 17, 18.
+0. **Przed budową czegokolwiek:** pilotaż czystego OpenLP na jednym spotkaniu (rozdział 11.5, krok 1). To zero programowania i szybko pokaże, które luki naprawdę bolą.
+1. Odpowiedzi na pytania z sekcji 8. Szczególnie ważne: 1, 2, 4, 5, 9, 10, 14, 15, 17, 19, 20, 21.
 2. Owner tworzy puste repozytorium (nazwa i widoczność z pytań 14 i 15) albo zleca to Claude'owi.
 3. Wykonanie [TASK-000](../blueprints/spiewnik-live/TASK-000-bootstrap.md) w nowym repo.
 4. Wersja 2 tego raportu po odpowiedziach, jako SPEC-000 w nowym repo.
+
+## 11. OpenLP: co już jest i co można rozwinąć jako wkład
+
+Stan na 8 listopada 2026. Źródło: kod pobrany z GitLaba:
+
+- `openlp/openlp` @ `19743f9` (22.10.2026);
+- `openlp/web-remote` @ `715abba` (3.10.2026);
+- `openlp/web-sync`;
+- lista otwartych merge requestów przez API GitLaba.
+
+Strony openlp.org i manual.openlp.org były zablokowane w tej sesji, więc ocena opiera się na kodzie, a nie na podręczniku.
+
+### 11.1. Czym jest OpenLP
+
+- **Darmowy program do wyświetlania pieśni i tekstów** w kościołach. Działa jako aplikacja na komputerze: Windows, macOS, Linux; Python i Qt (PySide6 w wersji 4).
+- **Licencja GPLv3 lub nowsza.** Kod i wkłady pozostają otwarte.
+- **Projekt jest aktywny.** Wydanie 3.1.2; commity i merge requesty z października i listopada 2026; nowa wersja 4 w przygotowaniu. Część merge requestów czeka jednak latami, np. „remote-sync” od 2019 r.
+- **Wtyczki:** pieśni, biblia, slajdy własne, obrazy, multimedia, prezentacje, ogłoszenia, statystyki użycia pieśni, Planning Center, OBS Studio.
+- **Zdalny panel webowy** (`openlp/web-remote`, Angular, GPLv3). Serwuje go sam OpenLP w sieci lokalnej: port 4316 (HTTP) i 4317 (WebSocket). Widoki:
+  - główny: kopia ekranu na żywo;
+  - **sceniczny**: bieżący i następny slajd, dla śpiewaków;
+  - **akordy**;
+  - slajdy, lista wydarzenia, wyszukiwanie, ogłoszenia, motywy, ustawienia.
+- **Polskie tłumaczenie** interfejsu jest (`resources/i18n/pl.ts`).
+
+### 11.2. Pokrycie wymagań z sekcji 2
+
+Oznaczenia: ✓ jest, ◐ częściowo, ✗ brak.
+
+| Id | Wymaganie | OpenLP | Uwagi |
+| --- | --- | --- | --- |
+| F-01 | Utwór, strony, sekcje, kolejność | ✓ | Etykiety zwrotek i refrenu, kolejność wykonania. Edycja tylko w programie na komputerze |
+| F-02 | Metadane, prawa | ✓ | Autorzy, śpiewnik z numerem, tematy, prawa autorskie, numer CCLI |
+| F-03 | Biblioteka, wyszukiwanie | ◐ | Jedna baza pieśni na instalację; podział przez „śpiewniki” i tematy zamiast wielu bibliotek |
+| F-04 | Utwór od razu na żywo | ✓ | „Wyślij na żywo” z biblioteki, także z panelu webowego |
+| F-05 | Podgląd | ✓ | Panel podglądu obok panelu na żywo |
+| F-06 | Akordy dla muzyków | ✓ | Akordy w tekście, widok akordów w panelu webowym, transpozycja przez API |
+| F-10 | Wydarzenie z kolejnością | ✓ | „Service” (plik `.osz`), dowolna kolejność |
+| F-11 | Lista zamknięta, zmiany przez prowadzącego w trakcie | ✓ | Zmienia tylko operator, w programie albo z panelu po zalogowaniu |
+| F-13 | Kilku prowadzących | ◐ | Kilka osób może sterować z panelu webowego po zalogowaniu |
+| F-20 | Kod i QR dla uczestników | ◐ | Adres i kod QR panelu są **w ustawieniach** programu; brak kodu wydarzenia i QR na ekranie dla sali |
+| F-21 | Dołączenie bez instalacji i konta | ◐ | **Tylko w tej samej sieci Wi-Fi**: przeglądarka → adres komputera. Przez internet brak (wymaga przekierowania portów lub tunelu) |
+| F-22 | Sterowanie, wygaszenie, koniec | ✓ | Mocna strona programu, także pilotem do prezentacji |
+| F-23, F-24 | Zmiana w około 1 s, spóźniony widzi stan | ✓ | WebSocket w sieci lokalnej |
+| F-25 | Ponowne łączenie | ◐ | Do sprawdzenia w praktyce |
+| F-26 | Rzutnik | ✓ | **Najmocniejsza strona:** motywy, tła, wiele ekranów |
+| F-27, F-28 | Liczba uczestników, interakcje | ✗ | Ogłoszenia działają tylko od operatora na ekran |
+| **F-30–F-32** | **Przeglądanie z powrotem „na żywo”** | ✗ | **Główna luka.** Widoki panelu tylko podążają za ekranem. Kliknięcie pozycji listy **zmienia ekran na żywo** (to sterowanie). API zwraca treść tylko bieżącej pozycji na żywo, nie innych pozycji listy |
+| F-33 | Przegląd całej biblioteki przez uczestnika | ✗ | Wyszukiwanie zwraca tytuły do wysłania na żywo, nie tekst do czytania |
+| F-34 | Czytelność (czcionka, ciemny tryb) | ◐ | Ustawienia widoku scenicznego; brak ustawień „uczestnika” |
+| F-40 | Eksport i import natywny | ◐ | Pieśni: OpenLyrics (XML, eksport i import). Wydarzenie: plik `.osz` |
+| F-42 | Standard pliku i instrukcja dla AI | ◐ | **OpenLyrics to udokumentowany standard XML**, który agent AI może edytować. Brak instrukcji dla agenta (możemy ją napisać) |
+| F-43 | Import czystego tekstu | ◐ | Wklejenie do edytora ze znacznikami zwrotek; import dokumentów (OpenOffice, Word) |
+| F-44 | ChordPro | ◐ | **Import jest, eksportu brak** |
+| F-45 | OpenLyrics | ✓ | Import i eksport; około 30 importerów innych programów (ProPresenter, EasyWorship, OpenSong, SongBeamer, CCLI i inne) |
+| F-46 | Łączenie przy imporcie | ◐ | Narzędzie do wyszukiwania duplikatów pieśni |
+| F-50 | Bez kont | ✓ | Wszystko lokalnie |
+| F-51, F-52 | Konta, chmura, udostępnianie bibliotek | ✗ | MR „remote-sync” (synchronizacja pieśni przez folder lub serwer `web-sync`, MIT) **otwarty od 2019 r.**; import z Planning Center (usługa komercyjna); nowy MR integracji z chmurą ConcertAmi (7.11.2026) |
+| F-54 | Uczestnicy bez kont i danych | ✓ | — |
+| — | Tworzenie i edycja treści z telefonu lub przeglądarki | ✗ | Panel webowy steruje, ale nie edytuje pieśni |
+| — | Prowadzenie wyłącznie z telefonu | ✗ | Program musi działać na komputerze; telefon może być tylko pilotem |
+| N-03 | Słaby internet | **✓ w innym sensie** | Model sieci lokalnej **w ogóle nie potrzebuje internetu**, wystarczy router Wi-Fi w sali. Brak pamięci podręcznej treści u uczestnika |
+| N-07 | Bezpieczeństwo sterowania | ◐ | Logowanie do sterowania jest **domyślnie wyłączone** (wszyscy w Wi-Fi mogą sterować); domyślny login i hasło to `openlp` / `password`. Trzeba włączyć i zmienić |
+
+**Bilans dla 32 pozycji powyżej:** ✓ 14, ◐ 12, ✗ 6. Jest albo częściowo jest **około 80%** (w pełni około 45%), ale braki dotyczą akurat **wyróżnika pomysłu**: samodzielnego przeglądania uczestnika z powrotem „na żywo”, dołączania przez internet i tworzenia treści z telefonu.
+
+### 11.3. Co można rozwinąć jako wkład w OpenLP (własna gałąź)
+
+| Id | Wkład | Repo OpenLP | Rozmiar | Szansa przyjęcia | Zamyka |
+| --- | --- | --- | --- | --- | --- |
+| K1 | **Tryb uczestnika** w panelu webowym: widok tylko do odczytu, który podąża za ekranem; uczestnik przewija strony samodzielnie, widzi wskaźnik „na żywo jest…” i przycisk „Wróć na żywo”; czcionka i tryb ciemny; ukryte sterowanie | `web-remote` (Angular, TypeScript) | S–M | Wysoka: częsta potrzeba w kościołach, bez zmian w rdzeniu | F-30, F-32, F-34 |
+| K2 | **Punkt API tylko do odczytu**: treść dowolnej pozycji listy wydarzenia bez wysyłania jej na żywo, z ustawieniem „pozwól uczestnikom przeglądać listę” | `openlp` (Python, Flask, testy pytest) | S | Średnio-wysoka; trzeba uzgodnić prywatność (notatki operatora) | F-31; warunek pełnego K1 |
+| K3 | **Kod QR i adres dla sali na ekranie** (nakładka na początku wydarzenia) | `openlp` (Qt) | S–M | Wysoka | F-20 |
+| K4 | **Pamięć podręczna treści u uczestnika** (PWA): przegląd działa przy chwilowym zerwaniu Wi-Fi | `web-remote` | M | Średnia | N-03 |
+| K5 | **Eksport ChordPro** (import już jest); ewentualnie instrukcja dla agenta AI do OpenLyrics w dokumentacji | `openlp` (songs) i `documentation` | S–M | Średnia | F-44, F-42 |
+| K6 | **Dostęp przez internet:** dodatek OpenLP, który wysyła stan na żywo i treść wydarzenia do zewnętrznego pośrednika, oraz pośrednik z kodem wydarzenia | Dodatek (addon) OpenLP + **własna usługa** (np. pokój Durable Object z sekcji 5) | L | Jako dodatek społeczności: tak (tak dystrybuowany jest np. ConcertAmi); w rdzeniu raczej nie | F-20, F-21 przez internet |
+| K7 | **Ożywienie MR „remote-sync”** (biblioteki współdzielone przez serwer `web-sync`) | `openlp` + `web-sync` | L | Niepewna: MR od 2019 r., trzeba uzgodnić z autorem (tgc-dk) | F-51, F-52 |
+
+**Jak pracować na własnej gałęzi:**
+
+- **Gdzie:** fork na GitLabie (wymaga konta GitLab Ownera), gałąź np. `participant-mode`.
+  - AI-crew pracuje na GitHubie, więc wygodniej trzymać **prywatne lustro na GitHubie** do pracy agentów i CI, a merge request zgłaszać na GitLabie.
+  - GitHub Actions (`claude-code-action`) nie działa bezpośrednio na GitLabie.
+- **Używanie przed przyjęciem do OpenLP:**
+  - Panel webowy instaluje się jako paczka zip w folderze danych `remotes`. Własną wersję K1 można więc wgrać ręcznie na swój komputer **bez czekania na przyjęcie**. Do sprawdzenia: wyłączenie automatycznej aktualizacji panelu, żeby nie nadpisała własnej wersji.
+  - Zmiany w rdzeniu (K2, K3) wymagają uruchomienia OpenLP z własnego kodu źródłowego albo przyjęcia do OpenLP.
+- **Przed pierwszym merge requestem:** zgłoszenie (issue) lub rozmowa z opiekunami projektu (forum, czat), żeby ustalić kierunek. Wymogu podpisania umowy CLA w repo nie znalazłem; do potwierdzenia w wiki.
+- **Licencja:** wkłady w OpenLP i panel webowy na GPLv3. Własna usługa pośrednicząca (K6), która rozmawia z OpenLP przez sieć, może mieć osobną licencję (np. MIT). Do potwierdzenia, jeśli miałaby zawierać kod OpenLP.
+
+### 11.4. Co zostaje poza OpenLP
+
+| Potrzeba | Dlaczego nie OpenLP |
+| --- | --- |
+| Prowadzenie wydarzenia **wyłącznie z telefonu** | OpenLP to program na komputer |
+| **Tworzenie i edycja** śpiewników na telefonie lub w przeglądarce przez wielu użytkowników | Edycja tylko w programie na komputerze; brak kont |
+| **Dołączanie przez internet bez wspólnej sieci Wi-Fi** | Tylko przez K6 (dodatek + własny pośrednik) albo własną aplikację |
+| Interakcje jak w Kahoot (głosowania, prośby) | Poza modelem programu |
+| Plik JSON „wszystko w jednym” (utwory + biblioteki + wydarzenia) | OpenLP ma OpenLyrics (pieśni) i `.osz` (wydarzenia). Można zostać przy nich i dopisać instrukcję dla AI |
+
+### 11.5. Rekomendacja: najpierw OpenLP, własna aplikacja tylko na brakujące elementy
+
+1. **Pilotaż bez programowania** (1 spotkanie):
+   - OpenLP na laptopie z rzutnikiem albo telewizorem;
+   - router Wi-Fi w sali;
+   - uczestnicy otwierają widok sceniczny lub główny w przeglądarce telefonu;
+   - **koniecznie włączyć logowanie do sterowania** i zmienić domyślne hasło;
+   - import kilku pieśni z OpenLyrics lub ChordPro.
+   
+   Wynik: lista luk, które naprawdę przeszkadzają.
+2. **Jeśli brakuje głównie przeglądania przez uczestnika:** **K1 + K2** jako wkład w OpenLP na własnej gałęzi. Mały zakres, prawdziwi użytkownicy i niezależna recenzja opiekunów OpenLP. To dobry **pilotaż AI-crew**, z kosztem na zadanie mierzonym jak w sekcji 9.
+3. **Jeśli potrzebne jest dołączanie przez internet:** K6. Pośrednik to w praktyce serwer pokoju z sekcji 5 (T-030, T-031). Można go zbudować raz i użyć zarówno jako dodatku do OpenLP, jak i w ewentualnej własnej aplikacji.
+4. **Własna aplikacja `spiewnik-live`** (sekcje 2–9) tylko wtedy, gdy kluczowe jest prowadzenie z samego telefonu, tworzenie treści na telefonie albo konta i chmura dla wielu wspólnot (pytania 5, 19, 20).
+
+**Zmiana w planie zadań przy ścieżce OpenLP** (zastępuje etapy 1–3 sekcji 9, jeśli Owner ją wybierze):
+
+| Id | Zadanie | Rola | Kryterium odbioru |
+| --- | --- | --- | --- |
+| O-001 | Pilotaż czystego OpenLP na jednym spotkaniu; lista luk | O | Notatka w `docs/` z lukami w kolejności ważności |
+| O-002 | Fork `openlp` i `web-remote` na GitLabie; prywatne lustro na GitHubie z CI; uruchomienie OpenLP z kodu i panelu w trybie deweloperskim | O (konta), W | Zbudowany panel webowy; testy (`pytest`, `vitest`) zielone na forku |
+| O-003 | Zgłoszenie (issue) u opiekunów OpenLP z propozycją K1 + K2 | P, O | Odpowiedź opiekunów albo decyzja o pracy tylko na własnej gałęzi |
+| O-010 | K2: punkt API tylko do odczytu + testy | W, R | Testy pytest; brak zmiany zachowania dla istniejących klientów |
+| O-011 | K1: tryb uczestnika w `web-remote` + testy e2e (Playwright) | W, R | Uczestnik przegląda strony bez zmiany ekranu; „Wróć na żywo” działa; macierz ekranów |
+| O-012 | Ręczne wdrożenie własnego panelu w folderze `remotes` i drugi pilotaż | O, W | Notatka z pilotażu |
+| O-013 | Merge requesty do OpenLP (K2, potem K1) | W, O | MR zgłoszone; uwagi opiekunów jako zadania |
+| O-020 | K3: kod QR na ekranie | W, R | Test i pilotaż |
+| O-030 | Decyzja: K6 (pośrednik) czy własna aplikacja | P, O | ADR z uzasadnieniem po pilotażach |
 
 ## Źródła
 
@@ -373,6 +513,11 @@ Role: **P** planista (Sonnet), **W** wykonawca (Sonnet; Haiku dla zadań mechani
   - `education-games` (sieć lokalna w JvP).
 - [Raport AI-crew z 31.10.2026](2026-10-31-efficient-ai-crew-and-repo-setup.md) (struktura repo, role, zasady) i [raport z 7.11.2026, wersja 3.1](2026-11-07-orkiestracja-agentow-i-hosting-v3.md) (Cloudflare, koszty czasu, Godot Web, konta projektu).
 - OpenLyrics i OpenLP: [OpenLP: OpenLyrics XML (Launchpad)](https://bugs.launchpad.net/openlp/+bug/745636), [forum OpenLP](https://discuss.openlp.org/d/5240-adding-authors-using-xml). ChordPro: chordpro.org (nie sprawdzałem w tej sesji).
+- Kod OpenLP (rozdział 11), sprawdzony 8.11.2026:
+  - [openlp/openlp](https://gitlab.com/openlp/openlp) @ `19743f9`: `LICENSE` (GPLv3), `CHANGELOG.rst` (3.1.2), `openlp/core/api/versions/v2/` (punkty API, `login_required`), `openlp/core/api/tab.py` (adres i QR w ustawieniach), `openlp/core/api/deploy.py` (instalacja panelu jako zip), `openlp/core/common/settings.py` (porty 4316 i 4317, logowanie domyślnie wyłączone), `openlp/plugins/songs/lib/importers/` (około 30 importerów, m.in. ChordPro i OpenLyrics);
+  - [openlp/web-remote](https://gitlab.com/openlp/web-remote) @ `715abba`: widoki main, stage, chords, slides, service, search;
+  - [openlp/web-sync](https://gitlab.com/openlp/web-sync) (MIT);
+  - [MR !9 remote-sync](https://gitlab.com/openlp/openlp/-/merge_requests/9), [MR !944 ConcertAmi](https://gitlab.com/openlp/openlp/-/merge_requests/944).
 - Prawa autorskie (źródła wtórne, bez rozstrzygnięcia dla Polski):
   - [ZAiKS, umowa licencyjna na wykonania](https://app.zaiks.org.pl/media/v4anjzq3/umowa-licencyjna-na-publiczne-wykonywanie-utworow-podczas-wystepow-estradowych-umowa-stala.pdf);
   - [CCLI: wyświetlanie tekstów](https://support-ccli-us.helpscoutdocs.com/article/945-can-we-display-lyrics-on-screen-or-in-the-background-when-we-stream-or-post-recordings-of-our-services-online);

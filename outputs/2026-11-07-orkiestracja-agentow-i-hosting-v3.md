@@ -1,8 +1,19 @@
 # Orkiestracja agentów (Herdr) i hosting (Hostinger): analiza dla AI-crew i projektów JvP, Nina's Drills i Influencer-AI
 
-7 listopada 2026 · **Wersja 3 (robocza)** · Punkty odniesienia: [`resources/raport-orkiestracja-agentow-herdr-hostinger.md`](../resources/raport-orkiestracja-agentow-herdr-hostinger.md) oraz [analiza Codexa z 7.11](2026-11-07-codex-ai-crew-hosting-i-migracja.md)
+7 listopada 2026, uzupełnione 8 listopada · **Wersja 3.1 (robocza)** · Punkty odniesienia: [`resources/raport-orkiestracja-agentow-herdr-hostinger.md`](../resources/raport-orkiestracja-agentow-herdr-hostinger.md) oraz [analiza Codexa z 7.11](2026-11-07-codex-ai-crew-hosting-i-migracja.md)
 
 ## Co się zmieniło
+
+### Wersja 3.1 (8 listopada): rozdział o no1.pl
+
+Nowy [rozdział 9](#9-oferta-no1pl-analiza-etapy-i-alternatywy) zawiera:
+
+- analizę oferty no1.pl na podstawie strony, publicznego cennika (API panelu) i regulaminu;
+- które usługi i na jakim etapie projektów mają sens;
+- co przydaje się na start;
+- porównanie z alternatywami.
+
+Pozostałe rozdziały bez zmian. Nazwa pliku pozostaje `-v3`, żeby nie zepsuć odnośników z innych repozytoriów.
 
 ### Wersja 3: po weryfikacji raportu Codexa
 
@@ -50,6 +61,10 @@ Wersja 1 jest w historii repo (commit `6e83de0`), wersja 2 w `9a61bea`. Wersja 2
    - Strony komercyjne nie na GitHub Pages (regulamin).
    - APK przez Google Play, wydania na GitHubie albo magazyn obiektowy (limit 25 MiB na plik).
 7. **Największy koszt to czas, nie serwer.** Administracja backendu gier to około 2–4 h miesięcznie. Przy wycenie 100 zł/h daje to więcej niż sam VPS (sekcja 5).
+8. **no1.pl: nie na start; kandydat na etap 3 i ewentualnie na zarządzany serwer gry** (rozdział 9).
+   - To polski operator z opieką człowieka, pocztą firmową i umową powierzenia.
+   - Za moc obliczeniową jest 3–6× droższy od Hetznera lub Hostingera i nie rejestruje `.com`.
+   - Ma sens dla WordPressa lub WooCommerce z pocztą i opieką (około 1570 zł/rok). Dla serwera Nakamy tylko w wariancie zarządzanym, jeśli wycena obejmie Dockera i kopie.
 
 Codex i ja doszliśmy niezależnie do tych samych głównych wniosków:
 
@@ -458,9 +473,172 @@ Wiersze to różne zakresy; nie należy ich sumować. Dla JvP z Nakamą dochodzi
 
 **Ocena:** raport Codexa jest rzetelny, ostrożny w twierdzeniach i dobrze udokumentowany przypiętymi źródłami. Nie znalazłem w nim błędu merytorycznego. Jego wkład przejąłem w tej wersji (lista na początku). Nie zmieniałem treści raportu Codexa.
 
+## 9. Oferta no1.pl: analiza, etapy i alternatywy
+
+Stan na 8 listopada 2026. Źródła:
+
+- strony no1.pl (główna, hosting, VPS, VPS zarządzany, domeny, SSL, SLA, płatności, formularz zamówienia VPS, regulamin);
+- **publiczne API cennika** `panel.no1.pl/api/pub/pakiety/`, z którego strona pobiera ceny. Kwoty poniżej pochodzą z tego API.
+
+Ceny konkurencji pochodzą ze źródeł wtórnych i są orientacyjne.
+
+### 9.1. Czym jest no1.pl
+
+**no1.pl Sp. z o.o.** (Sitno, woj. pomorskie; KRS 0001211352, kapitał zakładowy 5000 zł). Firma pozycjonuje się jako **operator i opiekun infrastruktury dla małych firm**, a nie masowy hosting: „Jesteśmy operatorem, nie sklepem z kontami”.
+
+Co deklaruje:
+
+- własna infrastruktura w Polsce;
+- jeden opiekun konta i numer telefonu;
+- monitoring 24/7;
+- bezpłatne migracje;
+- poczta firmowa z antyspamem, konfiguracja SPF, DKIM i DMARC;
+- VPN i logowanie SSO dla zespołu;
+- umowa SLA z czasem reakcji.
+
+Wysoki numer KRS sugeruje **niedawną rejestrację spółki**. Datę warto sprawdzić w KRS.
+
+### 9.2. Cennik (brutto, z VAT 23%; z API, 8.11.2026)
+
+**Hosting zarządzany** (rozliczenie roczne z góry; w każdym pakiecie poczta bez limitu skrzynek, SSL, monitoring, ochrona antymalware, kopie z odtwarzaniem, darmowa migracja, opiekun):
+
+| Pakiet | Cena/rok | Miejsce | Strony / bazy | Domena .pl w cenie | Kolejna domena |
+| --- | --- | --- | --- | --- | --- |
+| Start (bez domeny) | **782,28 zł** | 20 GB w API (na stronie głównej 10 GB) | 1 / 1 | Nie | 242,31 zł/rok |
+| Firma | **908,97 zł** | 20 GB | 1 / 1 | Tak (przez okres pakietu) | 242,31 zł/rok |
+| Bez limitu | **1077,48 zł** | 50 GB | bez limitu / bez limitu | Tak | 189,42 zł/rok |
+
+**Dodatki do hostingu (rocznie):**
+
+- monitoring dostępności z alarmem i raportem miesięcznym: 244,77 zł;
+- roczny przegląd bezpieczeństwa: 367,77 zł;
+- pakiet „Opieka+” (oba razem): **490,77 zł**.
+
+**SLA:** Basic 99,5% w cenie; Optymalny 99,8% (+20%); Premium 99,9% (+40%).
+
+**Serwery VPS** (transfer bez limitu, IPv4 i IPv6, panel no1.panel, SLA 99,5%; rozliczenie miesięczne albo roczne, przy czym rok kosztuje tyle co 10 miesięcy):
+
+| Rozmiar | Parametry | Self (bez administracji) /mies. | Self /rok | Zarządzany /mies. | Zarządzany /rok |
+| --- | --- | --- | --- | --- | --- |
+| S | 2 vCore, 4 GB RAM, 40 GB NVMe | **166,05 zł** | 1660,50 zł | **350,55 zł** | 3505,50 zł |
+| M | 4 vCore, 8 GB RAM, 80 GB NVMe | 332,10 zł | 3321,00 zł | 516,60 zł | 5166,00 zł |
+| L | 8 vCore, 16 GB RAM, 160 GB NVMe | 664,20 zł | 6642,00 zł | 848,70 zł | 8487,00 zł |
+| XL | 12 vCore, 24 GB RAM, 320 GB NVMe | 959,40 zł | 9594,00 zł | 1143,90 zł | 11 439,00 zł |
+
+Wariant zarządzany zawiera **CloudLinux OS Shared Pro i Imunify360** (narzędzia typowe dla hostingu PHP i WordPress); konfigurację i aktualizacje prowadzi no1.
+
+**Domeny .pl:** rejestracja 60,27 zł, **przedłużenie 183,27 zł/rok**, wyjęcie z kwarantanny 244,77 zł. Strona domen rejestruje tylko końcówkę `.pl`. Certyfikaty: Let's Encrypt w cenie hostingu i VPS zarządzanego; certyfikaty płatne (DV, OV, EV, wildcard) wyceniane indywidualnie.
+
+### 9.3. Warunki umowy (regulamin): co ważne dla projektów
+
+| Zapis | Znaczenie |
+| --- | --- |
+| Przedpłata online za cały okres (Autopay: karta, BLIK, przelew); faktura VAT po wpłacie | Brak płatności z odroczonym terminem. Rozliczenie miesięczne VPS **nie wymaga wieloletniej przedpłaty**, w przeciwieństwie do cen promocyjnych Hostingera |
+| Automatyczne odnowienie; powiadomienie 21 dni przed końcem; rezygnacja do 14 dni przed końcem | Uczciwe i przewidywalne; trzeba pilnować terminu rezygnacji |
+| Płatność cykliczna kartą: kwota równa cenie z cennika w dniu odnowienia | Cena może się zmienić przy odnowieniu (z powiadomieniem) |
+| **VPS Self: operator nie robi kopii danych** (chyba że zamówiona osobna usługa kopii) | Dla Nakamy trzeba mieć własne kopie, najlepiej u innej firmy |
+| VPS zarządzany: kopie w zakresie z potwierdzenia zamówienia | Zakres, częstotliwość i czas odtworzenia trzeba **zapisać w zamówieniu** |
+| Po końcu umowy dane VPS dostępne 14 dni, usunięcie w 30 dni | Okno na migrację jest krótkie; planować przesiadkę przed końcem okresu |
+| **Umowa powierzenia przetwarzania danych** na wniosek | Plus dla RODO (gra dla dzieci, sklep) |
+| Odpowiedzialność wobec firm ograniczona do opłaty za bieżący okres | Standard rynkowy; nie zastępuje własnych kopii |
+| Dla konsumentów 14 dni na odstąpienie | Dotyczy zakupu jako osoba prywatna |
+
+### 9.4. Mocne i słabe strony w kontekście naszych projektów
+
+**Mocne:**
+
+- polska spółka, umowa i faktura po polsku, dane w Polsce, umowa powierzenia;
+- **opieka człowieka**: jeden opiekun, monitoring, darmowa migracja, przeglądy bezpieczeństwa;
+- **poczta firmowa bez limitu skrzynek** w każdym pakiecie hostingu, z konfiguracją SPF, DKIM i DMARC (ważne dla dostarczalności newslettera i maili transakcyjnych sklepu);
+- VPS **bez długiej przedpłaty** (miesięcznie), rok za cenę 10 miesięcy;
+- jawne poziomy SLA do wyboru.
+
+**Słabe:**
+
+- **cena mocy obliczeniowej.** VPS S (2 vCore, 4 GB) za 166 zł/mies. to kilka razy więcej niż porównywalny serwer u Hetznera (około 25–55 zł/mies.) czy Hostingera po odnowieniu (około 60 zł/mies.);
+- **drogie przedłużenie domeny .pl** (183,27 zł/rok wobec około 60–75 zł brutto u części rejestratorów, np. OVH 58,99 zł netto); brak rejestracji `.com`, a projekty Influencer-AI i Nina's Drills są anglojęzyczne;
+- **brak oferty typowo deweloperskiej:** nic o Dockerze, API do automatyzacji, migawkach na żądanie ani magazynie obiektowym. Agentom trudniej zarządzać infrastrukturą jako kodem;
+- **CloudLinux i Imunify360** w wariancie zarządzanym służą hostingowi PHP, nie kontenerom. Czy no1 zarządzi serwerem z Dockerem i Nakamą, trzeba **potwierdzić**;
+- **mała, młoda firma** (kapitał 5000 zł): większe ryzyko ciągłości niż u dużych dostawców. Liczba i redundancja centrów danych nie są opisane;
+- **niespójności na stronie** sugerują bardzo świeżą ofertę:
+  - pakiet Start: 10 GB na stronie głównej, 20 GB w API;
+  - formularz VPS: „płatność po uruchomieniu, na podstawie faktury”, a regulamin: „jedyną formą zapłaty jest przedpłata online”;
+  - na stronie zamówienia VPS widać fragment komentarza programisty;
+  - w publicznym API widać wewnętrzną notatkę („HOST-602, decyzja właściciela”).
+  
+  Warunki warto potwierdzić **na piśmie** przed zamówieniem.
+
+### 9.5. Z czego korzystać i na jakim etapie
+
+| Etap | Potrzeba | Czy no1.pl? | Uzasadnienie |
+| --- | --- | --- | --- |
+| **Teraz (start)** | Domena projektów, strony statyczne (polityka prywatności JvP, strona źródeł, quiz Quilla) | **Nie** | Cloudflare Pages za darmo wystarcza. Domena `.com` u niezależnego rejestratora; no1 nie rejestruje `.com`, a przedłużenie `.pl` jest drogie |
+| Teraz (start) | Adres e-mail w domenie projektu | **Raczej nie** | Na 1–2 osoby wystarczy przekierowanie (Cloudflare Email Routing) do Gmaila albo darmowy Zoho Mail (do 5 osób, bez IMAP). no1 opłaca się, gdy poczta idzie w pakiecie z hostingiem strony |
+| Rozwój JvP online (Nakama lokalnie i w CI) | Środowisko testowe | **Nie** | Docker lokalnie i w CI; serwer nie jest potrzebny |
+| **Test zamknięty i wydanie JvP online** | Produkcyjny serwer z Nakamą i Postgresem w UE, kopie, monitoring | **Warunkowo: tylko wariant zarządzany po wycenie indywidualnej** | VPS Self (166 zł/mies.) nie daje kopii ani administracji, więc przegrywa z Hetznerem lub Hostingerem 3–6×. **VPS zarządzany S (350,55 zł/mies.)** ma sens, jeśli no1 przejmie Dockera, Nakamę, codzienne kopie, monitoring i aktualizacje. Zastąpi wtedy 2–4 h/mies. Twojej pracy (200–400 zł przy 100 zł/h), więc koszt łączny jest porównywalny. Dochodzą polski kontakt i umowa powierzenia (dane dzieci) |
+| **Etap 3 Influencer-AI**: blog lub sklep na WordPress/WooCommerce, poczta firmowa | Hosting PHP z opieką, kopiami i pocztą | **Tak, dobry kandydat** | Pakiet „Bez limitu” (1077,48 zł/rok) z „Opieka+” (490,77 zł/rok) = około **1570 zł/rok**: kilka serwisów, poczta, monitoring, przeglądy, migracja. To dokładnie profil no1. Porównać z polskimi hostingami (nazwa.pl, cyber_Folks, home.pl) i Hostingerem |
+| Działalność gospodarcza z zespołem | Poczta firmowa, VPN, SSO, SLA, opiekun | **Tak** | To główna specjalizacja no1 |
+| Runner agentów AI-crew | Tani, elastyczny Linux na pilotaż | **Nie** | Za drogo za zasoby; brak automatyzacji przez API. Lepszy Hetzner lub Hostinger na krótki okres |
+| Dystrybucja APK | Hosting dużych plików | **Nie** | Google Play, wydania na GitHubie, Cloudflare R2 |
+
+**Co może być potrzebne lub korzystne na start (przed jakimkolwiek zakupem):**
+
+1. **Bezpłatna rozmowa z no1** (oferują ją) i prośba o:
+   - wzór umowy SLA (Załącznik nr 1);
+   - wycenę **VPS zarządzanego z Dockerem i Nakamą**: codzienne kopie poza serwerem, retencja, czas odtworzenia, monitoring, SLA 99,8%;
+   - informację o centrach danych i redundancji;
+   - potwierdzenie na piśmie rozbieżności ze strony (10/20 GB, forma płatności).
+2. Jeśli rozmowa wypadnie dobrze: **mały, niekrytyczny pierwszy krok**. Na przykład pakiet hostingu dla przyszłej strony marki z pocztą albo miesięczny VPS testowy. Nie od razu produkcja gry.
+3. **Domeny niezależnie od no1** (nawet jeśli hosting będzie u nich). Przenosiny hostingu nie wymagają wtedy przenoszenia domen, a przedłużenie jest tańsze.
+
+### 9.6. Porównanie z alternatywami
+
+| Potrzeba | no1.pl | Najlepsza alternatywa | Za alternatywą | Za no1.pl |
+| --- | --- | --- | --- | --- |
+| Domena `.com` | Brak | **Cloudflare Registrar** (bez marży, około 10–11 USD/rok; niezweryfikowane) | Cena, DNS i Pages w jednym miejscu | — |
+| Domena `.pl` | 60,27 zł, potem **183,27 zł/rok** | Rejestrator z niskim przedłużeniem, np. OVHcloud (58,99 zł netto/rok). Cloudflare **nie obsługuje `.pl`** (według forum Cloudflare, marzec 2026) | Około 2,5× taniej co roku | Domena w cenie pakietu hostingu „Firma” lub „Bez limitu” przez okres pakietu |
+| Strony statyczne | Hosting od 782 zł/rok | **Cloudflare Pages** (0 zł) | Darmowe, globalny CDN, deploy z gita | Opieka i monitoring, ale zbędne dla stron statycznych |
+| Poczta w domenie (1–5 osób) | W pakiecie hostingu (skrzynki bez limitu) | **Cloudflare Email Routing + Gmail** (0 zł, tylko przekierowanie) albo **Zoho Mail Free** (do 5 osób, bez IMAP); **Google Workspace** od około 31,50 zł/os./mies. | Darmowe lub w pełni zarządzane przez Google | Pełne skrzynki bez limitu i konfiguracja SPF, DKIM, DMARC w cenie hostingu |
+| WordPress/WooCommerce z opieką | **Około 1570 zł/rok** (Bez limitu + Opieka+) | **Hostinger Business** (taniej na start; odnowienie około 9–17 USD/mies.) albo polskie: nazwa.pl, cyber_Folks, home.pl (ceny do porównania) | Niższa cena i więcej narzędzi | Człowiek, który pilnuje i reaguje; migracja i przeglądy w cenie; brak wieloletniej przedpłaty |
+| Backend gry (Nakama, Docker) | VPS Self S 166 zł/mies.; zarządzany S 350,55 zł/mies. | **Hetzner** (około 25–55 zł/mies., miesięcznie) albo **Hostinger KVM 2** (około 30–60 zł/mies.) | 3–6× taniej, standardowe migawki, większa skala | Tylko wariant zarządzany z wyceną obejmującą Dockera i kopie: oszczędność Twojego czasu, polski kontakt, umowa powierzenia |
+| Pilotaż agentów | VPS Self S 166 zł/mies. | **Hetzner** (krótki okres, rozliczenie godzinowe) | Cena, API, szybkie tworzenie i usuwanie | — |
+| Sklep bez administracji | — | **Lemon Squeezy** (cyfrowe), **Etsy + Printful** (merch), Shopify | Brak serwera i VAT po stronie platformy | — |
+
+**Najlepsza alternatywa dla no1.pl, ogólnie:** stos **Cloudflare + Hetzner (lub Hostinger) + platformy sprzedażowe**.
+
+- Cloudflare: domena `.com`, DNS, Pages, Email Routing, R2.
+- Hetzner albo Hostinger: jeden przenośny VPS z Nakamą.
+- Platformy sprzedażowe: Lemon Squeezy, Etsy z Printful.
+
+To najtańsze i najbardziej elastyczne rozwiązanie. Wymaga jednak Twojego czasu (sekcja 5) i obsługi w języku angielskim.
+
+**no1.pl wygrywa tam, gdzie liczy się przejęcie odpowiedzialności, a nie cena zasobów:**
+
+- WordPress lub WooCommerce z pocztą firmową i opieką (etap 3 Influencer-AI);
+- ewentualnie zarządzany serwer gry z polską umową powierzenia, jeśli wycena pokaże, że no1 faktycznie przejmie administrację Dockera i Nakamy;
+- później: VPN, SSO i SLA dla zespołu.
+
+### 9.7. Rekomendacja
+
+1. **Teraz:** nie kupować nic w no1.pl. Domena `.com` w Cloudflare (`.pl` u rejestratora z niskim przedłużeniem, jeśli potrzebna), strony na Cloudflare Pages, poczta przez przekierowanie albo Zoho.
+2. **Przed wyborem serwera dla JvP online:** zapytać no1 o wycenę VPS zarządzanego z Dockerem i Nakamą (kopie, monitoring, SLA 99,8%). Porównać z Hetznerem lub Hostingerem plus Twoje 2–4 h/mies. Wybrać tańszą opcję **łącznie z czasem**.
+3. **Etap 3 Influencer-AI (sklep lub blog na WordPressie):** no1 „Bez limitu” z „Opieka+” to mocny kandydat. Zacząć od rocznego pakietu, domeny trzymać osobno, kopie także poza no1.
+4. **Zawsze:** warunki z rozmowy (kopie, retencja, czas odtworzenia, SLA, forma płatności) potwierdzić w zamówieniu lub umowie, bo strona zawiera rozbieżności.
+
 ## Źródła
 
 - Raport wejściowy: [`resources/raport-orkiestracja-agentow-herdr-hostinger.md`](../resources/raport-orkiestracja-agentow-herdr-hostinger.md)
+- no1.pl (stan z 8.11.2026):
+  - [strona główna](https://no1.pl/), [hosting](https://no1.pl/hosting/), [VPS](https://no1.pl/vps/), [VPS zarządzany](https://no1.pl/vps-zarzadzany/), [domeny](https://no1.pl/domeny/), [SSL](https://no1.pl/ssl/), [SLA](https://no1.pl/sla/), [płatności](https://no1.pl/platnosci/), [regulamin](https://no1.pl/regulamin/), [formularz zamówienia VPS](https://no1.pl/wniosek-vps/);
+  - publiczne API cennika: `https://panel.no1.pl/api/pub/pakiety/` (pakiety, ceny domen, dodatki, poziomy SLA).
+- Porównania do rozdziału 9 (źródła wtórne, ceny orientacyjne):
+  - [OVHcloud .pl](https://www.ovhcloud.com/pl/domains/tld/pl/);
+  - [domainoffer.net, .pl](https://domainoffer.net/tld/pl/ovh);
+  - [Cloudflare TLD policies](https://www.cloudflare.com/tld-policies) i [forum: prośba o .pl](https://community.cloudflare.com/c/application-performance/registrar-feature-request/100);
+  - [Google Workspace, cennik PL](https://workspace.google.com/intl/pl/pricing);
+  - [Zoho Mail, plan darmowy (przegląd 2026)](https://aiproductivity.ai/blog/zoho-mail-free-plan-review/);
+  - [Cybernews, ranking hostingów PL 2026](https://cybernews.com/pl/najlepsze-hostingi/);
+  - [WebsitePlanet: nazwa.pl](https://www.websiteplanet.com/pl/web-hosting/nazwa-pl/), [cyber_Folks](https://www.websiteplanet.com/pl/web-hosting/cyber_folks/).
 - [Analiza Codexa z 7.11.2026](2026-11-07-codex-ai-crew-hosting-i-migracja.md) (commit `48d8031`) i jej źródła pierwotne sprawdzone w tej sesji:
   - [Herdr README](https://github.com/herdrdev/herdr/blob/ee5bfb5041bb3e4a49d591c72308aae3c81ecdde/README.md);
   - [herdr-core security](https://github.com/herdrdev/herdr-core/blob/9ce385d9c8abb041dd4437476d770365b3fb5282/docs/security.md);

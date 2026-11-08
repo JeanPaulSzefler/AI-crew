@@ -516,13 +516,33 @@ Oznaczenia: ✓ jest, ◐ częściowo, ✗ brak.
 
 Stan na 8 listopada 2026.
 
-Prośba o dostęp sieciowy do openlp.org, manual.openlp.org, wiki i forum została w tej sesji odrzucona, więc go nie ponawiałem. Strony przeanalizowałem **ze źródeł na GitLabie**:
+Pierwsza prośba o dostęp do openlp.org, podręcznika, wiki i forum została odrzucona; za drugim razem Owner dostęp przyznał. Najpierw przeanalizowałem strony **ze źródeł na GitLabie**, a potem uzupełniłem je o strony na żywo:
 
 - `openlp/website` @ `c3551bd` (15.09.2026): źródło openlp.org, strony i 324 wpisy bloga;
 - `openlp/documentation` @ `87986e9` (6.01.2026): źródło podręcznika manual.openlp.org;
 - wyszukiwarka dla forum.
 
-Repozytorium `openlp/wiki` wymaga logowania i nie było dostępne.
+Repozytorium `openlp/wiki` wymaga logowania przy klonowaniu, ale jego strony są publiczne przez API GitLaba (dalej).
+
+**Uzupełnienie po przyznaniu dostępu do stron OpenLP (8.11.2026):**
+
+- **Panel webowy jest nowszy niż w blogu:** serwer aktualizacji `get.openlp.org` podaje **wersję 1.3.1** (paczka `remote-1.3.1.zip`, 2,2 MB).
+- **Strona główna** (openlp.org): „sterowanie OpenLP z przeglądarki telefonu”, „import pieśni z innych popularnych programów”, Windows, Linux, macOS i FreeBSD, bez abonamentu. Funkcji dla uczestników na telefonach nie wymienia.
+- **Wiki** (wiki.openlp.org przekierowuje do wiki projektu na GitLabie; 115 stron, czytane przez API):
+  - **Custom Stage Views** potwierdza mechanizm K0: folder `stages/<nazwa>/stage.html`, adres `/stage/<nazwa>/`. Stan pobiera się przez WebSocket, a dane przez HTTP API v2.
+  - **WebSockets** (port 4317): stan zawiera licznik zmian ekranu (`counter`), licznik zmian listy (`service`), identyfikator bieżącej pozycji (`item`), wygaszenie, motyw i notację akordów. Wystarcza do trybu „podążaj za ekranem” i wskaźnika „na żywo jest…”.
+  - **Ważne ograniczenie** (HTTP API i WebSockets): „serwer OpenLP jest dostępny tylko w sieci lokalnej, nie wykonuje przekierowania portów i **nie jest przystosowany do dużego obciążenia**; nie zaleca się wystawiania go do internetu”. Konsekwencje:
+    - dla dużych wydarzeń (pytanie 1, N-02) OpenLP w sieci lokalnej może być wąskim gardłem; potrzebny test obciążenia;
+    - pośrednik K6 powinien **kopiować stan raz i rozsyłać go sam**, a nie przekazywać ruchu uczestników do OpenLP.
+  - **Zasady wkładu** (Development/Workflow):
+    - fork na GitLabie i merge request;
+    - **każdy merge musi zawierać co najmniej jeden test**;
+    - pokrycie testami około 65%;
+    - nacisk na TDD.
+    
+    Pasuje to do zasady AI-crew „testy są sędzią”. Wymogu umowy CLA nie znalazłem.
+  - **Releases/v4-Beta:** lista otwartych spraw przed wersją 4.0. Zaplanowane wydanie testowe 4.0a1; do zrobienia m.in. „Test Web Remote” i przeniesienie plików do pobrania. Wkład w panel webowy warto zgrać z wersją 4.
+- **Forum** (discuss.openlp.org): wątek [„Is there a way to connect/cast to people's tablet or phone?”](https://discuss.openlp.org/d/2869-is-there-a-way-to-connectcast-to-peoples-tablet-or-phone). Użytkownicy pokazują tekst na telefonach uczestników przez widok główny w sieci lokalnej, a zgłaszane problemy dotyczyły opóźnień przy słabym Wi-Fi (wersja 2.x, odświeżanie co 0,5 s). Potrzeba istnieje, ale jest obsługiwana „przy okazji” widoku dla operatora. Kilka wątków o własnych widokach scenicznych (akordy, OBS, wygaszanie) potwierdza, że ta droga jest w społeczności znana.
 
 **Stan projektu (blog i strony):**
 

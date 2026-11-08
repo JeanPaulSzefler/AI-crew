@@ -13,4 +13,5 @@ Starting structures for the AI crew, developed here before they are copied into 
 
 | Blueprint | Status | Based on |
 | --- | --- | --- |
+| [`spiewnik-live/`](spiewnik-live/) | draft (waiting for owner answers) | [Requirements report v1](../outputs/2026-11-08-spiewnik-live-wymagania-v1.md); AI-crew structure from the reports below |
 | `starter-crew-repo/` | not started | [Updated recommendations, section 8](../outputs/2026-10-31-efficient-ai-crew-and-repo-setup.md#8-updated-starter-repo-structure) |

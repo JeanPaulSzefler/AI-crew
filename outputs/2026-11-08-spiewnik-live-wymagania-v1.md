@@ -1,6 +1,6 @@
 # Śpiewnik na żywo (nazwa robocza): wymagania wstępne, ocena miejsca w repozytoriach i plan dla AI-crew
 
-8 listopada 2026 · **Wersja 1.1 (robocza)** · Zadanie startowe nowego repo: [`blueprints/spiewnik-live/TASK-000-bootstrap.md`](../blueprints/spiewnik-live/TASK-000-bootstrap.md)
+8 listopada 2026 · **Wersja 1.2 (robocza)** · Zadanie startowe nowego repo: [`blueprints/spiewnik-live/TASK-000-bootstrap.md`](../blueprints/spiewnik-live/TASK-000-bootstrap.md)
 
 > **Wersja 1.1:** dodany [rozdział 11 o OpenLP](#11-openlp-co-już-jest-i-co-można-rozwinąć-jako-wkład). Owner nie znał OpenLP (odpowiedź na pytanie 18).
 >
@@ -11,6 +11,11 @@
 > - tworzenia treści z telefonu.
 >
 > Dwie pierwsze luki da się w dużej części rozwinąć jako wkład w OpenLP na własnej gałęzi. Trzecia wymaga własnej aplikacji.
+>
+> **Wersja 1.2:** analiza stron OpenLP (strona, blog, podręcznik) ze źródeł na GitLabie, rozdział 11.6.
+>
+> - Najważniejsze odkrycie: **własne widoki sceniczne** pozwalają zbudować tryb uczestnika dla bieżącej pieśni (K0) **bez zmian w kodzie OpenLP**.
+> - Druga darmowa alternatywa, **Quelea**, ma wbudowaną funkcję „mobile lyrics”. Warto ją porównać w pilotażu.
 
 ## W skrócie
 
@@ -448,6 +453,7 @@ Oznaczenia: ✓ jest, ◐ częściowo, ✗ brak.
 
 | Id | Wkład | Repo OpenLP | Rozmiar | Szansa przyjęcia | Zamyka |
 | --- | --- | --- | --- | --- | --- |
+| **K0** | **Własny widok sceniczny „uczestnik”** (HTML, CSS, JS w folderze danych `stages/uczestnik`, adres `http://<ip>:4316/stage/uczestnik`). Podąża za bieżącą pozycją na żywo; pozwala przewijać jej strony samodzielnie, z przyciskiem „Wróć na żywo”; czcionka i tryb ciemny. **Bez zmian w OpenLP** (mechanizm z podręcznika, rozdział 11.6) | Brak: osobna paczka zip, np. dodatek społeczności lub wpis w wiki | **S** | Nie wymaga przyjęcia; można udostępnić społeczności | F-30, F-32, F-34 (w obrębie **bieżącego** utworu) |
 | K1 | **Tryb uczestnika** w panelu webowym: widok tylko do odczytu, który podąża za ekranem; uczestnik przewija strony samodzielnie, widzi wskaźnik „na żywo jest…” i przycisk „Wróć na żywo”; czcionka i tryb ciemny; ukryte sterowanie | `web-remote` (Angular, TypeScript) | S–M | Wysoka: częsta potrzeba w kościołach, bez zmian w rdzeniu | F-30, F-32, F-34 |
 | K2 | **Punkt API tylko do odczytu**: treść dowolnej pozycji listy wydarzenia bez wysyłania jej na żywo, z ustawieniem „pozwól uczestnikom przeglądać listę” | `openlp` (Python, Flask, testy pytest) | S | Średnio-wysoka; trzeba uzgodnić prywatność (notatki operatora) | F-31; warunek pełnego K1 |
 | K3 | **Kod QR i adres dla sali na ekranie** (nakładka na początku wydarzenia) | `openlp` (Qt) | S–M | Wysoka | F-20 |
@@ -487,7 +493,7 @@ Oznaczenia: ✓ jest, ◐ częściowo, ✗ brak.
    - import kilku pieśni z OpenLyrics lub ChordPro.
    
    Wynik: lista luk, które naprawdę przeszkadzają.
-2. **Jeśli brakuje głównie przeglądania przez uczestnika:** **K1 + K2** jako wkład w OpenLP na własnej gałęzi. Mały zakres, prawdziwi użytkownicy i niezależna recenzja opiekunów OpenLP. To dobry **pilotaż AI-crew**, z kosztem na zadanie mierzonym jak w sekcji 9.
+2. **Jeśli brakuje głównie przeglądania przez uczestnika:** najpierw **K0** (własny widok sceniczny, bez zmian w OpenLP, kilka dni pracy). Potem, jeśli uczestnicy chcą przeglądać także inne pieśni z listy, **K1 + K2** jako wkład w OpenLP na własnej gałęzi. Mały zakres, prawdziwi użytkownicy i niezależna recenzja opiekunów OpenLP. To dobry **pilotaż AI-crew**, z kosztem na zadanie mierzonym jak w sekcji 9.
 3. **Jeśli potrzebne jest dołączanie przez internet:** K6. Pośrednik to w praktyce serwer pokoju z sekcji 5 (T-030, T-031). Można go zbudować raz i użyć zarówno jako dodatku do OpenLP, jak i w ewentualnej własnej aplikacji.
 4. **Własna aplikacja `spiewnik-live`** (sekcje 2–9) tylko wtedy, gdy kluczowe jest prowadzenie z samego telefonu, tworzenie treści na telefonie albo konta i chmura dla wielu wspólnot (pytania 5, 19, 20).
 
@@ -496,6 +502,7 @@ Oznaczenia: ✓ jest, ◐ częściowo, ✗ brak.
 | Id | Zadanie | Rola | Kryterium odbioru |
 | --- | --- | --- | --- |
 | O-001 | Pilotaż czystego OpenLP na jednym spotkaniu; lista luk | O | Notatka w `docs/` z lukami w kolejności ważności |
+| O-005 | **K0: własny widok sceniczny „uczestnik”** (HTML, CSS, JS; WebSocket 4317 i `/api/v2/controller/live-items`), testy e2e z atrapą API, instrukcja instalacji w folderze `stages` | W, R | Na niezmienionym OpenLP 3.1.x uczestnik przewija strony bieżącej pieśni bez wpływu na ekran i wraca „na żywo”; macierz ekranów 360–1920 px |
 | O-002 | Fork `openlp` i `web-remote` na GitLabie; prywatne lustro na GitHubie z CI; uruchomienie OpenLP z kodu i panelu w trybie deweloperskim | O (konta), W | Zbudowany panel webowy; testy (`pytest`, `vitest`) zielone na forku |
 | O-003 | Zgłoszenie (issue) u opiekunów OpenLP z propozycją K1 + K2 | P, O | Odpowiedź opiekunów albo decyzja o pracy tylko na własnej gałęzi |
 | O-010 | K2: punkt API tylko do odczytu + testy | W, R | Testy pytest; brak zmiany zachowania dla istniejących klientów |
@@ -504,6 +511,48 @@ Oznaczenia: ✓ jest, ◐ częściowo, ✗ brak.
 | O-013 | Merge requesty do OpenLP (K2, potem K1) | W, O | MR zgłoszone; uwagi opiekunów jako zadania |
 | O-020 | K3: kod QR na ekranie | W, R | Test i pilotaż |
 | O-030 | Decyzja: K6 (pośrednik) czy własna aplikacja | P, O | ADR z uzasadnieniem po pilotażach |
+
+### 11.6. Co mówią strony OpenLP (strona, blog, podręcznik)
+
+Stan na 8 listopada 2026.
+
+Prośba o dostęp sieciowy do openlp.org, manual.openlp.org, wiki i forum została w tej sesji odrzucona, więc go nie ponawiałem. Strony przeanalizowałem **ze źródeł na GitLabie**:
+
+- `openlp/website` @ `c3551bd` (15.09.2026): źródło openlp.org, strony i 324 wpisy bloga;
+- `openlp/documentation` @ `87986e9` (6.01.2026): źródło podręcznika manual.openlp.org;
+- wyszukiwarka dla forum.
+
+Repozytorium `openlp/wiki` wymaga logowania i nie było dostępne.
+
+**Stan projektu (blog i strony):**
+
+- Ostatnie wydanie stabilne to **3.1.7 „Pondering Perez”** (16.02.2025). Wpis mówi: „prace nad OpenLP 4.0 trwają”. Gałąź `master` z października 2026 to już 4.0 (PySide6).
+- **Web Remote 1.2.3** (24.03.2025): ustawienie blokujące wygaszanie ekranu telefonu (wake lock) na Androidzie i iOS. Przydaje się uczestnikom czytającym tekst z telefonu.
+- **3.1.0** (29.02.2024):
+  - **dodatki społeczności** („community plugins”), czyli własne wtyczki bez wchodzenia do rdzenia OpenLP;
+  - blokada przed jednoczesnym użyciem z kilku miejsc. Według bloga to rozwiązanie tymczasowe „do czasu lepszego mechanizmu współdzielenia danych”. Współdzielenie bibliotek jest więc znaną, otwartą potrzebą (por. K7).
+- **Mały zespół, ograniczone zasoby:**
+  - strona „Contribute” wprost prosi o programistów Pythona (rdzeń), Angulara (panel webowy), Swifta (aplikacja na iOS) i Javy (Android);
+  - około 5 zgłoszeń wsparcia dziennie i mało osób, które na nie odpowiadają;
+  - strona „Donate”: projekt nie ma przychodów i jest finansowany z prywatnych środków programistów.
+  
+  Wniosek: wkład jest mile widziany, ale przegląd merge requestów może trwać długo.
+- Wiki dla współtwórców jest na GitLabie (`gitlab.com/openlp/wiki`).
+
+**Podręcznik (manual):**
+
+- **Panel webowy** steruje listą i slajdami, wygaszaniem, motywem i pulpitem; wyszukuje i dodaje pozycje; wysyła ogłoszenia. „Kliknięcie dowolnej pozycji listy natychmiast przenosi do sterowania slajdami”. Potwierdza to brak przeglądania bez wpływu na ekran.
+- **Widok sceniczny** (`/stage`): czytelny tekst na czarnym tle, zegar, notatki do pieśni, numery zwrotek z podświetleniem bieżącej, następna pozycja. Wymaga tej samej sieci. **Notatki operatora są widoczne w widoku scenicznym**, więc udostępniając go uczestnikom, trzeba pilnować treści notatek.
+- **Własne widoki sceniczne**: folder `stages/<nazwa>` w folderze danych OpenLP, własne `stage.html`, `stage.css`, `stages.js` (szablon z wiki), adres `http://<ip>:4316/stage/<nazwa>`. **To umożliwia K0**: tryb uczestnika bez zmiany kodu OpenLP. Forum potwierdza, że użytkownicy tworzą własne, responsywne widoki sceniczne.
+- **Widok główny** (`/main`) pokazuje zrzuty ekranu rzutnika (bez wideo). **Widok akordów** (`/chords`) ma transpozycję.
+- **Aplikacja OpenLP Remote na iOS** (App Store) to pilot dla operatora, w tej samej sieci; nie służy uczestnikom.
+- **Sieć:** podręcznik wielokrotnie podkreśla, że urządzenia muszą być **w tej samej sieci**. O dostępie przez internet nie ma ani słowa. Potwierdza to lukę F-21 i sens K6.
+- **Eksport pieśni:** tylko **OpenLyrics**, jeden plik na pieśń (100 pieśni to 100 plików). Eksport ChordPro nie jest opisany. Potwierdza to K5 i potrzebę konwertera „wiele pieśni ↔ jeden plik” dla pracy z agentem AI.
+- Logowanie do sterowania jest opisane jako opcja (`user_auth`), a nie domyślne zabezpieczenie.
+
+**Inna darmowa alternatywa: Quelea** (Java, GPLv3, Windows, macOS, Linux). Według opisów projektu ma funkcję **„mobile lyrics”**: wysyłanie tekstu na żywo do telefonów uczestników przez przeglądarkę, z własnymi kolorami. Ma też widok sceniczny z akordami dla zespołu i aplikację pilota. Nie sprawdzałem jej kodu ani dokumentacji (źródła wtórne). Warto ją porównać z OpenLP w pilotażu (O-001), bo „mobile lyrics” to dokładnie widok uczestnika. Nie wiadomo jednak, czy ma przeglądanie z powrotem „na żywo”.
+
+**Wpływ na rekomendację:** mechanizm własnych widoków scenicznych **obniża koszt pierwszego kroku**. Tryb uczestnika dla bieżącej pieśni (K0) można zbudować i używać na niezmienionym OpenLP 3.1.x, bez forka i bez czekania na opiekunów. Fork i merge requesty (K1, K2) są potrzebne dopiero do przeglądania innych pieśni z listy.
 
 ## Źródła
 
@@ -518,6 +567,12 @@ Oznaczenia: ✓ jest, ◐ częściowo, ✗ brak.
   - [openlp/web-remote](https://gitlab.com/openlp/web-remote) @ `715abba`: widoki main, stage, chords, slides, service, search;
   - [openlp/web-sync](https://gitlab.com/openlp/web-sync) (MIT);
   - [MR !9 remote-sync](https://gitlab.com/openlp/openlp/-/merge_requests/9), [MR !944 ConcertAmi](https://gitlab.com/openlp/openlp/-/merge_requests/944).
+- Strony OpenLP ze źródeł (rozdział 11.6):
+  - [openlp/website](https://gitlab.com/openlp/website) @ `c3551bd`: `pages/contribute.rst`, `pages/donate.rst`, blog (3.1.0, 3.1.7, Web Remote 1.2.3);
+  - [openlp/documentation](https://gitlab.com/openlp/documentation) @ `87986e9`: `manual/source/web_remote.rst`, `stage_view.rst` (własne widoki sceniczne), `ios-remote.rst`, `configure.rst` (ta sama sieć), `export_songs.rst`.
+- Forum i Quelea (źródła wtórne):
+  - [OpenLP: własny widok sceniczny](https://discuss.openlp.org/d/3266-custom-stage-view-layout-i-made), [notatki w widoku scenicznym](https://discuss.openlp.org/d/3450-notes-stage-view);
+  - [Quelea, SourceForge](https://sourceforge.net/p/quelea/), [Quelea w ToolRadar](https://toolradar.com/tools/quelea), [Quelea vs OpenLP](https://toolradar.com/compare/quelea-vs-openlp).
 - Prawa autorskie (źródła wtórne, bez rozstrzygnięcia dla Polski):
   - [ZAiKS, umowa licencyjna na wykonania](https://app.zaiks.org.pl/media/v4anjzq3/umowa-licencyjna-na-publiczne-wykonywanie-utworow-podczas-wystepow-estradowych-umowa-stala.pdf);
   - [CCLI: wyświetlanie tekstów](https://support-ccli-us.helpscoutdocs.com/article/945-can-we-display-lyrics-on-screen-or-in-the-background-when-we-stream-or-post-recordings-of-our-services-online);

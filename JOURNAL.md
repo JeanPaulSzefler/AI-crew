@@ -1,0 +1,32 @@
+# Dziennik
+
+Co się wydarzyło, co zostało ustalone i czego się nauczyliśmy. Najnowsze wpisy na dole. Wpisów się nie poprawia; sprostowanie to nowy wpis.
+
+Gdzie co zapisać:
+
+| Notatka | Miejsce |
+| --- | --- |
+| Co zrobić i czy zrobione | `BOARD.md` |
+| Wybór, który jest rozstrzygnięty | `docs/decisions/` |
+| Pomysł odrzucony, z powodem | `docs/out-of-scope/` |
+| Co się wydarzyło, wniosek, niespodzianka, sprawa otwarta | tutaj |
+
+Stan tygodniowy ma pięć liczb: zadania zakończone, zwroty po recenzji, konsultacje z doradcą, pytania do Ownera, trafienia w limit.
+
+## 2026-10-31 do 2026-11-10 (wpis zbiorczy, odtworzony z historii gita)
+
+- 31.10: repo założone; pierwszy raport o skutecznej załodze i układzie repo.
+- 3.11: rekomendacja dotycząca skilli dla agentów.
+- 7–8.11: raport o orkiestracji i hostingu (v1–v3.1) oraz analiza Codex.
+- 8.11: raport z wymaganiami śpiewnika na żywo i zadanie startowe jego repo.
+- 10.11: przegląd przekrojowy koncepcji; usunięty 11.11 na prośbę Ownera.
+
+## 2026-11-11
+
+- Owner doprecyzował cel: koncepcja startowa dla **nowych** projektów, a nie diagnoza istniejących. Raporty zanonimizowano (decyzja 0005).
+- Powstał [raport koncepcyjny](outputs/2026-11-11-koncepcja-ai-crew-i-blueprint-repo.md), struktura startowa tego repo i blueprint [`starter-crew-repo`](blueprints/starter-crew-repo/README.md).
+- Wniosek 1: uprawnienia i hooki z `.claude/settings.json` działają tylko w sesji z jednym repo i lokalnie. W sesji z kilkoma repo i w wątkach „Projects” nie działają. Dlatego zasady krytyczne są w `AGENTS.md`, a praca załogi ma iść w sesji z jednym repo.
+- Wniosek 2: status decyzji musi mówić prawdę. Wcześniej polecenie „rozważ” trafiło do raportu jako „decyzja Ownera”. Stąd statusy `propozycja` i `założenie robocze` w `docs/decisions/`.
+- Wniosek 3: raport z 31.10 i zadanie startowe śpiewnika zakładały więcej plików na starcie. Nowy blueprint zaczyna od rdzenia i dokłada elementy według wyzwalaczy.
+- Ta sesja pracowała z kilkoma repo naraz i na większym modelu (krótka promocja). To wyjątek, nie wzór: zwykła praca ma iść na Sonnecie w sesji z jednym repo.
+- Niesprawdzone z tej sesji: strony OpenAI i wpis Anthropic o strategii doradcy były niedostępne; dane pochodzą z wyników wyszukiwania i omówień (oznaczone w raporcie).

@@ -2,6 +2,8 @@
 
 **Status:** draft, czeka na odpowiedzi Ownera (pytania w raporcie, sekcja 8).
 
+> Adnotacja 11.11.2026: zadanie startowe powstało przed blueprintem [`starter-crew-repo`](../starter-crew-repo/README.md). Lista plików i role w `TASK-000` zostaną dopasowane do niego (zadanie T-002 na tablicy). Do tego czasu przy zakładaniu repo obowiązuje `starter-crew-repo`.
+
 A new app: a shared, interactive songbook for events. The leader moves the slides live for everyone; participants join with a code (like Kahoot) and can switch to browsing at any time. Songs, libraries and events are imported from and exported to files, as in Exam Drill.
 
 | File | What |

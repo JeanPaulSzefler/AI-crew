@@ -2,6 +2,8 @@
 
 Oct 31, 2026 · Knowledge article · Builds on [`resources/ai-crew-findings-and-starter-repo-blueprint.md`](../resources/ai-crew-findings-and-starter-repo-blueprint.md)
 
+> Note, 11 Nov 2026: the [concept report of 11 Nov](2026-11-11-koncepcja-ai-crew-i-blueprint-repo.md) supersedes parts of this article. Tasks live in files, not in GitHub Issues (section 5); the starter structure is smaller and grows by triggers (section 8); the crew assumes subscription plans without a paid API (sections 2, 5 and 7). The evidence in sections 1, 3 and 4 still stands.
+
 ## Executive summary
 
 The original blueprint holds up well against the current evidence. A flat crew, files instead of chat, tests as the judge, hard budgets and cost-per-task tracking are all backed by Anthropic's own guidance and by independent research. Six things need updating:

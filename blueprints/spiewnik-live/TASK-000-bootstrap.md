@@ -20,7 +20,7 @@ Puste repozytorium aplikacji „śpiewnik na żywo” (nazwa robocza `spiewnik-l
 - Struktura i zasady crew:
   - [raport AI-crew z 31.10, sekcja 8](../../outputs/2026-10-31-efficient-ai-crew-and-repo-setup.md#8-updated-starter-repo-structure);
   - [raport z 7.11, wersja 3.1](../../outputs/2026-11-07-orkiestracja-agentow-i-hosting-v3.md): bezpieczeństwo agentów, GitHub Actions, koszty.
-- Wzorzec standardu pliku dla agentów: `JeanPaulSzefler/learning_tools`, folder `authoring/` (schemat, instrukcja dla agenta, walidator).
+- Wzorzec standardu pliku dla agentów: standard z aplikacji Exam Drill (schemat, instrukcja dla agenta, walidator).
 
 ## Kroki Ownera (przed i po)
 
@@ -48,13 +48,13 @@ spiewnik-live/
 │   │   ├── executor.md           # Sonnet: jedno gotowe zadanie = jeden PR, z testami; bez narzędzia Agent
 │   │   └── reviewer.md           # tylko Read/Grep/Glob; ocena względem specyfikacji; „pomiń styl”
 │   └── skills/
-│       ├── spec-change/SKILL.md  # zmiana zachowania zaczyna się od specyfikacji (wzór: learning_tools)
+│       ├── spec-change/SKILL.md  # zmiana zachowania zaczyna się od specyfikacji (wzór: Exam Drill)
 │       ├── song-format/SKILL.md  # jak tworzyć i walidować pliki śpiewnika (odsyła do format/)
 │       └── journal/SKILL.md      # gdzie zapisać decyzję, odrzucony pomysł, wniosek
 ├── docs/
 │   ├── specs/SPEC-000-wizja.md   # na start: kopia sekcji 1–3 raportu jako szkic; Owner zatwierdza w T-001
 │   ├── decisions/README.md       # format ADR: numer, data, decyzja, powód, warunek powrotu; bez edycji po przyjęciu
-│   ├── out-of-scope/README.md    # odrzucone pomysły z powodem (wzór: learning_tools)
+│   ├── out-of-scope/README.md    # odrzucone pomysły z powodem (wzór: Exam Drill)
 │   └── policies/
 │       ├── always-human.md       # publikacja, wydatki, konta, prawa do tekstów, upublicznienie repo: tylko Owner
 │       ├── budgets.md            # limity: tury i czas zadań, budżet API, minuty Actions

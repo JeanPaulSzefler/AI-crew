@@ -6,7 +6,9 @@
 
 **Status:** analiza i propozycja architektury; nie jest zamówieniem usług ani planem już wdrożonym
 
-**Zakres:** AI-crew, JvP, Exam Drill i nowy produkt na jego bazie, strony i sklepy projektu Influencer-AI.
+**Zakres:** AI-crew, JvP, istniejąca aplikacja quizowa i nowy produkt na jej bazie, strony i sklepy projektu treściowego.
+
+> Zanonimizowano 11.11.2026 (Claude, na polecenie właściciela): nazwy i szczegóły prywatnych projektów zastąpiono opisem typu projektu, a odnośniki do prywatnych repozytoriów usunięto. Pozostała treść jest autorstwa Codexa.
 
 ## 1. Rekomendacja
 
@@ -18,10 +20,10 @@ Proponuję taki podział:
 | --- | --- | --- |
 | AI crew | Jeden wykonawca, niezależna recenzja przy istotnych zmianach, zadania i decyzje w repo. Obecne środowiska Codex/Claude wystarczą do pilotażu | Gdy zadania muszą pracować poza sesjami chmurowymi i komputerem właściciela lub potrzebny jest stały gateway |
 | JvP | Android i lokalna gra po Wi-Fi; statyczna strona gry i polityka prywatności | Dopiero dla funkcji online: matchmakingu, synchronizacji, wspólnych wydarzeń, autorytatywnego serwera gry |
-| Obecny Exam Drill | Zachować działanie offline i wymianę plików | Aktualnie niepotrzebny do działania aplikacji |
-| Nowy produkt na bazie Exam Drill | Osobny wariant produktu; na początek statyczny quiz/PWA lub aplikacja z lokalnymi zestawami | Konta, płatne uprawnienia, synchronizacja, panel autorów, raporty dla grup wymagają usług backendowych |
-| Influencer-AI: źródła, blogi, quiz Quilla | Statyczna strona na własnej domenie, np. Cloudflare Pages; media oddzielnie | CMS dla redakcji, własne API lub płatna platforma |
-| Influencer-AI: sklep | Najpierw mały katalog i zewnętrzny checkout; WooCommerce lub Shopify dopiero po określeniu potrzeb | WooCommerce może potrzebować hostingu WordPress; Shopify utrzymuje sklep jako usługę |
+| Obecna aplikacja quizowa | Zachować działanie offline i wymianę plików | Aktualnie niepotrzebny do działania aplikacji |
+| Nowy produkt na bazie aplikacji quizowej | Osobny wariant produktu; na początek statyczny quiz/PWA lub aplikacja z lokalnymi zestawami | Konta, płatne uprawnienia, synchronizacja, panel autorów, raporty dla grup wymagają usług backendowych |
+| Projekt treściowy: strony, blogi, quiz | Statyczna strona na własnej domenie, np. Cloudflare Pages; media oddzielnie | CMS dla redakcji, własne API lub płatna platforma |
+| Projekt treściowy: sklep | Najpierw mały katalog i zewnętrzny checkout; WooCommerce lub Shopify dopiero po określeniu potrzeb | WooCommerce może potrzebować hostingu WordPress; Shopify utrzymuje sklep jako usługę |
 
 **Hostinger VPS technicznie może obsłużyć wiele z tych przyszłych funkcji. Nie oznacza to, że są one już zaimplementowane w aplikacjach ani że jeden serwer będzie odpowiednim miejscem dla agentów, sklepu i danych użytkowników.**
 
@@ -44,14 +46,13 @@ Załączniki są źródłami tez, a nie potwierdzeniem parametrów oferty czy wy
 | --- | --- | --- |
 | AI-crew | Baza raportu: 5ee12fcaba299c1f585e9d6ea6eb7d7bcfb54473 | Research; blueprint wykonawczy nadal oznaczony jako „not started” |
 | education-games | master: 612e937c60987ef5da4b69c93d4e30d82bf757e7; dodatkowo jvp-notatki-2026-10-30: **87655b7a82d0370ae006b8e97c5eff49bc6daa74** | Nowsza gałąź zawiera APK 1.2.0 i plan publikacji. Ocenę sieci i eksportu opieram również na niej |
-| learning_tools | main: db28321e6b95a085b73eab7766d6a72dd6d2791a; dodatkowo ccr-d914ae0e-4gvx4c: 64fea3b3a0c1b78bc3418232e424d2c3adffbd4a | Obecny produkt jest offline. Na dodatkowej gałęzi jest przekazanie prac do sprawdzenia na PC, nie nowa usługa online |
-| educationInfluencer | master: d7d312d97a54eeb3be136188306f745c6ff2c0aa; porównana gałąź work: 89a16cfad55311875629f04e2be86dd58e3cc0a8 | W master są propozycje powiązania person z aplikacjami i strona źródeł; work nie zawiera części późniejszych dokumentów |
+| Dwa prywatne projekty (aplikacja quizowa, projekt treściowy) | Wersje pominięto | Aplikacja quizowa działa offline; w projekcie treściowym są propozycje stron i powiązania z aplikacjami |
 
 Sprawdziłem listy zdalnych gałęzi tych projektów. Nie zakładam, że domyślna gałąź zawsze opisuje najnowszy stan ani że nowsza gałąź jest już zatwierdzonym wydaniem.
 
-**Historie rozmów:** nie ma w tej sesji narzędzia do wyszukiwania całej historii czatów konta. Przeczytałem dostępne zapisy ustaleń: JOURNAL.md, decyzje ADR, przekazanie sesji PC, journal/ i propozycje w educationInfluencer oraz notatki i plan publikacji JvP. To częściowy zapis kontekstu, nie pełna historia rozmów. Propozycja agenta nie jest automatycznie decyzją właściciela.
+**Historie rozmów:** nie ma w tej sesji narzędzia do wyszukiwania całej historii czatów konta. Przeczytałem dostępne zapisy ustaleń w repozytoriach projektów (dzienniki, decyzje, propozycje) oraz notatki i plan publikacji JvP. To częściowy zapis kontekstu, nie pełna historia rozmów. Propozycja agenta nie jest automatycznie decyzją właściciela.
 
-**Nowa aplikacja:** nie wskazano osobnego repozytorium. Najbliższe odczytane propozycje to „Nina’s Drills” i quiz Quilla w educationInfluencer [R9]. Ocena nowej aplikacji poniżej jest wariantowa; nie stwierdzam, że odrębny produkt nie istnieje w innym, nieudostępnionym repo.
+**Nowa aplikacja:** nie wskazano osobnego repozytorium. Najbliższe odczytane propozycje to nowa aplikacja quizowa i bezpłatny quiz w projekcie treściowym. Ocena nowej aplikacji poniżej jest wariantowa; nie stwierdzam, że odrębny produkt nie istnieje w innym, nieudostępnionym repo.
 
 ### Weryfikacja ofert i cen
 
@@ -185,21 +186,21 @@ VPS z publicznym adresem nie przeniesie rozgłoszeń LAN przez internet. Dla nat
 
 Godot umożliwia eksport i uruchamianie serwera bez renderowania [E8]. To zdolność silnika, a nie dowód, że obecny kod JvP działa już jako serwer dedykowany. Potrzebne są rozdzielenie zależności od UI, obsługa sesji i testy prawdziwych połączeń.
 
-Plan publikacji przewiduje grę dla dzieci, lokalne dane i bramkę rodzicielską [R4]. Dodanie backendu, analityki, logowania lub zakupów zmieni ocenę danych, prywatności i zasad sklepów. Nie należy bez ponownej analizy zachowywać deklaracji „Data Not Collected”. Historyczny przegląd z 30 października jest materiałem do planowania regresji, nie aktualną diagnozą usterek gałęzi 1.2.0.
+Plan publikacji przewiduje grę dla dzieci, lokalne dane i bramkę rodzicielską [R4]. Dodanie backendu, analityki, logowania lub zakupów zmieni ocenę danych, prywatności i zasad sklepów. Nie należy bez ponownej analizy zachowywać deklaracji „Data Not Collected”.
 
 **Ocena:** mała potrzeba hostingu teraz; duża potencjalna wartość VPS dla świadomie zaprojektowanej wersji online. Najbliższy krok to przygotowanie wydania i testów urządzeń, nie zakup większego serwera.
 
-### 5.2. Obecny Exam Drill / learning_tools
+### 5.2. Obecna aplikacja quizowa (projekt prywatny)
 
-W main jest decyzja 0006: aplikacja lokalna, bez hostowania pytań w internecie. Decyzja 0007 dodaje Godot APK z plikami zestawów i wyników. Preset APK ma permissions/internet=false. Postęp webowy jest lokalny, z eksportem/importem; backend synchronizacji został wcześniej odrzucony z uzasadnieniem [R5], [R6], [R7].
+Aplikacja jest lokalna, bez hostowania pytań w internecie. Ma też klienta Godot (APK) z plikami zestawów i wyników, bez dostępu do internetu. Postęp webowy jest lokalny, z eksportem/importem; backend synchronizacji został wcześniej świadomie odrzucony.
 
-**Ocena:** serwer nie jest potrzebny do działania obecnej aplikacji. Może służyć do prywatnego CI, autora zestawów, przechowania zatwierdzonych artefaktów lub przyszłego panelu, ale samo jego dodanie nie poprawia nauki offline ani nie rozwiązuje problemów układu na telefonie.
+**Ocena:** serwer nie jest potrzebny do działania obecnej aplikacji. Może służyć do prywatnego CI, autora zestawów, przechowania zatwierdzonych artefaktów lub przyszłego panelu, ale samo jego dodanie nie poprawia nauki offline.
 
-Dodatkowa gałąź zawiera testy i przekazanie do kolejnej sesji PC z wyraźną informacją o niewykonanych kontrolach Godota [R8]. To przypomnienie, że dostępny Linux nie zastępuje sprawdzenia eksportu i zachowania na docelowym Androidzie.
+Dostępny Linux nie zastępuje sprawdzenia eksportu i zachowania na docelowym Androidzie.
 
-Nie publikować całego repo jako katalogu strony. Są w nim surowe materiały i opracowania; publiczny artefakt musi być oddzielnie wybrany. Płatne zestawy wymagają sprawdzenia praw do treści i oznaczeń. Niniejsza prośba o analizę nie jest poleceniem wystawienia obecnych materiałów online.
+Nie publikować całego repo jako katalogu strony; publiczny artefakt musi być oddzielnie wybrany. Płatne zestawy wymagają sprawdzenia praw do treści i oznaczeń. Niniejsza prośba o analizę nie jest poleceniem wystawienia obecnych materiałów online.
 
-### 5.3. Nowa aplikacja oparta na Exam Drill
+### 5.3. Nowa aplikacja oparta na aplikacji quizowej
 
 Rozdzieliłbym ją od prywatnego narzędzia do własnej nauki, zachowując format pytań i możliwość pracy offline. Trzy warianty:
 
@@ -213,15 +214,15 @@ Hostinger VPS wystarczy architektonicznie do pilotażowego API i relacyjnej bazy
 
 Kluczowa luka: dodanie hostingu do istniejącego APK nie doda klienta API. Zmian wymagałyby uprawnienia, model danych i obsługa błędów. Tego zakresu nie mylić z kilkugodzinnym przeniesieniem gotowej strony.
 
-Dla Nina’s Drills zacząłbym od angielskiego, uniwersalnego klienta i legalnie przygotowanego zestawu demonstracyjnego. Konta dopiero po potwierdzeniu potrzeby synchronizacji. Dla Quilla repo proponuje bezpłatny quiz z dossier rolek — to dobry przypadek dla statycznej strony [R9].
+Dla nowej aplikacji quizowej zacząłbym od angielskiego, uniwersalnego klienta i legalnie przygotowanego zestawu demonstracyjnego. Konta dopiero po potwierdzeniu potrzeby synchronizacji. Bezpłatny quiz w projekcie treściowym to dobry przypadek dla statycznej strony.
 
-### 5.4. Influencer-AI / educationInfluencer
+### 5.4. Projekt treściowy (projekt prywatny)
 
-To obecnie prywatne laboratorium treści, z dziennikami, rejestrem zadań i wiki. Strona źródeł jest zadaniem backlog, a jej publikacja ma osobny krok właściciela [R10]. Nie znalazłem gotowego sklepu ani wdrożonego SaaS w przejrzanych wersjach.
+To obecnie prywatne laboratorium treści. Publikacja strony wymaga osobnej zgody właściciela. Sklepu ani usługi online jeszcze nie ma.
 
 | Etap | Propozycja | Rola Hostinger |
 | --- | --- | --- |
-| Strony person, źródła, proste blogi, quiz Quilla | Statyczne pliki generowane z zatwierdzonych materiałów; wspólna domena i podstrony na start | Może hostować, lecz VPS daje małą dodatkową wartość |
+| Strony projektu, proste blogi, quiz | Statyczne pliki generowane z zatwierdzonych materiałów; wspólna domena i podstrony na start | Może hostować, lecz VPS daje małą dodatkową wartość |
 | Blog redagowany przez panel | WordPress lub inny CMS, jeśli panel rzeczywiście pomaga w pracy | Zarządzany hosting WordPress może być wygodniejszy od administrowania VPS |
 | Niewielki sklep z PDF/zestawami | Zewnętrzny checkout i dostarczanie produktów; platformę dobrać także do podatków i zwrotów | Sam VPS nie jest konieczny |
 | Rozbudowany sklep i członkostwo | WooCommerce albo SaaS typu Shopify; najpierw ustalić katalog, języki, subskrypcje i uprawnienia | WooCommerce może działać na odpowiednim hostingu/VPS. Sklep Shopify działa w usłudze Shopify |
@@ -229,7 +230,7 @@ To obecnie prywatne laboratorium treści, z dziennikami, rejestrem zadań i wiki
 
 Nie wystawiać prywatnego wiki, roboczych assetów ani rejestru kont jako strony publicznej. Publikować tylko wygenerowany, zatwierdzony zestaw treści. Własna domena i lista adresów z prawidłową zgodą są łatwiejsze do przeniesienia niż zasięgi i relacje zamknięte w serwisie społecznościowym.
 
-Oferty Ko-fi, Payhip, Gumroad i podobne trzeba porównywać po całej transakcji: opłata platformy + operator płatności + VAT/podatki + zwroty + sposób dostarczenia pliku. **Nie każda platforma jest Merchant of Record** i nie każda przejmuje obowiązki sprzedawcy. Historyczne stawki z wiki nie są bieżącą ofertą handlową.
+Oferty Ko-fi, Payhip, Gumroad i podobne trzeba porównywać po całej transakcji: opłata platformy + operator płatności + VAT/podatki + zwroty + sposób dostarczenia pliku. **Nie każda platforma jest Merchant of Record** i nie każda przejmuje obowiązki sprzedawcy. Wcześniej zebrane stawki nie są bieżącą ofertą handlową.
 
 Przy produktach cyfrowych na urządzenia mobilne dochodzą aktualne reguły rozliczeń sklepów i regionu. Sklep WWW nie jest automatycznie dozwolonym obejściem rozliczeń wewnątrz aplikacji.
 
@@ -254,18 +255,18 @@ Nie ma jednego zwycięzcy dla gry, sklepu, agentów i strony statycznej.
 
 | Rozwiązanie | Kiedy lepsze od jednego VPS Hostinger | Zalety | Wady, zależności i wyjście |
 | --- | --- | --- | --- |
-| **Cloudflare Pages / statyczne pliki** | Źródła person, blog z Markdown, darmowy quiz, landing page | Mało obsługi, CDN, statyczne żądania bez opłat [E9] | Limit 25 MiB/pliku [E10]; płatne funkcje i bazy mają osobne limity. Wyjście łatwe dla HTML, trudniejsze po rozbudowie o D1/KV/Durable Objects |
+| **Cloudflare Pages / statyczne pliki** | Strony projektu, blog z Markdown, darmowy quiz, landing page | Mało obsługi, CDN, statyczne żądania bez opłat [E9] | Limit 25 MiB/pliku [E10]; płatne funkcje i bazy mają osobne limity. Wyjście łatwe dla HTML, trudniejsze po rozbudowie o D1/KV/Durable Objects |
 | **Hostinger VPS** | Stałe laboratorium i niewielki własny backend | Kontrola systemu, standardowe kontenery i protokoły | Administracja, awaria jednego węzła, koszt odnowienia. Przenośny przy zwykłym Linux/Docker/PostgreSQL |
 | **Hetzner Cloud / inny VPS w UE, np. OVHcloud** | Ten sam przenośny stack, gdy końcowa oferta i region są korzystniejsze | Warto porównać koszt zasobów i rozliczanie krótszych okresów | Nie zwalnia z administracji. Sprawdzić x86/ARM, udział CPU, płatne IP/kopie i transfer. Nie potwierdzam bieżącej przewagi cenowej |
 | **Render / Fly.io / podobna platforma aplikacyjna** | Publiczne API, worker i wdrożenia, przy których czas admina jest droższy niż usługa | Wygodniejsze wdrożenia, logi, integracja z Git | Baza, dyski, joby i wiele usług sumują koszt. Ustalić usypianie, region, backup i trwałość danych. Nie zakładać obsługi UDP w każdej usłudze |
-| **Supabase + frontend statyczny** | Nowy Exam Drill z kontami, synchronizacją i panelem | PostgreSQL i gotowe elementy backendu skracają wdrożenie | Auth, Storage, reguły dostępu i funkcje tworzą zależności. Zrzut SQL nie przenosi całego zachowania usługi |
+| **Supabase + frontend statyczny** | Nowa aplikacja quizowa z kontami, synchronizacją i panelem | PostgreSQL i gotowe elementy backendu skracają wdrożenie | Auth, Storage, reguły dostępu i funkcje tworzą zależności. Zrzut SQL nie przenosi całego zachowania usługi |
 | **Zarządzany WordPress + WooCommerce** | Blog i sklep z rozbudowanym katalogiem, gdy CMS jest rzeczywiście potrzebny | Własne dane i duży wybór narzędzi; migracja między hostami jest znanym procesem | Wtyczki, aktualizacje, bezpieczeństwo checkoutu, licencje i wydajność dynamicznych koszyków |
 | **Shopify / SaaS sklepu** | Sprzedaż ma działać bez utrzymywania systemu operacyjnego i WordPress | Wiele obowiązków technicznych przejmuje dostawca | Abonament i aplikacje; silniejszy lock-in motywu, checkoutu, subskrypcji i integracji. Eksport produktów nie odtwarza całego sklepu |
 | **Vercel / Netlify** | Nowa aplikacja ma stack i workflow dobrze pasujący do platformy | Preview i integracja frontend–wdrożenie | Sprawdzić warunki komercyjne planu, naliczanie funkcji, buildów, transferu i limitów. Nie zakładać, że każdy darmowy plan nadaje się do firmy |
 | **GitHub Pages** | Dokumentacja i niekomercyjne materiały referencyjne | Prosty start obok publicznego repo | Oficjalne ograniczenia nie pozwalają traktować Pages jako darmowego hostingu biznesu, e-commerce czy komercyjnego SaaS [E13]. Nie wybierać go jako docelowej platformy sklepu |
 | **AWS/GCP/Azure** | Potrzebne są konkretne usługi, wymagania organizacji lub większa skala | Duży wybór usług i kontroli | Większa złożoność IAM, kosztów, sieci i zależności. Na tym etapie brak uzasadnienia, żeby zaczynać od pełnej platformy |
 
-**Praktyczny szczegół o plikach:** ExamDrill-1.6.apk ma 26 613 508 B, a JvP_v1.2.0.apk na nowszej gałęzi 57 705 396 B. Oba przekraczają limit pojedynczego pliku Pages 25 MiB = 26 214 400 B. Stronę można tam utrzymać, a APK umieścić oddzielnie: w sklepie, odpowiednio dostępnym repozytorium wydań lub magazynie obiektowym. Prywatny plik wymaga autoryzowanego pobrania; samo ukrycie linku nie zabezpiecza produktu.
+**Praktyczny szczegół o plikach:** APK aplikacji quizowej ma 26 613 508 B, a JvP_v1.2.0.apk na nowszej gałęzi 57 705 396 B. Oba przekraczają limit pojedynczego pliku Pages 25 MiB = 26 214 400 B. Stronę można tam utrzymać, a APK umieścić oddzielnie: w sklepie, odpowiednio dostępnym repozytorium wydań lub magazynie obiektowym. Prywatny plik wymaga autoryzowanego pobrania; samo ukrycie linku nie zabezpiecza produktu.
 
 Potwierdzona dokumentacja Cloudflare: Workers Paid ma minimum **5 USD/miesiąc** i dodatkowe opłaty za zużycie; nie jest to cena całej platformy z dowolną bazą i mediami [E11]. R2 Standard opisuje m.in. **0,015 USD/GB-miesiąc** ponad darmowy przydział, osobne operacje i brak opłaty za egress; inne klasy i operacje mają własne warunki [E12]. To nie jest obietnica bezpłatnego generowania ani streamingu wideo.
 
@@ -295,7 +296,7 @@ Budżety AI są limitami proponowanego pilotażu, nie oszacowaniem rzeczywistego
 
 **Gotówka a czas:** w A wydatki cykliczne to 480 zł/24 mies.; w B 9 000 zł; w C 18 000 zł. Reszta tabeli to wyceniony czas. Bez tej różnicy tani VPS może pozornie wygrywać z usługą zarządzaną, choć pochłania więcej pracy.
 
-Model nie obejmuje budowy nowych funkcji aplikacji, generowania mediów Influencer-AI, płatnych kampanii, prowizji sklepu, obsługi klientów, audytu prawnego, kont deweloperskich ani środowiska macOS. To mogą być większe pozycje niż sam hosting. Do planu pilotażu proponuję odrębną rezerwę 20–30% na nieprzewidziane prace; nie doliczono jej do tabeli.
+Model nie obejmuje budowy nowych funkcji aplikacji, generowania mediów projektu treściowego, płatnych kampanii, prowizji sklepu, obsługi klientów, audytu prawnego, kont deweloperskich ani środowiska macOS. To mogą być większe pozycje niż sam hosting. Do planu pilotażu proponuję odrębną rezerwę 20–30% na nieprzewidziane prace; nie doliczono jej do tabeli.
 
 ### Koszty sklepu i promocji
 
@@ -354,8 +355,8 @@ Dodatkowe ryzyka:
 
 - Zachować wariant A AI crew. Uzgodnić wspólny minimalny format zadania i wyniku, ale respektować istniejące rejestry projektów zamiast przenosić wszystko naraz.
 - JvP: dokończyć ścieżkę wydania, testy dwóch urządzeń i statyczne treści wymagane przez sklepy. Nie zmieniać deklaracji prywatności na zapas ani nie deklarować zgodności bez sprawdzenia.
-- Exam Drill: dokończyć obecny zakres offline. Dla nowego produktu oddzielnie spisać: odbiorca, źródła treści, płatności, potrzeba kont i synchronizacji.
-- Influencer-AI: przygotować lokalny podgląd zatwierdzonych źródeł i quizu; wybrać hosting dopiero dla wybranego publicznego artefaktu.
+- Aplikacja quizowa: dokończyć obecny zakres offline. Dla nowego produktu oddzielnie spisać: odbiorca, źródła treści, płatności, potrzeba kont i synchronizacji.
+- Projekt treściowy: przygotować lokalny podgląd zatwierdzonych stron i quizu; wybrać hosting dopiero dla wybranego publicznego artefaktu.
 - Sprawdzić aktualne oferty i warunki po odblokowaniu stron. Do decyzji zakupowej zapisać konkretny plan, okres, cenę odnowienia i dodatki.
 
 ### Gdy pojawi się potrzeba pracy zdalnej poza sesjami
@@ -376,18 +377,11 @@ Proponowane cele dla małego płatnego produktu do uzgodnienia: utrata najwyżej
 
 ### Repozytoria i kontekst
 
-Odnośniki poniżej wskazują konkretne wersje, także w prywatnych repozytoriach wymagających dostępu właściciela.
+Odnośniki poniżej wskazują konkretne wersje w publicznym repozytorium gry. Odnośniki do prywatnych repozytoriów usunięto.
 
 - [R2] — kod sieci JvP, nowsza gałąź.
 - [R3] — konfiguracja projektu JvP, renderer i scena startowa.
 - [R4] — plan publikacji JvP; jest planem repo, nie niezależnym potwierdzeniem aktualnych regulaminów sklepów.
-- [R5] — decyzja o lokalnej dystrybucji Exam Drill.
-- [R6] — decyzja o kliencie Godot i plikach zestawów/wyników.
-- [R7] — uzasadnienie odrzucenia backendu synchronizacji w obecnym produkcie.
-- [R8] — przekazanie sesji learning_tools: stan prac i niewykonane kontrole.
-- [R9] — propozycje aplikacji dla person, nie zatwierdzona specyfikacja nowego produktu.
-- [R10] — zadanie strony źródeł.
-- [R11] — wcześniejsza propozycja monetyzacji; liczby w niej nie są aktualnymi stawkami potwierdzonymi w tym badaniu.
 
 ### Oficjalne dokumenty odczytane 7 listopada 2026
 
@@ -416,13 +410,6 @@ Identyfikatory materiałów wejściowych SHA-256:
 [R2]: https://github.com/JeanPaulSzefler/education-games/blob/87655b7a82d0370ae006b8e97c5eff49bc6daa74/junk-vs-plants/scripts/net_session.gd
 [R3]: https://github.com/JeanPaulSzefler/education-games/blob/87655b7a82d0370ae006b8e97c5eff49bc6daa74/junk-vs-plants/project.godot
 [R4]: https://github.com/JeanPaulSzefler/education-games/blob/87655b7a82d0370ae006b8e97c5eff49bc6daa74/junk-vs-plants/PLAN_PUBLIKACJI.md
-[R5]: https://github.com/JeanPaulSzefler/learning_tools/blob/db28321e6b95a085b73eab7766d6a72dd6d2791a/.claude/decisions/0006-optional-single-file-package-for-phones.md
-[R6]: https://github.com/JeanPaulSzefler/learning_tools/blob/db28321e6b95a085b73eab7766d6a72dd6d2791a/.claude/decisions/0007-godot-apk-client-with-qset-files.md
-[R7]: https://github.com/JeanPaulSzefler/learning_tools/blob/db28321e6b95a085b73eab7766d6a72dd6d2791a/.claude/out-of-scope/backend-and-account-sync.md
-[R8]: https://github.com/JeanPaulSzefler/learning_tools/blob/64fea3b3a0c1b78bc3418232e424d2c3adffbd4a/work/NEXT-PC-SESSION.md
-[R9]: https://github.com/JeanPaulSzefler/educationInfluencer/blob/d7d312d97a54eeb3be136188306f745c6ff2c0aa/wiki/proposals/own-apps-for-personas.md
-[R10]: https://github.com/JeanPaulSzefler/educationInfluencer/blob/d7d312d97a54eeb3be136188306f745c6ff2c0aa/tasks/TASK-0038-build-the-sources-page-from-reel-dossiers-github-p.md
-[R11]: https://github.com/JeanPaulSzefler/educationInfluencer/blob/d7d312d97a54eeb3be136188306f745c6ff2c0aa/wiki/proposals/monetisation-and-community.md
 [E1]: https://github.com/herdrdev/herdr/blob/ee5bfb5041bb3e4a49d591c72308aae3c81ecdde/README.md
 [E2]: https://github.com/herdrdev/herdr-core/blob/9ce385d9c8abb041dd4437476d770365b3fb5282/docs/security.md
 [E3]: https://github.com/NousResearch/hermes-agent/blob/9ffa7dff23726d8daa8b3e167b20a5fabc2e04ef/README.md

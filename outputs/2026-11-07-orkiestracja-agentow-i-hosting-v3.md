@@ -1,6 +1,8 @@
-# Orkiestracja agentów (Herdr) i hosting (Hostinger): analiza dla AI-crew i projektów JvP, Nina's Drills i Influencer-AI
+# Orkiestracja agentów (Herdr) i hosting (Hostinger): analiza dla AI-crew, gry JvP, aplikacji quizowej i projektu treściowego
 
 7 listopada 2026, uzupełnione 8 listopada · **Wersja 3.1 (robocza)** · Punkty odniesienia: [`resources/raport-orkiestracja-agentow-herdr-hostinger.md`](../resources/raport-orkiestracja-agentow-herdr-hostinger.md) oraz [analiza Codexa z 7.11](2026-11-07-codex-ai-crew-hosting-i-migracja.md)
+
+> Zanonimizowano 11.11.2026: nazwy i szczegóły prywatnych projektów zastąpiono opisem typu projektu.
 
 ## Co się zmieniło
 
@@ -19,8 +21,8 @@ Pozostałe rozdziały bez zmian. Nazwa pliku pozostaje `-v3`, żeby nie zepsuć 
 
 Codex przygotował równoległą analizę (commit `48d8031`, scalona z tą gałęzią w `00b7842`). Napisał ją **przed** odpowiedziami Ownera, więc zakłada JvP tylko z lokalną grą przez Wi-Fi. Jej twierdzenia sprawdziłem w kodzie i w dokumentacji pod przypiętymi wersjami (sekcja 8). Wersja 3 przejmuje z niej to, czego brakowało w wersji 2:
 
-1. **GitHub Pages nie nadaje się do stron komercyjnych.** Regulamin wyklucza biznes, sklep i SaaS. Polityka prywatności płatnej gry, sklep i Nina's Drills idą na Cloudflare Pages (sekcje 3.3 i 7).
-2. **Pliki APK nie zmieszczą się na Cloudflare Pages.** Limit to 25 MiB na plik, a Exam Drill 1.6 ma 26,6 MB, JvP 1.2.0 ma 57,7 MB. APK dystrybuować przez Google Play, wydania na GitHubie albo magazyn obiektowy.
+1. **GitHub Pages nie nadaje się do stron komercyjnych.** Regulamin wyklucza biznes, sklep i SaaS. Polityka prywatności płatnej gry, sklep i aplikacja quizowa idą na Cloudflare Pages (sekcje 3.3 i 7).
+2. **Pliki APK nie zmieszczą się na Cloudflare Pages.** Limit to 25 MiB na plik, a aplikacja quizowa ma 26,6 MB, JvP 1.2.0 ma 57,7 MB. APK dystrybuować przez Google Play, wydania na GitHubie albo magazyn obiektowy.
 3. **Wersja webowa JvP to nie tylko eksport.** Godot Web obsługuje tylko renderer Compatibility (JvP używa Mobile), a przeglądarka nie ma UDP ani ENet. Nakama działa przez WebSocket, więc ten sam backend obsłuży przyszły klient webowy.
 4. **Herdr i `herdr-core` nie izolują agentów.**
    - Po restarcie maszyny procesy nie przetrwają.
@@ -36,8 +38,8 @@ Wersja 1 jest w historii repo (commit `6e83de0`), wersja 2 w `9a61bea`. Wersja 2
 | Pytanie | Odpowiedź | Wpływ na wnioski |
 | --- | --- | --- |
 | JvP: gra przez internet? | **Tak**: gra przez internet, konta na serwerze, zakupy po zalogowaniu kontem Google | JvP **potrzebuje backendu**. Serwer staje się uzasadniony (sekcja 3.1) |
-| Exam Drill jako nowa aplikacja? | **Tak**: osobna aplikacja, nazwa robocza „Nina's Drills” | Osobne repo; sprzedaż zestawów w dwóch kanałach (web i Google Play) wymaga wspólnych kont i uprawnień (sekcja 3.2) |
-| Sklep: cyfrowy czy merch? | **Jedno i drugie** | Dwa tory sprzedaży i dwie marki: postacie Influencer-AI (dorośli) i JvP (rodzice) (sekcja 3.3) |
+| Nowa aplikacja quizowa na bazie istniejącej? | **Tak**: osobna aplikacja | Osobne repo; sprzedaż zestawów w dwóch kanałach (web i Google Play) wymaga wspólnych kont i uprawnień (sekcja 3.2) |
+| Sklep: cyfrowy czy merch? | **Jedno i drugie** | Dwa tory sprzedaży i dwie marki: postacie projektu treściowego (dorośli) i JvP (rodzice) (sekcja 3.3) |
 | Usługi u Hostingera? | **Brak** | Brak kosztów utopionych; wybór dostawcy jest w pełni otwarty |
 
 ## W skrócie
@@ -45,7 +47,7 @@ Wersja 1 jest w historii repo (commit `6e83de0`), wersja 2 w `9a61bea`. Wersja 2
 1. **Serwer jest teraz uzasadniony, ale dla gry, nie dla agentów.** Gra przez internet, konta i zakupy w JvP wymagają backendu. Rekomenduję **Nakamę**: otwartoźródłowy serwer gier z oficjalnym SDK dla Godota, logowaniem przez Google i Apple, grą w czasie rzeczywistym i weryfikacją zakupów z Google Play i App Store. Nakama działa w Dockerze z bazą Postgres **na małym VPS-ie**.
    - Hostinger KVM 2 dobrze się do tego nadaje. Hetzner jest równorzędną alternatywą z płatnością miesięczną.
    - Uzależnienie jest niskie, bo kod jest otwarty, a dane to zwykły Postgres.
-2. **Jeden backend kont dla JvP i Nina's Drills.** Nina's Drills będzie sprzedawać zestawy pytań na stronie i w Google Play. Wspólny mechanizm kont i uprawnień (co kto kupił) oszczędza pracę. Nakama to obsługuje; Supabase jest alternatywą bardziej „aplikacyjną”.
+2. **Jeden backend kont dla JvP i aplikacji quizowej.** Aplikacja quizowa będzie sprzedawać zestawy pytań na stronie i w Google Play. Wspólny mechanizm kont i uprawnień (co kto kupił) oszczędza pracę. Nakama to obsługuje; Supabase jest alternatywą bardziej „aplikacyjną”.
 3. **Największe wyzwania JvP online nie są techniczne, tylko regulacyjne.** Gra jest dla dzieci, więc obowiązuje:
    - program Google Play Families;
    - zgoda rodzica według RODO (w Polsce najpewniej poniżej 16 lat; do potwierdzenia);
@@ -61,7 +63,7 @@ Wersja 1 jest w historii repo (commit `6e83de0`), wersja 2 w `9a61bea`. Wersja 2
    - Strony komercyjne nie na GitHub Pages (regulamin).
    - APK przez Google Play, wydania na GitHubie albo magazyn obiektowy (limit 25 MiB na plik).
 7. **Największy koszt to czas, nie serwer.** Administracja backendu gier to około 2–4 h miesięcznie. Przy wycenie 100 zł/h daje to więcej niż sam VPS (sekcja 5).
-8. **no1.pl: nie na start; kandydat na etap 3 i ewentualnie na zarządzany serwer gry** (rozdział 9).
+8. **no1.pl: nie na start; kandydat na etap sprzedaży w projekcie treściowym i ewentualnie na zarządzany serwer gry** (rozdział 9).
    - To polski operator z opieką człowieka, pocztą firmową i umową powierzenia.
    - Za moc obliczeniową jest 3–6× droższy od Hetznera lub Hostingera i nie rejestruje `.com`.
    - Ma sens dla WordPressa lub WooCommerce z pocztą i opieką (około 1570 zł/rok). Dla serwera Nakamy tylko w wariancie zarządzanym, jeśli wycena obejmie Dockera i kopie.
@@ -97,7 +99,7 @@ Zgodny z wariantami A–C Codexa (na żądanie → laboratorium zdalne → autom
 
 | Krok | Co | Infrastruktura | Kiedy |
 | --- | --- | --- | --- |
-| **A. Recenzja krzyżowa** | Codex (GPT) jako drugi recenzent PR-ów pisanych przez Claude'a. Formalizuje to, co już robisz ręcznie w `education-games` i `educationInfluencer` | GitHub Actions albo ręcznie | Od razu |
+| **A. Recenzja krzyżowa** | Codex (GPT) jako drugi recenzent PR-ów pisanych przez Claude'a. Formalizuje to, co już robisz ręcznie w innych projektach | GitHub Actions albo ręcznie | Od razu |
 | **B. Powiadomienia i zgody z telefonu** | Aplikacja GitHub i aplikacja Claude; Telegram dopiero, gdy te nie wystarczą | Bez serwera | Przy większej liczbie PR-ów |
 | **C. Runner na VPS-ie (pilotaż)** | Herdr + Claude Code + Codex. Każdy agent pod zwykłym użytkownikiem, w kontenerze z jednym folderem, z limitami RAM/CPU, bez `docker.sock` i bez trybu uprzywilejowanego. Najwyżej dwa aktywne zadania na start | **Osobny** VPS, nigdy ten z backendem gry. Krótki okres rozliczeniowy | Tylko przy konkretnym wyzwalaczu: długie zadania, zasoby spoza chmury, koordynacja agentów w czasie rzeczywistym |
 
@@ -125,9 +127,8 @@ Więcej ról tylko wtedy, gdy obniżają koszt zaakceptowanej zmiany lub czas cz
 
 Przejrzane repozytoria (7 listopada 2026):
 
-- `education-games`: gałąź `jvp-notatki-2026-10-30`, wersja 1.2.0;
-- `learning_tools`: `main`;
-- `educationInfluencer`: `master`, journal 021 i 037–042, `wiki/proposals/`.
+- publiczne `education-games`: gałąź `jvp-notatki-2026-10-30`, wersja 1.2.0;
+- dwa prywatne projekty: istniejąca aplikacja quizowa i projekt treściowy. Ich szczegóły pominięto.
 
 Historii innych rozmów z Claude nie widzę z tej sesji. Uwzględniłem to, co z nich trafiło do repozytoriów.
 
@@ -210,21 +211,21 @@ Te punkty są ważniejsze niż wybór technologii i wymagają potwierdzenia u ź
 
 VPS nie jest potrzebny przed punktem 4.
 
-### 3.2. Nina's Drills (osobna aplikacja na bazie Exam Drill)
+### 3.2. Nowa aplikacja quizowa (osobna aplikacja na bazie istniejącej)
 
-**Punkt wyjścia w `learning_tools`:**
+**Punkt wyjścia (istniejąca aplikacja, projekt prywatny):**
 
-- statyczna aplikacja HTML/JS bez zależności (decyzja 0002);
-- klient Godot, który importuje zestawy pytań z plików (decyzja 0007);
-- bez hostingu i bez kont (decyzja 0006, `out-of-scope/backend-and-account-sync.md`).
+- statyczna aplikacja HTML/JS bez zależności;
+- klient Godot, który importuje zestawy pytań z plików;
+- świadomie bez hostingu i bez kont.
 
-Warunek powrotu do kont, „kilku użytkowników”, spełnia się przy produkcie na sprzedaż. W `educationInfluencer` (journal 041) to najmocniejszy kandydat na przychód: angielski, dorośli, płatne zestawy.
+Konta stają się potrzebne dopiero przy produkcie na sprzedaż dla wielu użytkowników. W planach to najmocniejszy kandydat na przychód: angielski, dorośli, płatne zestawy.
 
 **Wymogi startowe niezależne od hostingu:**
 
-- osobne repo (nazwa robocza `nina-drills`) **bez** `ITIL4_sources/` i innych materiałów zewnętrznych;
-- zastrzeżenie o znaku ITIL® (PeopleCert);
-- pytania wyłącznie autorskie (decyzja 0004);
+- osobne repo **bez** surowych materiałów zewnętrznych;
+- sprawdzenie praw do cudzych znaków towarowych i treści, zanim zestawy trafią do sprzedaży;
+- pytania wyłącznie autorskie;
 - przed publikacją sprawdzić, czy nazwa nie koliduje z istniejącymi aplikacjami lub znakami (nie sprawdzałem).
 
 | Kanał sprzedaży | Jak | Backend |
@@ -233,43 +234,43 @@ Warunek powrotu do kont, „kilku użytkowników”, spełnia się przy produkci
 | **Google Play** | Zestawy jako zakupy w aplikacji przez **Google Play Billing**. Zasady Play wymagają tego dla treści cyfrowych w aplikacji; wyjątki i programy alternatywnych płatności w EOG do sprawdzenia | **Potrzebny:** weryfikacja zakupu i przypisanie zestawu do konta |
 | Oba kanały naraz | Kupione w jednym kanale działa w drugim | **Potrzebne wspólne konta i uprawnienia** |
 
-**Wniosek:** jeśli Nina's Drills ma sprzedawać w obu kanałach, potrzebuje tych samych klocków co JvP: konta Google, weryfikacji zakupów, uprawnień, synchronizacji postępu.
+**Wniosek:** jeśli aplikacja quizowa ma sprzedawać w obu kanałach, potrzebuje tych samych klocków co JvP: konta Google, weryfikacji zakupów, uprawnień, synchronizacji postępu.
 
 Uwagi z raportu Codexa, które przyjmuję:
 
 - **Postęp w przeglądarce jest przypisany do domeny** (origin `localStorage`). Ostateczną domenę wersji webowej trzeba wybrać przed publicznym startem. Zmiana domeny wymaga eksportu i importu postępu, chyba że są już konta z synchronizacją.
 - **Pobranego pliku nie da się chronić ukrytym adresem.** Płatne zestawy wymagają autoryzowanego pobrania (klucz licencyjny platformy albo konto).
-- **Dodanie hostingu nie dodaje klienta API.** Obecna aplikacja Godot ma `permissions/internet=false`. Konta i synchronizacja to nowa praca: uprawnienia, model danych, obsługa błędów i trybu offline.
-- **Nie publikować całego repo `learning_tools` jako strony.** Zawiera surowe materiały. Publiczny artefakt wybiera się osobno.
+- **Dodanie hostingu nie dodaje klienta API.** Obecna aplikacja mobilna nie ma dostępu do internetu. Konta i synchronizacja to nowa praca: uprawnienia, model danych, obsługa błędów i trybu offline.
+- **Nie publikować całego repo istniejącej aplikacji jako strony.** Publiczny artefakt wybiera się osobno.
 
 | Wariant | Opis | Za | Przeciw |
 | --- | --- | --- | --- |
-| **Wspólna Nakama dla obu aplikacji (rekomendowany na start)** | Jedna instancja, osobne „projekty” danych; zestawy jako produkty z weryfikacją zakupów | Jeden serwer, jedna administracja, ten sam kod kont i zakupów; klient Godot Nina's Drills dzieli SDK z JvP | Nakama jest „growa”; dla wersji webowej trzeba klienta JavaScript (Nakama go ma) |
-| Supabase dla Nina's Drills, Nakama dla JvP | Dwa backendy | Supabase wygodniejszy dla zwykłej aplikacji webowej | Dwa systemy do utrzymania |
+| **Wspólna Nakama dla obu aplikacji (rekomendowany na start)** | Jedna instancja, osobne „projekty” danych; zestawy jako produkty z weryfikacją zakupów | Jeden serwer, jedna administracja, ten sam kod kont i zakupów; klient Godot aplikacji quizowej dzieli SDK z JvP | Nakama jest „growa”; dla wersji webowej trzeba klienta JavaScript (Nakama go ma) |
+| Supabase dla aplikacji quizowej, Nakama dla JvP | Dwa backendy | Supabase wygodniejszy dla zwykłej aplikacji webowej | Dwa systemy do utrzymania |
 | Na start bez kont | Web: plik + licencja. Play: zakupy w aplikacji bez synchronizacji | Najszybciej na rynek | Kupione na stronie nie działa w aplikacji z Play i odwrotnie; ręczne przenoszenie postępu |
 
 **Ocena przydatności serwera:** **umiarkowana.** Wersja 1 może działać bez backendu. Wspólne konta pojawią się razem z backendem JvP prawie bez kosztu dodatkowego.
 
-### 3.3. Influencer-AI i JvP: strona, blog, sklep cyfrowy i merch
+### 3.3. Projekt treściowy i JvP: strona, blog, sklep cyfrowy i merch
 
-**Stan** (journal 037, 040, 041; `wiki/proposals/monetisation-and-community.md`):
+**Stan** (plan prywatnego projektu treściowego, bez szczegółów):
 
-- teraz, za 0 PLN: strona źródeł, quiz Quilla, e-mail, Ko-fi;
-- produkty od około 1000+ zaangażowanych obserwujących;
-- domena, produkty i KDP to decyzja po 8-tygodniowym teście;
+- najpierw bezpłatne kanały własne: strona statyczna, lista e-mailowa, napiwki;
+- produkty dopiero przy większej, zaangażowanej publiczności;
+- domena i produkty to decyzja po okresie próbnym;
 - konta i wydatki zatwierdza Owner.
 
-**Dwie marki, dwa sklepy.** Postacie Influencer-AI kierują treści do dorosłych i nastolatków, a JvP jest dla dzieci. Merch JvP sprzedaje się **rodzicom**. Nie łączyć tego w jednym sklepie ani w treściach dla dzieci (journal 040, punkt 8).
+**Dwie marki, dwa sklepy.** Projekt treściowy kieruje treści do dorosłych i nastolatków, a JvP jest dla dzieci. Merch JvP sprzedaje się **rodzicom**. Nie łączyć tego w jednym sklepie ani w treściach dla dzieci.
 
 | Tor | Na start (bez serwera) | Później (przy skali) | Rola Hostingera |
 | --- | --- | --- | --- |
-| **Produkty cyfrowe** (planery Niny, karty z faktami, e-booki, zestawy pytań) | Lemon Squeezy (rozlicza VAT za sprzedawcę, około 5% + 0,50 USD) albo Payhip lub Ko-fi Shop (VAT po Twojej stronie). E-booki: Amazon KDP | Ta sama platforma; ewentualnie własny sklep | Brak |
+| **Produkty cyfrowe** (planery, karty z faktami, e-booki, zestawy pytań) | Lemon Squeezy (rozlicza VAT za sprzedawcę, około 5% + 0,50 USD) albo Payhip lub Ko-fi Shop (VAT po Twojej stronie). E-booki: Amazon KDP | Ta sama platforma; ewentualnie własny sklep | Brak |
 | **Merch** (koszulki, kubki, naklejki z postaciami i z JvP) | Printful lub Printify zintegrowane z **Etsy** (ruch z marketplace, bez abonamentu) albo z **Shopify** (około 30–40 USD/mies., niezweryfikowane) | Własny sklep na Shopify albo **WooCommerce** z wtyczką Printful | **Opcja:** WooCommerce na hostingu Business lub Cloud. Taniej w abonamencie, ale aktualizacje, bezpieczeństwo, RODO i VAT (procedura OSS) są po Twojej stronie |
 | **Strona marki i blog** | Strona statyczna (Astro lub Hugo; agenci piszą wpisy przez PR) na Cloudflare Pages | Ghost(Pro) albo WordPress | **Opcja:** WordPress na hostingu, jeśli wybierzesz WordPress |
 | **Polityka prywatności i usuwanie konta JvP** | Podstrony statyczne na domenie projektu (Cloudflare Pages) | — | Brak |
 | **Pliki APK do pobrania** | Google Play; testowe wersje przez wydania na GitHubie albo magazyn obiektowy (np. Cloudflare R2) | — | Opcja: VPS z HTTPS i sumami kontrolnymi |
 
-**Gdzie hostować strony.** TASK-0038 zakłada GitHub Pages. Regulamin GitHub Pages wyklucza jednak strony służące głównie biznesowi, sprzedaży albo SaaS. Strona źródeł będzie linkować Ko-fi, produkty i aplikacje, więc bezpieczniej od razu użyć **Cloudflare Pages** dla wszystkich stron projektów. Ograniczenie Cloudflare Pages to 25 MiB na plik, dlatego APK (26,6 MB i 57,7 MB) trzymać osobno. Publikować tylko wygenerowane, zatwierdzone treści, nigdy prywatnej wiki ani roboczych materiałów.
+**Gdzie hostować strony.** Pierwotny plan zakładał GitHub Pages. Regulamin GitHub Pages wyklucza jednak strony służące głównie biznesowi, sprzedaży albo SaaS. Strona projektu będzie linkować napiwki, produkty i aplikacje, więc bezpieczniej od razu użyć **Cloudflare Pages** dla wszystkich stron projektów. Ograniczenie Cloudflare Pages to 25 MiB na plik, dlatego APK (26,6 MB i 57,7 MB) trzymać osobno. Publikować tylko wygenerowane, zatwierdzone treści, nigdy prywatnej wiki ani roboczych materiałów.
 
 **Rekomendacja dla sklepu:** zacząć od platform, czyli Lemon Squeezy dla cyfrowych oraz Etsy + Printful dla merchu.
 
@@ -282,17 +283,15 @@ Własny sklep (Shopify albo WooCommerce na Hostingerze) ma sens dopiero, gdy pro
 
 ### 3.4. Pozostałe repozytoria
 
-- `klasa6` i `FOZ-ZOE`: Dysk Google i druk, bez hostingu.
-- `doktorat_git` i repozytoria szkoleniowe: nieaktywne.
-- `AI-agents`: standard skilli.
+Pozostałe repozytoria nie potrzebują hostingu.
 
 ### Podsumowanie przydatności serwera
 
 | Projekt | Teraz | Za 6–12 miesięcy | Co zamiast VPS-a na start |
 | --- | --- | --- | --- |
 | **JvP** | Niska (projekt i wymogi) | **Wysoka** (Nakama: konta, zakupy, gra przez internet) | Nakama lokalnie w Dockerze do rozwoju |
-| **Nina's Drills** | Niska | Umiarkowana (wspólne konta z JvP) | Strona statyczna + Lemon Squeezy; Play Billing |
-| **Influencer-AI: sklep i blog** | Niska | Umiarkowana (WooCommerce przy skali) | Lemon Squeezy, Etsy + Printful, strona statyczna |
+| **Aplikacja quizowa** | Niska | Umiarkowana (wspólne konta z JvP) | Strona statyczna + Lemon Squeezy; Play Billing |
+| **Projekt treściowy: sklep i blog** | Niska | Umiarkowana (WooCommerce przy skali) | Lemon Squeezy, Etsy + Printful, strona statyczna |
 | **AI-crew** | Niska | Niska do umiarkowanej (osobny runner) | Chmura Claude Code, GitHub Actions, recenzja Codexem |
 
 ## 4. Wybór dostawcy serwera dla backendu gier
@@ -351,7 +350,7 @@ Ochrona DDoS i migawka u dostawcy nie zastępują kopii u innej firmy.
 | Opłaty sklepów od zakupów w aplikacjach | Około 15% przy Play Billing (według doniesień z 2026) | To samo |
 | **Razem stałe koszty infrastruktury przez 24 mies.** | **Około 700–1300 PLN** (bez Apple) | **Około 1500–2500 PLN** (bez Apple) + więcej administracji |
 
-Nie wliczono subskrypcji Claude i ChatGPT, kredytów Higgsfield (około 295 PLN/mies.) ani księgowości. Kurs orientacyjny: 1 USD ≈ 3,8–4,0 PLN, 1 EUR ≈ 4,3 PLN.
+Nie wliczono subskrypcji Claude i ChatGPT, kosztów narzędzi do generowania treści ani księgowości. Kurs orientacyjny: 1 USD ≈ 3,8–4,0 PLN, 1 EUR ≈ 4,3 PLN.
 
 ### Czas Ownera: największa pozycja (metoda Codexa)
 
@@ -394,7 +393,7 @@ Są to budżety, nie cenniki, i nie obejmują budowy funkcji aplikacji.
 | WooCommerce na Hostingerze | Średnie | 1–3 dni, przerwa w sprzedaży | Kopie poza dostawcą |
 | Kreatory Website Builder i Horizons | **Wysokie** | Przebudowa od zera | Nie używać |
 | Zakupy w Google Play i App Store | Wysokie (z natury sklepów) | Brak przeniesienia zakupów między sklepami | Uprawnienia zapisane na koncie gracza w Nakamie, nie tylko w sklepie |
-| Postęp w przeglądarce (Nina's Drills, wersja webowa) | Średnie | Zmiana domeny gubi postęp zapisany lokalnie | Ostateczna domena przed startem; eksport i import postępu albo konta |
+| Postęp w przeglądarce (aplikacja quizowa, wersja webowa) | Średnie | Zmiana domeny gubi postęp zapisany lokalnie | Ostateczna domena przed startem; eksport i import postępu albo konta |
 | Subskrypcje płatne | Wysokie | Tokeny kart i zgody na płatności cykliczne zwykle nie przechodzą przez eksport CSV | Na start bez własnych subskrypcji; korzystać z platform |
 
 ### Nakład pracy przy przesiadce (szacunki Codexa, przy 100 zł/h)
@@ -425,23 +424,23 @@ Wiersze to różne zakresy; nie należy ich sumować. Dla JvP z Nakamą dochodzi
 | Kiedy | Krok | Projekt |
 | --- | --- | --- |
 | Teraz | Kupić domenę projektu u niezależnego rejestratora; założyć projekt Google Cloud i konto Play Console na koncie projektu | wszystkie |
-| Teraz | Strona statyczna na Cloudflare Pages: polityka prywatności JvP, strona usuwania konta, strona źródeł (TASK-0038) | JvP, Influencer-AI |
+| Teraz | Strona statyczna na Cloudflare Pages: polityka prywatności JvP, strona usuwania konta, strona projektu treściowego | JvP, projekt treściowy |
 | Teraz | Specyfikacja „JvP online”: zakres (znajomi przez kod, bez czatu), bramka rodzica, dane minimalne, usuwanie konta; wymogi prawne do potwierdzenia | JvP |
 | Teraz | Pilotaż recenzji krzyżowej Codexem na 5–10 PR-ach; potem pomiar na około 20 zadaniach (sekcja 2) | AI-crew |
 | Przed zakupem serwera | Konkretna wycena: brutto za cały okres, odnowienie, kopie, zwroty, region, umowa powierzenia (sekcja 4) | JvP |
 | Następnie | Nakama w Dockerze lokalnie i w CI; SDK Godota; konta, portfel, zakupy testowe Play Billing; gra przez relay obok lokalnego Wi-Fi | JvP |
-| Następnie | Osobne repo `nina-drills`; wersja webowa i sprzedaż zestawów przez Lemon Squeezy | Nina's Drills |
+| Następnie | Osobne repo nowej aplikacji quizowej; wersja webowa i sprzedaż zestawów przez Lemon Squeezy | Aplikacja quizowa |
 | Przed testem zamkniętym JvP | VPS produkcyjny w UE (Hostinger KVM 2 albo Hetzner), kopie poza dostawcą, monitoring | JvP |
-| Po teście 8-tygodniowym Influencer-AI | Lemon Squeezy dla produktów cyfrowych; Etsy + Printful dla merchu (osobno marka JvP dla rodziców) | Influencer-AI, JvP |
-| Później | Wspólne konta i uprawnienia Nina's Drills w Nakamie | Nina's Drills |
-| Przy skali sklepu | Porównanie: Shopify vs WooCommerce na Hostingerze | Influencer-AI |
+| Po okresie próbnym projektu treściowego | Lemon Squeezy dla produktów cyfrowych; Etsy + Printful dla merchu (osobno marka JvP dla rodziców) | Projekt treściowy, JvP |
+| Później | Wspólne konta i uprawnienia aplikacji quizowej w Nakamie | Aplikacja quizowa |
+| Przy skali sklepu | Porównanie: Shopify vs WooCommerce na Hostingerze | Projekt treściowy |
 
 ### Otwarte pytania do Ownera
 
 1. **JvP online:** dobieranie tylko znajomych przez kod (zalecane dla dzieci) czy także obcych graczy?
 2. **Konto w JvP:** wymagane czy opcjonalne? Rekomendacja: opcjonalne, zakładane przez rodzica; bez konta gra działa offline jak dziś.
 3. **Wersja iOS:** w tym samym czasie co online, czy później? Od tego zależy Sign in with Apple i koszt konta Apple.
-4. **Nina's Drills:** od razu oba kanały (web i Google Play), czy najpierw tylko web?
+4. **Aplikacja quizowa:** od razu oba kanały (web i Google Play), czy najpierw tylko web?
 5. **Forma sprzedaży:** czy istnieje już działalność gospodarcza, czy sprzedaż ruszy w innej formie? To wpływa na wybór platform (VAT, faktury).
 6. **Wersja przeglądarkowa JvP:** czy jest w planach? Wymaga zmiany renderera na Compatibility i testów grafiki.
 
@@ -461,10 +460,10 @@ Wiersze to różne zakresy; nie należy ich sumować. Dla JvP z Nakamą dochodzi
 | Hermes: reguły wewnątrz procesu nie zastępują izolacji systemowej | `SECURITY.md` `NousResearch/hermes-agent` @ `9ffa7df` | **Potwierdzone** (sekcja „OS-Level Isolation”) |
 | GitHub Pages nie służy do biznesu, sprzedaży ani SaaS | `github/docs` @ `8cd1075`, `github-pages-limits.md` | **Potwierdzone** |
 | Cloudflare Pages: limit 25 MiB na plik | `cloudflare-docs` @ `53ce9b5`, `pages/platform/limits.mdx` | **Potwierdzone** |
-| Rozmiary APK: Exam Drill 1.6 = 26 613 508 B, JvP 1.2.0 = 57 705 396 B | `git ls-tree -l` w obu repozytoriach | **Potwierdzone** |
+| Rozmiary APK: aplikacja quizowa 26 613 508 B, JvP 1.2.0 57 705 396 B | `git ls-tree -l` w obu repozytoriach | **Potwierdzone** |
 | Godot Web: tylko Compatibility; brak UDP i ENet, dostępne WebSocket i WebRTC | `godot-docs` @ `0709b93`, `exporting_for_web.rst` | **Potwierdzone** |
 | JvP: renderer Mobile, protokół sieci 7, ENet i UDP | `project.godot`, `net_session.gd` @ `87655b7` | **Potwierdzone** |
-| Exam Drill APK bez dostępu do internetu | `godot/export_presets.cfg`: `permissions/internet=false` | **Potwierdzone** |
+| Aplikacja quizowa (APK) bez dostępu do internetu | Konfiguracja eksportu | **Potwierdzone** |
 | Ceny Cloudflare Workers Paid (5 USD/mies.) i R2 (0,015 USD/GB) | Nie sprawdzałem ponownie | Przyjęte za Codexem |
 | JvP: lokalna gra przez Wi-Fi jako punkt startu; online „potencjalnie” | — | **Nieaktualne:** Codex pisał przed decyzją Ownera o grze online |
 | Ceny Hostinger i Hetzner niepotwierdzone handlowo | — | Zgodne z moim stanem: strony ofert były zablokowane w obu sesjach |
@@ -554,7 +553,7 @@ Wariant zarządzany zawiera **CloudLinux OS Shared Pro i Imunify360** (narzędzi
 **Słabe:**
 
 - **cena mocy obliczeniowej.** VPS S (2 vCore, 4 GB) za 166 zł/mies. to kilka razy więcej niż porównywalny serwer u Hetznera (około 25–55 zł/mies.) czy Hostingera po odnowieniu (około 60 zł/mies.);
-- **drogie przedłużenie domeny .pl** (183,27 zł/rok wobec około 60–75 zł brutto u części rejestratorów, np. OVH 58,99 zł netto); brak rejestracji `.com`, a projekty Influencer-AI i Nina's Drills są anglojęzyczne;
+- **drogie przedłużenie domeny .pl** (183,27 zł/rok wobec około 60–75 zł brutto u części rejestratorów, np. OVH 58,99 zł netto); brak rejestracji `.com`, a projekt treściowy i aplikacja quizowa są anglojęzyczne;
 - **brak oferty typowo deweloperskiej:** nic o Dockerze, API do automatyzacji, migawkach na żądanie ani magazynie obiektowym. Agentom trudniej zarządzać infrastrukturą jako kodem;
 - **CloudLinux i Imunify360** w wariancie zarządzanym służą hostingowi PHP, nie kontenerom. Czy no1 zarządzi serwerem z Dockerem i Nakamą, trzeba **potwierdzić**;
 - **mała, młoda firma** (kapitał 5000 zł): większe ryzyko ciągłości niż u dużych dostawców. Liczba i redundancja centrów danych nie są opisane;
@@ -570,11 +569,11 @@ Wariant zarządzany zawiera **CloudLinux OS Shared Pro i Imunify360** (narzędzi
 
 | Etap | Potrzeba | Czy no1.pl? | Uzasadnienie |
 | --- | --- | --- | --- |
-| **Teraz (start)** | Domena projektów, strony statyczne (polityka prywatności JvP, strona źródeł, quiz Quilla) | **Nie** | Cloudflare Pages za darmo wystarcza. Domena `.com` u niezależnego rejestratora; no1 nie rejestruje `.com`, a przedłużenie `.pl` jest drogie |
+| **Teraz (start)** | Domena projektów, strony statyczne (polityka prywatności JvP, strona projektu treściowego, quiz) | **Nie** | Cloudflare Pages za darmo wystarcza. Domena `.com` u niezależnego rejestratora; no1 nie rejestruje `.com`, a przedłużenie `.pl` jest drogie |
 | Teraz (start) | Adres e-mail w domenie projektu | **Raczej nie** | Na 1–2 osoby wystarczy przekierowanie (Cloudflare Email Routing) do Gmaila albo darmowy Zoho Mail (do 5 osób, bez IMAP). no1 opłaca się, gdy poczta idzie w pakiecie z hostingiem strony |
 | Rozwój JvP online (Nakama lokalnie i w CI) | Środowisko testowe | **Nie** | Docker lokalnie i w CI; serwer nie jest potrzebny |
 | **Test zamknięty i wydanie JvP online** | Produkcyjny serwer z Nakamą i Postgresem w UE, kopie, monitoring | **Warunkowo: tylko wariant zarządzany po wycenie indywidualnej** | VPS Self (166 zł/mies.) nie daje kopii ani administracji, więc przegrywa z Hetznerem lub Hostingerem 3–6×. **VPS zarządzany S (350,55 zł/mies.)** ma sens, jeśli no1 przejmie Dockera, Nakamę, codzienne kopie, monitoring i aktualizacje. Zastąpi wtedy 2–4 h/mies. Twojej pracy (200–400 zł przy 100 zł/h), więc koszt łączny jest porównywalny. Dochodzą polski kontakt i umowa powierzenia (dane dzieci) |
-| **Etap 3 Influencer-AI**: blog lub sklep na WordPress/WooCommerce, poczta firmowa | Hosting PHP z opieką, kopiami i pocztą | **Tak, dobry kandydat** | Pakiet „Bez limitu” (1077,48 zł/rok) z „Opieka+” (490,77 zł/rok) = około **1570 zł/rok**: kilka serwisów, poczta, monitoring, przeglądy, migracja. To dokładnie profil no1. Porównać z polskimi hostingami (nazwa.pl, cyber_Folks, home.pl) i Hostingerem |
+| **Etap sprzedaży w projekcie treściowym**: blog lub sklep na WordPress/WooCommerce, poczta firmowa | Hosting PHP z opieką, kopiami i pocztą | **Tak, dobry kandydat** | Pakiet „Bez limitu” (1077,48 zł/rok) z „Opieka+” (490,77 zł/rok) = około **1570 zł/rok**: kilka serwisów, poczta, monitoring, przeglądy, migracja. To dokładnie profil no1. Porównać z polskimi hostingami (nazwa.pl, cyber_Folks, home.pl) i Hostingerem |
 | Działalność gospodarcza z zespołem | Poczta firmowa, VPN, SSO, SLA, opiekun | **Tak** | To główna specjalizacja no1 |
 | Runner agentów AI-crew | Tani, elastyczny Linux na pilotaż | **Nie** | Za drogo za zasoby; brak automatyzacji przez API. Lepszy Hetzner lub Hostinger na krótki okres |
 | Dystrybucja APK | Hosting dużych plików | **Nie** | Google Play, wydania na GitHubie, Cloudflare R2 |
@@ -612,7 +611,7 @@ To najtańsze i najbardziej elastyczne rozwiązanie. Wymaga jednak Twojego czasu
 
 **no1.pl wygrywa tam, gdzie liczy się przejęcie odpowiedzialności, a nie cena zasobów:**
 
-- WordPress lub WooCommerce z pocztą firmową i opieką (etap 3 Influencer-AI);
+- WordPress lub WooCommerce z pocztą firmową i opieką (etap sprzedaży w projekcie treściowym);
 - ewentualnie zarządzany serwer gry z polską umową powierzenia, jeśli wycena pokaże, że no1 faktycznie przejmie administrację Dockera i Nakamy;
 - później: VPN, SSO i SLA dla zespołu.
 
@@ -620,7 +619,7 @@ To najtańsze i najbardziej elastyczne rozwiązanie. Wymaga jednak Twojego czasu
 
 1. **Teraz:** nie kupować nic w no1.pl. Domena `.com` w Cloudflare (`.pl` u rejestratora z niskim przedłużeniem, jeśli potrzebna), strony na Cloudflare Pages, poczta przez przekierowanie albo Zoho.
 2. **Przed wyborem serwera dla JvP online:** zapytać no1 o wycenę VPS zarządzanego z Dockerem i Nakamą (kopie, monitoring, SLA 99,8%). Porównać z Hetznerem lub Hostingerem plus Twoje 2–4 h/mies. Wybrać tańszą opcję **łącznie z czasem**.
-3. **Etap 3 Influencer-AI (sklep lub blog na WordPressie):** no1 „Bez limitu” z „Opieka+” to mocny kandydat. Zacząć od rocznego pakietu, domeny trzymać osobno, kopie także poza no1.
+3. **Etap sprzedaży w projekcie treściowym (sklep lub blog na WordPressie):** no1 „Bez limitu” z „Opieka+” to mocny kandydat. Zacząć od rocznego pakietu, domeny trzymać osobno, kopie także poza no1.
 4. **Zawsze:** warunki z rozmowy (kopie, retencja, czas odtworzenia, SLA, forma płatności) potwierdzić w zamówieniu lub umowie, bo strona zawiera rozbieżności.
 
 ## Źródła
@@ -644,7 +643,7 @@ To najtańsze i najbardziej elastyczne rozwiązanie. Wymaga jednak Twojego czasu
   - [GitHub Pages limits](https://github.com/github/docs/blob/8cd1075179df75319912891d6620c9cb78eefb4d/content/pages/getting-started-with-github-pages/github-pages-limits.md);
   - [Cloudflare Pages limits](https://github.com/cloudflare/cloudflare-docs/blob/53ce9b502646fdc019b8184b29b9f1054939e1b6/src/content/docs/pages/platform/limits.mdx);
   - [Godot: eksport na Web](https://github.com/godotengine/godot-docs/blob/0709b93758c40d26c91e1d9e4f3afd262c4ed386/tutorials/export/exporting_for_web.rst).
-- Repozytoria JeanPaulSzefler (stan z 7.11.2026): `education-games` (`junk-vs-plants/README.md`, `PLAN_PUBLIKACJI.md`, przegląd Codexa z 30.10), `learning_tools` (`CLAUDE.md`, decyzje 0002, 0004, 0006, 0007, `out-of-scope/backend-and-account-sync.md`), `educationInfluencer` (journal 021, 037, 040, 041; `wiki/proposals/monetisation-and-community.md`, `own-apps-for-personas.md`, `financial-scenarios.md`; TASK-0037, TASK-0038)
+- Repozytoria Ownera (stan z 7.11.2026): publiczne `education-games` (`junk-vs-plants/README.md`, `PLAN_PUBLIKACJI.md`) oraz dwa prywatne projekty (szczegóły pominięto).
 - [Raport AI-crew z 31.10.2026](2026-10-31-efficient-ai-crew-and-repo-setup.md)
 - Herdr: [Bitdoze](https://www.bitdoze.com/herdr-agent-multiplexer/), [AI Weekly](https://aiweekly.co/alerts/herdr-adds-agent-state-awareness-to-terminal-multiplexing), [knightli](https://knightli.com/en/2026/07/06/herdr-terminal-agent-multiplexer/)
 - Hermes Agent: [hermes-agent.org](https://hermes-agent.org/) (możliwie nieoficjalna; źródło pierwotne: repo `NousResearch/hermes-agent`)

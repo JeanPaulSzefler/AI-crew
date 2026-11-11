@@ -24,7 +24,7 @@
    - Wszyscy widzą ten sam fragment tekstu, przełączany przez prowadzącego.
    - Każdy może w dowolnej chwili wyjść do samodzielnego przeglądania i jednym przyciskiem wrócić „na żywo”.
 2. **Rekomendacja: nowe repozytorium** (robocza nazwa `spiewnik-live`), a nie podprojekt istniejącego.
-   - Żadne obecne repo nie pasuje. `learning_tools` ma decyzje „bez backendu i bez hostingu”, a śpiewnik wymaga synchronizacji na żywo.
+   - Żadne obecne repo nie pasuje. Istniejąca aplikacja quizowa (Exam Drill) ma zasady „bez backendu i bez hostingu”, a śpiewnik wymaga synchronizacji na żywo.
    - Nadaje się natomiast na **pierwszy realny produkt dla AI-crew** (pilotaż struktury z raportu z 31.10).
 3. **Architektura na start: aplikacja webowa (PWA) bez instalacji** i lekki serwer pokojów na żywo w usłudze zarządzanej.
    - Rekomendowane: Cloudflare Workers + Durable Objects. Alternatywa: Supabase Realtime.
@@ -114,7 +114,7 @@ Priorytety: **MVP** (pierwsze użycie na prawdziwym wydarzeniu), **M2** (drugi e
 | --- | --- | --- |
 | F-40 | Eksport i import **utworu, biblioteki i wydarzenia** do i z jednego pliku w formacie natywnym (sekcja 4) | MVP |
 | F-41 | Walidacja pliku przed importem, z czytelnymi błędami (numer utworu, pole, co jest nie tak) | MVP |
-| F-42 | **Standard pliku i instrukcja dla agenta AI** (wzór: `learning_tools/authoring/`): schemat JSON, przykład, zasady dzielenia na strony, lista błędów | MVP |
+| F-42 | **Standard pliku i instrukcja dla agenta AI** (wzór: standard pliku z Exam Drill): schemat JSON, przykład, zasady dzielenia na strony, lista błędów | MVP |
 | F-43 | Import ze zwykłego tekstu (wklejony tekst → strony po pustych liniach) | MVP |
 | F-44 | Import i eksport **ChordPro** (`.cho`, `.chordpro`) | M2 |
 | F-45 | Import i eksport **OpenLyrics** (XML, używany m.in. przez OpenLP) | Później |
@@ -137,7 +137,7 @@ Priorytety: **MVP** (pierwsze użycie na prawdziwym wydarzeniu), **M2** (drugi e
 | N-01 | Opóźnienie zmiany strony | ≤ 1 s dla 95% uczestników przy normalnym internecie |
 | N-02 | Skala wydarzenia | Do 300 uczestników (pytanie 1) |
 | N-03 | Działanie przy słabym internecie | Cała treść wydarzenia pobierana przy dołączeniu (kilkadziesiąt KB). Przeglądanie działa offline; tryb na żywo wraca po odzyskaniu połączenia |
-| N-04 | Urządzenia | Telefony od 360 px szerokości, tablety, laptop i rzutnik. Bieżące Chrome, Safari (iOS), Firefox, Edge. Macierz rozmiarów ekranów jak w `learning_tools` (T-56) |
+| N-04 | Urządzenia | Telefony od 360 px szerokości, tablety, laptop i rzutnik. Bieżące Chrome, Safari (iOS), Firefox, Edge. Macierz rozmiarów ekranów jak w Exam Drill |
 | N-05 | Instalacja | Brak wymaganej instalacji (PWA z opcją „dodaj do ekranu głównego”) |
 | N-06 | Prywatność | Uczestnicy bez kont i bez danych osobowych; brak analityki firm trzecich; dane wydarzenia usuwane po zakończeniu (np. po 24 h) |
 | N-07 | Bezpieczeństwo | Sterowanie tylko z tokenem prowadzącego (nie samym kodem); ograniczenie prób zgadywania kodów; kody wygasają |
@@ -187,7 +187,7 @@ Zasady wstępne:
 - `id` stabilne i czytelne (kebab-case). Ten sam `id` przy imporcie oznacza ten sam utwór (F-46).
 - **Strona = sekcja**, a długa sekcja dzieli się na strony po pustej linii. Kolejność wykonania w `order`; refren można powtarzać.
 - Pole `rights` jest obowiązkowe (sekcja 7).
-- Schemat w repo (`format/spiewnik.schema.json`), walidator w CI, instrukcja dla agenta AI i przykłady. Wzorem jest `learning_tools/authoring/`: `AGENT-INSTRUCTIONS.md`, `QUESTION-STANDARD.md`, schemat i walidator.
+- Schemat w repo (`format/spiewnik.schema.json`), walidator w CI, instrukcja dla agenta AI i przykłady. Wzorem jest standard pliku z Exam Drill: instrukcja dla agenta, opis standardu, schemat i walidator.
 - Import ChordPro, OpenLyrics i czystego tekstu **konwertuje do tego formatu**. Eksport w drugą stronę.
 
 ## 5. Architektura i technologie
@@ -236,22 +236,21 @@ Warto sprawdzić, czy OpenLP nie pokrywa już potrzeb, zanim zespół zbuduje w�
 
 | Repo | Dopasowanie | Uzasadnienie |
 | --- | --- | --- |
-| `learning_tools` (Exam Drill) | **Niskie** | Wspólna idea „treść jako plik + telefon”, ale decyzje 0002 (bez budowania, bez backendu) i 0006 (bez hostingu) wprost wykluczają tryb na żywo. Repo prywatne z surowymi materiałami ITIL. Mieszanie domen utrudniłoby pracę obu projektów |
+| Istniejąca aplikacja quizowa (Exam Drill, repo prywatne) | **Niskie** | Wspólna idea „treść jako plik + telefon”, ale jej zasady (bez budowania, bez backendu, bez hostingu) wykluczają tryb na żywo. Mieszanie domen utrudniłoby pracę obu projektów |
 | `education-games` (JvP) | Brak | Gry w Godot dla dzieci |
-| `educationInfluencer` | Brak | Laboratorium treści, nie oprogramowania |
+| Pozostałe projekty prywatne | Brak | Inne dziedziny |
 | `FOZ-ZOE` | **Treściowo tak, technicznie nie** | Konspekty spotkań kręgów DK przewidują śpiew (np. do Ducha Świętego); śpiewnik może im służyć. To jednak repozytorium dokumentów (md, docx, pdf), a nie aplikacji. Później konspekt może wskazywać pieśni z biblioteki |
-| `klasa6` | Brak | Edukacja domowa |
 | `AI-crew` | Nie jako kod | To repo zasad i blueprintów; aplikacja nie powinna tu żyć |
 
 **Rekomendacja: nowe repozytorium**, zbudowane według struktury AI-crew (raport z 31.10, sekcja 8; wersja 3 raportu z 7.11). Śpiewnik dobrze nadaje się na **pierwszy produkt pilotażowy AI-crew**, bo jest mały, ma jasne kryteria odbioru i daje się testować automatycznie.
 
 **Co przenieść z innych repo (wzorce, nie kod):**
 
-- z `learning_tools`:
+- z Exam Drill:
   - `authoring/` (standard pliku, schemat, instrukcja dla agenta, walidator);
   - zasada „najpierw specyfikacja” (`spec-change`);
   - decyzje i odrzucone pomysły jako pliki;
-  - macierz rozmiarów ekranów (T-56);
+  - macierz rozmiarów ekranów;
 - z `education-games`: doświadczenia z wykrywaniem w sieci lokalnej, gdyby potrzebny był tryb bez internetu;
 - z raportu z 7.11:
   - Cloudflare jako hosting i domena;
@@ -577,7 +576,7 @@ Repozytorium `openlp/wiki` wymaga logowania przy klonowaniu, ale jego strony są
 ## Źródła
 
 - Repozytoria JeanPaulSzefler (stan z 8.11.2026):
-  - `learning_tools`: `authoring/README.md`, decyzje 0002, 0006, 0007;
+  - istniejąca aplikacja quizowa (repo prywatne): standard pliku i zasady projektu;
   - `FOZ-ZOE`: `instrukcja-tworzenia-konspektow.md` (śpiew w strukturze spotkania);
   - `education-games` (sieć lokalna w JvP).
 - [Raport AI-crew z 31.10.2026](2026-10-31-efficient-ai-crew-and-repo-setup.md) (struktura repo, role, zasady) i [raport z 7.11.2026, wersja 3.1](2026-11-07-orkiestracja-agentow-i-hosting-v3.md) (Cloudflare, koszty czasu, Godot Web, konta projektu).

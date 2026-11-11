@@ -23,6 +23,7 @@ Pytania i akceptacje. Najstarsze na górze. Owner odpowiada pod wpisem.
 6. **Sprostowanie:** w raporcie hostingowym v3 i w przeglądzie w publicznym repo z grami polecenie „rozważ” zostało zapisane jako „decyzja Ownera”. Poprawka była zaproponowana, czeka na zgodę.
 7. **Historia gita** zawiera starsze wersje raportów ze szczegółami prywatnych projektów. Odłożone przez Ownera 11.11.2026.
 8. **Założenia robocze** do potwierdzenia: zadania w plikach ([0002](docs/decisions/0002-zadania-i-decyzje-w-plikach.md)) i podział języków ([0004](docs/decisions/0004-jezyk-plikow.md)).
+9. **Ciągłość zadań i notatki między repo** (pomysł Ownera z 11.11.2026, analiza w rozmowie): (a) czy dodać do blueprintu plik stanu zadania, punkty kontrolne i kolejność wznawiania pracy; (b) jak doręczać notatki z pomysłami do innych repo: skrzynka nadawcza w repo głównym (inne repo naprawdę tylko do odczytu), krótka sesja-kurier w repo docelowym, czy bezpośredni zapis w cudzym repo.
 
 ## Gotowe do wzięcia
 
@@ -43,6 +44,7 @@ Rzeczy jeszcze nieprzygotowane. Agent może tu dopisywać, nie może ich zaczyna
 - Wariant blueprintu dla aplikacji mobilnej albo gry, z krokiem „wymaga komputera” przy budowaniu paczki.
 - Po pilotażu: przegląd blueprintu według rozdziału 10 raportu.
 - Przejrzeć raport z 31.10 i rekomendację skilli pod kątem zgodności z decyzjami 0001–0006.
+- Blueprint v1.1 po decyzji z punktu 9: plik stanu zadania już od etapu 0 dla zadań wstrzymanych albo przekazywanych; zasada „jedno repo na sesję, inne tylko do odczytu”; notatki z pomysłami dla innych repo i ich dopracowanie przez prowadzącego repo docelowego.
 
 ## Zrobione
 

@@ -176,7 +176,7 @@ Codex zwraca uwagę na rzeczy, których nie da się po prostu „przenieść” 
 
 **Dlaczego Nakama.** Pokrywa wszystkie cztery wymagania Ownera jedną usługą: konta Google, zakupy z weryfikacją, gra przez internet, dane na serwerze. Ma tryb **„relayed”**, w którym serwer tylko przekazuje wiadomości między telefonami. Pasuje to do obecnej architektury JvP, gdzie jeden telefon jest gospodarzem, więc logiki gry nie trzeba przepisywać na serwer. Lokalną grę przez Wi-Fi warto zostawić jako tryb zapasowy. Nakama komunikuje się w czasie rzeczywistym przez **WebSocket**, więc ten sam backend obsłuży przyszłą wersję przeglądarkową, w której nie ma UDP ani ENet.
 
-**Ekonomia na serwerze, rozgrywka u gospodarza.** Uzupełnienie przeglądu Codexa z 30.10 (w `education-games` sekcja 7, scalona w PR #4):
+**Ekonomia na serwerze, rozgrywka u gospodarza:**
 
 - rubiny, roślimonety, nagrody i zakupy w portfelu na serwerze;
 - czas wydarzeń, ogrodu i limitów dziennych z serwera, bo zegar telefonu łatwo przestawić;
@@ -428,7 +428,6 @@ Wiersze to różne zakresy; nie należy ich sumować. Dla JvP z Nakamą dochodzi
 | Teraz | Strona statyczna na Cloudflare Pages: polityka prywatności JvP, strona usuwania konta, strona źródeł (TASK-0038) | JvP, Influencer-AI |
 | Teraz | Specyfikacja „JvP online”: zakres (znajomi przez kod, bez czatu), bramka rodzica, dane minimalne, usuwanie konta; wymogi prawne do potwierdzenia | JvP |
 | Teraz | Pilotaż recenzji krzyżowej Codexem na 5–10 PR-ach; potem pomiar na około 20 zadaniach (sekcja 2) | AI-crew |
-| Teraz | Scalić `jvp-notatki-2026-10-30` (wersja 1.2.0) z `master`; dodać testy regresji i CI (przegląd JvP, sekcja 7.4) | JvP |
 | Przed zakupem serwera | Konkretna wycena: brutto za cały okres, odnowienie, kopie, zwroty, region, umowa powierzenia (sekcja 4) | JvP |
 | Następnie | Nakama w Dockerze lokalnie i w CI; SDK Godota; konta, portfel, zakupy testowe Play Billing; gra przez relay obok lokalnego Wi-Fi | JvP |
 | Następnie | Osobne repo `nina-drills`; wersja webowa i sprzedaż zestawów przez Lemon Squeezy | Nina's Drills |
@@ -466,7 +465,6 @@ Wiersze to różne zakresy; nie należy ich sumować. Dla JvP z Nakamą dochodzi
 | Godot Web: tylko Compatibility; brak UDP i ENet, dostępne WebSocket i WebRTC | `godot-docs` @ `0709b93`, `exporting_for_web.rst` | **Potwierdzone** |
 | JvP: renderer Mobile, protokół sieci 7, ENet i UDP | `project.godot`, `net_session.gd` @ `87655b7` | **Potwierdzone** |
 | Exam Drill APK bez dostępu do internetu | `godot/export_presets.cfg`: `permissions/internet=false` | **Potwierdzone** |
-| `work/NEXT-PC-SESSION.md` na gałęzi `ccr-d914ae0e-4gvx4c` | `git ls-tree` | **Potwierdzone** |
 | Ceny Cloudflare Workers Paid (5 USD/mies.) i R2 (0,015 USD/GB) | Nie sprawdzałem ponownie | Przyjęte za Codexem |
 | JvP: lokalna gra przez Wi-Fi jako punkt startu; online „potencjalnie” | — | **Nieaktualne:** Codex pisał przed decyzją Ownera o grze online |
 | Ceny Hostinger i Hetzner niepotwierdzone handlowo | — | Zgodne z moim stanem: strony ofert były zablokowane w obu sesjach |
@@ -646,7 +644,6 @@ To najtańsze i najbardziej elastyczne rozwiązanie. Wymaga jednak Twojego czasu
   - [GitHub Pages limits](https://github.com/github/docs/blob/8cd1075179df75319912891d6620c9cb78eefb4d/content/pages/getting-started-with-github-pages/github-pages-limits.md);
   - [Cloudflare Pages limits](https://github.com/cloudflare/cloudflare-docs/blob/53ce9b502646fdc019b8184b29b9f1054939e1b6/src/content/docs/pages/platform/limits.mdx);
   - [Godot: eksport na Web](https://github.com/godotengine/godot-docs/blob/0709b93758c40d26c91e1d9e4f3afd262c4ed386/tutorials/export/exporting_for_web.rst).
-- Przegląd JvP z 30.10 z aktualizacją z 7.11: `education-games/review/2026-10-30_przeglad-repo_ChatGPT-Codex.md` (PR #4)
 - Repozytoria JeanPaulSzefler (stan z 7.11.2026): `education-games` (`junk-vs-plants/README.md`, `PLAN_PUBLIKACJI.md`, przegląd Codexa z 30.10), `learning_tools` (`CLAUDE.md`, decyzje 0002, 0004, 0006, 0007, `out-of-scope/backend-and-account-sync.md`), `educationInfluencer` (journal 021, 037, 040, 041; `wiki/proposals/monetisation-and-community.md`, `own-apps-for-personas.md`, `financial-scenarios.md`; TASK-0037, TASK-0038)
 - [Raport AI-crew z 31.10.2026](2026-10-31-efficient-ai-crew-and-repo-setup.md)
 - Herdr: [Bitdoze](https://www.bitdoze.com/herdr-agent-multiplexer/), [AI Weekly](https://aiweekly.co/alerts/herdr-adds-agent-state-awareness-to-terminal-multiplexing), [knightli](https://knightli.com/en/2026/07/06/herdr-terminal-agent-multiplexer/)

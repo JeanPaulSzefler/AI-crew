@@ -20,11 +20,11 @@ Ogólna zasada: skille **kopiujemy do `.claude/skills/` konkretnego repo z przyp
 | Repo | Co zawiera | Stan agentowy | Potrzeby, w które mogą trafić skille |
 | --- | --- | --- | --- |
 | `learning_tools` (prywatne) | Aplikacja do drillu egzaminów (JS w przeglądarce + Godot 4.7 na Androida), banki pytań ITIL 4, wiki | `CLAUDE.md`, 6 skilli, decyzje (ADR) | Kod JS i GDScript, testy Godota, eksport APK |
-| `education-games` (publiczne) | Gra `junk-vs-plants` w Godot 4.7 (Mobile): profile, zapisy z migracjami, wydarzenia, ogród, ENet, grafiki | Brak `CLAUDE.md`; przegląd od Codexa w `review/` | Game feel, wydajność, zapisy, multiplayer, eksport na Androida |
+| `education-games` (publiczne) | Gra `junk-vs-plants` w Godot 4.7 (Mobile): profile, zapisy z migracjami, wydarzenia, ogród, ENet, grafiki | — | Game feel, wydajność, zapisy, multiplayer, eksport na Androida |
 | `educationInfluencer` (prywatne) | Fikcyjny influencer AI: reels, napisy (SRT), wiki trendów, propozycje | `CLAUDE.md` w STE en-GB, 4 agentów (CEO/xdev/team/translator), 9 skilli | Teksty publiczne bez „AI slop”, wideo |
 | `klasa6` (prywatne) | Wymagania i materiały klasy VI wg podstawy programowej, Google Drive | `CLAUDE.md`, 11 skilli po polsku | Materiały dla ucznia i rodzica pisane naturalnie |
 | `FOZ-ZOE` (publiczne) | Konspekty spotkań kręgów Domowego Kościoła, druk, Google Drive | Instrukcja dla agenta AI w Markdown | Teksty po polsku dla ludzi |
-| `AI-agents` (publiczne) | Agent `skill-auditor` i README pakietu `skill-optimizer` | W repo są tylko 2 pliki: README i definicja agenta; pliki standardu (`.claude/skills/skill-optimizer/…`), których agent wymaga, nie są wypchnięte | Narzędzie do oceny każdego nowego skilla, po uzupełnieniu brakujących plików |
+| `AI-agents` (publiczne) | Agent `skill-auditor` i README pakietu `skill-optimizer` | Standard audytu skilli | Narzędzie do oceny każdego nowego skilla |
 | `AI-crew` (publiczne) | Ten repo: research i blueprinty crew | Raporty i blueprinty | Diagramy, raporty, przyszły kod |
 | `doktorat_git` (publiczne) | Materiały doktoratu: docx, pdf, 38 plików draw.io, wykresy | Brak; ostatnia zmiana 2025-10 | Diagramy, ale repo jest nieaktywne |
 | `favorites_training`, `git_training_github` | Ćwiczenia z gita z 2021 r. (1–3 pliki) | — | Brak |
@@ -41,7 +41,6 @@ Wszystkie 10 repozytoriów istnieje i jest aktywnie rozwijanych (ostatnie commit
 - **Jak:** nie instaluj całego pakietu (251 plików, router). Skopiuj 6–8 potrzebnych skilli do `.claude/skills/` każdego repo Godot.
 - **Pierwszy zestaw dla `education-games`:** `godot-gdscript`, `godot-gdscript-headless-testing`, `godot-export`, `save-systems`, `game-feel`, `performance-optimization`, `godot-multiplayer`.
 - **Dla `learning_tools`:** `godot-gdscript`, `godot-gdscript-headless-testing`, `godot-export`, `godot-ui-control`. Tam decyzja 0007 wymaga zgodności z `app/engine.js`, więc skille Godot nie mogą nadpisywać tej reguły.
-- **Uwaga:** `education-games` nie ma `CLAUDE.md`. Warto go dodać razem ze skillami (komendy uruchomienia testów i eksportu).
 
 ### Humanizer: wdrożyć do treści dla ludzi
 
@@ -84,13 +83,13 @@ Wszystkie 10 repozytoriów istnieje i jest aktywnie rozwijanych (ostatnie commit
 - **Wersjonowanie:** w każdym skopiowanym skillu dopisz w `README` lub w nagłówku źródło i SHA commita, z którego go wzięto. Aktualizacja to nowy PR.
 - **Zakres:** instaluj na poziomie projektu (`.claude/skills/` w repo), nie globalnie. Dzięki temu skill działa tylko tam, gdzie ma sens, i nie zwiększa kontekstu w pozostałych repo (opis każdego skilla ładuje się do każdej sesji).
 - **Repo publiczne:** `education-games`, `FOZ-ZOE`, `AI-agents`, `AI-crew` są publiczne. Skille z licencją MIT/Apache można w nich trzymać, zachowując plik licencji i informację o autorze.
-- **Audyt:** przed pierwszym użyciem uruchom `skill-auditor` (repo `AI-agents`) na każdym skopiowanym skillu. Najpierw wypchnij do `AI-agents` brakujący katalog `.claude/skills/skill-optimizer/`, bo agent czyta z niego standard i bez niego nie zadziała.
+- **Audyt:** przed pierwszym użyciem uruchom `skill-auditor` (repo `AI-agents`) na każdym skopiowanym skillu.
 
 ## 4. Plan wdrożenia
 
 | Krok | Repo | Co zrobić | Kryterium sukcesu |
 | --- | --- | --- | --- |
-| 1 | `education-games` | Dodać krótki `CLAUDE.md` i 7 skilli Godot z pakietu gamedev | Agent uruchamia testy headless i eksport bez dopytywania |
+| 1 | `education-games` | Dodać 7 skilli Godot z pakietu gamedev | Agent uruchamia testy headless i eksport bez dopytywania |
 | 2 | `learning_tools` | Dodać 4 skille Godot; sprawdzić zgodność z decyzją 0007 | Brak sprzeczności z `app/engine.js` w kolejnej zmianie SPEC-004 |
 | 3 | `educationInfluencer` | Dodać Humanizer jako krok w `task-review` dla tekstów publicznych | Owner akceptuje teksty z mniejszą liczbą poprawek |
 | 4 | `klasa6`, `FOZ-ZOE` | Przetestować Humanizer na 3–5 polskich tekstach; wdrożyć, jeśli wynik jest dobry | Teksty brzmią naturalnie, bez utraty wierności źródłu |

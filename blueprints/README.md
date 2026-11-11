@@ -14,4 +14,5 @@ Starting structures for the AI crew, developed here before they are copied into 
 | Blueprint | Status | Based on |
 | --- | --- | --- |
 | [`starter-crew-repo/`](starter-crew-repo/README.md) | v1.1, proposal for a pilot | [Concept report of 11 Nov](../outputs/2026-11-11-koncepcja-ai-crew-i-blueprint-repo.md). Core files, content and code variants, growth stages, automation, bootstrap task. v1.1 adds task state files with checkpoints and cross-project notes |
+| [`crew-inbox/`](crew-inbox/README.md) | v1.0, accepted (decision 0009); the private repository itself waits for the owner to create it | Central inbox for notes between projects: rules, collector script, check. Complements `starter-crew-repo/automation/cross-repo-notes.md` |
 | [`spiewnik-live/`](spiewnik-live/) | draft (waiting for owner answers). Predates `starter-crew-repo`; to be aligned with it (task T-002) | [Requirements report v1](../outputs/2026-11-08-spiewnik-live-wymagania-v1.md) |

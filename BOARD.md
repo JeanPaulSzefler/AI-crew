@@ -23,7 +23,7 @@ Pytania i akceptacje. Najstarsze na górze. Owner odpowiada pod wpisem.
 6. **Sprostowanie:** w raporcie hostingowym v3 i w przeglądzie w publicznym repo z grami polecenie „rozważ” zostało zapisane jako „decyzja Ownera”. Poprawka była zaproponowana, czeka na zgodę.
 7. **Historia gita** zawiera starsze wersje raportów ze szczegółami prywatnych projektów. Odłożone przez Ownera 11.11.2026.
 8. **Założenia robocze** do potwierdzenia: zadania w plikach ([0002](docs/decisions/0002-zadania-i-decyzje-w-plikach.md)) i podział języków ([0004](docs/decisions/0004-jezyk-plikow.md)).
-9. **Skrzynka centralna na notatki między projektami** (pomysł Ownera z 11.11.2026; opis i warunki: [`cross-repo-notes.md`](blueprints/starter-crew-repo/automation/cross-repo-notes.md), sekcja „Opcja: skrzynka centralna”). Do decyzji: (a) osobne prywatne repo zamiast tego publicznego; (b) czy uruchomić od razu, czy przy trzecim repo postawionym z blueprintu; (c) zbieranie na polecenie Ownera czy od razu jako zaplanowane zadanie.
+9. **Utworzyć puste prywatne repo `crew-inbox`** (GitHub: New repository → Private). Integracja Claude nie może zakładać repozytoriów. Po utworzeniu wystarczy napisać w sesji „uruchom skrzynkę”. Do decyzji przy okazji: które repo podłączyć oprócz tego. Stan: [`work/T-005-crew-inbox.md`](work/T-005-crew-inbox.md).
 
 ## Gotowe do wzięcia
 
@@ -36,7 +36,7 @@ Pytania i akceptacje. Najstarsze na górze. Owner odpowiada pod wpisem.
 
 Zadanie wstrzymane albo przekazane ma plik stanu w [`work/`](work/README.md). Wpis podaje stan i odnośnik do pliku.
 
-- (pusto)
+- [ ] T-005 · Uruchomić skrzynkę centralną `crew-inbox` · kto: lead · klasa: B · stan: czeka na Ownera · [plik stanu](work/T-005-crew-inbox.md)
 
 ## Pomysły
 
@@ -47,6 +47,7 @@ Rzeczy jeszcze nieprzygotowane. Agent może tu dopisywać, nie może ich zaczyna
 - Po pilotażu: przegląd blueprintu według rozdziału 10 raportu.
 - Przejrzeć raport z 31.10 i rekomendację skilli pod kątem zgodności z decyzjami 0001–0006.
 - Jedna próba sesji-kuriera (wariant B z decyzji 0008): sesja uruchamia krótką sesję w repo docelowym, która zapisuje notatkę.
+- Automatyzacja zbierania w skrzynce (decyzja 0009: „potem na automat”). Warunki w `blueprints/crew-inbox/README.md`: dwa podłączone repo, trzy udane zbierania ręczne, zgoda Ownera na zaplanowane zadanie.
 
 ## Dla innych projektów
 

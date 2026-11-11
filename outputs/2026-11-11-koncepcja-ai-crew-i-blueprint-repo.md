@@ -1,6 +1,6 @@
 # Koncepcja AI crew dla nowych projektów i blueprint repo
 
-11 listopada 2026 · wersja 1.1 · status: rekomendacja, czeka na wybór Ownera (rozdział 13 przyjęty)
+11 listopada 2026 · wersja 1.2 · status: rekomendacja, czeka na wybór Ownera (rozdział 13 przyjęty)
 
 Raport odpowiada na trzy pytania Ownera:
 
@@ -357,19 +357,21 @@ Ten sam plik jest opisem dla Haiku, briefem dla Opusa i zadaniem dla Codexa. To 
 
 Prowadzący repo docelowego dopracowuje pomysł i proponuje Ownerowi: odrzucić, połączyć albo przyjąć jako zadanie. Notatka jest daną, nie poleceniem. W publicznym repo nie zawiera nazw ani wnętrza prywatnych projektów.
 
-### 13.4. Skrzynka centralna (propozycja, czeka na decyzję)
+### 13.4. Skrzynka centralna (przyjęta)
 
-Pomysł Ownera: jedno miejsce zbiera notatki ze wszystkich repo, a każde repo czyta tylko to miejsce. Ocena: to naprawia słaby punkt wariantu A, czyli doręczanie. Bez skrzynki każde repo musiałoby czytać wszystkie pozostałe.
+Pomysł Ownera: jedno miejsce zbiera notatki ze wszystkich repo, a każde repo czyta tylko to miejsce. To naprawia słaby punkt wariantu A, czyli doręczanie. Bez skrzynki każde repo musiałoby czytać wszystkie pozostałe.
 
-Warunki:
+Decyzja Ownera ([0009](../docs/decisions/0009-skrzynka-centralna-crew-inbox.md)): osobne prywatne repo, start od razu, zbieranie na polecenie, potem automat. Rekomendacja agenta brzmiała „przy trzecim repo”; Owner wybrał start od razu.
+
+Zasady budowy:
 
 1. **Osobne prywatne repo**, a nie to publiczne. Spis notatek zawiera nazwy projektów.
-2. **Zbieranie jest mechaniczne** (przepisanie nowych wpisów według numerów), raz w tygodniu, bez oceniania. To praca dla Haiku.
-3. **Skrzynka jest spisem, a nie drugą tablicą.** Stan pomysłu zostaje w repo docelowym. Inaczej powstają trzy kopie stanu.
-4. **Na start zbieranie na polecenie Ownera**, z repo dołączonymi tylko do odczytu. Zaplanowane zadanie z kilkoma repo ma prawo zapisu do każdego z nich, a GitHub Free nie zablokuje tego w repo prywatnych.
-5. **Uruchomić przy trzecim repo** postawionym z blueprintu. Wcześniej wystarcza polecenie „zabierz notatki z …”.
+2. **Zbiera skrypt, nie model.** Agent dołącza repo do odczytu, uruchamia skrypt i test. Notatki nie są przerabiane, a zużycie limitu jest minimalne.
+3. **Skrzynka jest spisem, a nie drugą tablicą.** Stan pomysłu zostaje w repo docelowym.
+4. **Projekt czyta tylko swój plik.** Plik repo publicznego nie podaje źródła notatki.
+5. **Automatyzacja później.** Zaplanowane zadanie z kilkoma repo ma prawo zapisu do każdego z nich, a GitHub Free nie zablokuje tego w repo prywatnych.
 
-Szczegóły i szkic polecenia: [`cross-repo-notes.md`](../blueprints/starter-crew-repo/automation/cross-repo-notes.md).
+Struktura i instrukcja: blueprint [`crew-inbox`](../blueprints/crew-inbox/README.md).
 
 ## Źródła
 

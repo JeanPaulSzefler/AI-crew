@@ -18,3 +18,4 @@ Szablon: [`0000-szablon.md`](0000-szablon.md).
 | [0006](0006-subskrypcje-jako-punkt-odniesienia.md) | Claude Pro i ChatGPT Plus bez płatnego API jako punkt odniesienia | przyjęta |
 | [0007](0007-zadanie-niesie-swoj-stan.md) | Zadanie niesie swój stan: plik stanu, punkty kontrolne, stała kolejność wznawiania | przyjęta |
 | [0008](0008-jedno-repo-na-sesje-i-skrzynka-nadawcza.md) | Jedno repo na sesję, inne tylko do odczytu; pomysły dla innych projektów w skrzynce nadawczej | przyjęta |
+| [0009](0009-skrzynka-centralna-crew-inbox.md) | Skrzynka centralna to osobne prywatne repo `crew-inbox`; zbieranie na polecenie, potem automat | przyjęta |

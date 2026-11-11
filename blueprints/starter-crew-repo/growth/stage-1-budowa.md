@@ -6,27 +6,14 @@
 
 | Element | Zasada |
 | --- | --- |
-| `work/` | Większe zadania i epiki dostają własny plik `T-NNN-tytul.md`. `BOARD.md` zostaje spisem z odnośnikami |
+| `work/` (rozszerzenie) | Pliki stanu są już w rdzeniu dla zadań wstrzymanych i przekazywanych. Od tego etapu **każde** zadanie klasy B ma plik, a epiki grupują zadania. `BOARD.md` zostaje spisem z odnośnikami |
 | `docs/specs/` | W projekcie z kodem obowiązkowo. W treściowym: opis formatu albo standardu, jeśli taki powstał |
 | `.claude/skills/` | Skill powstaje **po trzecim powtórzeniu** tej samej procedury. Skill, który coś publikuje albo kasuje, ma `disable-model-invocation: true` |
 | `.claude/rules/` | Reguły dotyczące tylko części repo (np. jednego folderu) wychodzą z `AGENTS.md` do reguł ścieżkowych |
 
 ## Szablon pliku zadania
 
-```markdown
-# T-NNN: tytuł
-
-- Kto: lead | worker | codex | owner · Klasa: A | B | C · Stan: gotowe | w toku | zrobione
-- Zależy od: T-…
-
-## Cel
-## Pliki
-## Odbiór
-- [ ] …
-## Poza zakresem
-## Notatki z pracy
-(próby, pytania, odpowiedzi; najnowsze na dole)
-```
+Ten sam co w rdzeniu: [`../core/work/README.md`](../core/work/README.md). Epik to plik `E-NN-tytul.md` z celem i listą zadań.
 
 ## Zmiany w załodze
 

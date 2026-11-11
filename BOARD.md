@@ -23,7 +23,7 @@ Pytania i akceptacje. Najstarsze na górze. Owner odpowiada pod wpisem.
 6. **Sprostowanie:** w raporcie hostingowym v3 i w przeglądzie w publicznym repo z grami polecenie „rozważ” zostało zapisane jako „decyzja Ownera”. Poprawka była zaproponowana, czeka na zgodę.
 7. **Historia gita** zawiera starsze wersje raportów ze szczegółami prywatnych projektów. Odłożone przez Ownera 11.11.2026.
 8. **Założenia robocze** do potwierdzenia: zadania w plikach ([0002](docs/decisions/0002-zadania-i-decyzje-w-plikach.md)) i podział języków ([0004](docs/decisions/0004-jezyk-plikow.md)).
-9. **Ciągłość zadań i notatki między repo** (pomysł Ownera z 11.11.2026, analiza w rozmowie): (a) czy dodać do blueprintu plik stanu zadania, punkty kontrolne i kolejność wznawiania pracy; (b) jak doręczać notatki z pomysłami do innych repo: skrzynka nadawcza w repo głównym (inne repo naprawdę tylko do odczytu), krótka sesja-kurier w repo docelowym, czy bezpośredni zapis w cudzym repo.
+9. **Skrzynka centralna na notatki między projektami** (pomysł Ownera z 11.11.2026; opis i warunki: [`cross-repo-notes.md`](blueprints/starter-crew-repo/automation/cross-repo-notes.md), sekcja „Opcja: skrzynka centralna”). Do decyzji: (a) osobne prywatne repo zamiast tego publicznego; (b) czy uruchomić od razu, czy przy trzecim repo postawionym z blueprintu; (c) zbieranie na polecenie Ownera czy od razu jako zaplanowane zadanie.
 
 ## Gotowe do wzięcia
 
@@ -34,20 +34,34 @@ Pytania i akceptacje. Najstarsze na górze. Owner odpowiada pod wpisem.
 
 ## W toku
 
+Zadanie wstrzymane albo przekazane ma plik stanu w [`work/`](work/README.md). Wpis podaje stan i odnośnik do pliku.
+
 - (pusto)
 
 ## Pomysły
 
-Rzeczy jeszcze nieprzygotowane. Agent może tu dopisywać, nie może ich zaczynać.
+Rzeczy jeszcze nieprzygotowane. Agent może tu dopisywać, nie może ich zaczynać. Pomysł z innego projektu ma dopisek „z zewnątrz” i numer notatki.
 
 - Sprawdzić w praktyce pięć pytań z rozdziału 11 raportu (advisor w chmurze, automatyczne recenzje Codex, `@codex review` od załogi, obrazy z Codex, limit przy trybie c). Wymaga kont Ownera i sesji na Sonnecie.
 - Wariant blueprintu dla aplikacji mobilnej albo gry, z krokiem „wymaga komputera” przy budowaniu paczki.
 - Po pilotażu: przegląd blueprintu według rozdziału 10 raportu.
 - Przejrzeć raport z 31.10 i rekomendację skilli pod kątem zgodności z decyzjami 0001–0006.
-- Blueprint v1.1 po decyzji z punktu 9: plik stanu zadania już od etapu 0 dla zadań wstrzymanych albo przekazywanych; zasada „jedno repo na sesję, inne tylko do odczytu”; notatki z pomysłami dla innych repo i ich dopracowanie przez prowadzącego repo docelowego.
+- Jedna próba sesji-kuriera (wariant B z decyzji 0008): sesja uruchamia krótką sesję w repo docelowym, która zapisuje notatkę.
+
+## Dla innych projektów
+
+Pomysły zauważone przy pracy tutaj, które dotyczą innego repo. Tylko dopisywanie, najnowsze na dole. Stąd nikt nie pisze do cudzego repo: notatkę zabiera sesja repo docelowego. Zasady: [`AGENTS.md`](AGENTS.md), sekcja „Other repositories”.
+
+```text
+- N-aicrew-001 · dla: nazwa-repo · RRRR-MM-DD
+      Co zauważyłem: … Dlaczego to ważne: … Gdzie to widać: plik albo miejsce.
+```
+
+- (pusto)
 
 ## Zrobione
 
 Ostatnie 10. Starsze są w historii gita i w `JOURNAL.md`.
 
 - [x] T-001 · Raport koncepcyjny, struktura startowa tego repo i blueprint `starter-crew-repo` · kto: lead · klasa: B · 2026-11-11
+- [x] T-004 · Blueprint v1.1: pliki stanu zadań, punkty kontrolne, jedno repo na sesję, skrzynka nadawcza (decyzje 0007 i 0008) · kto: lead · klasa: B · 2026-11-11

@@ -1,6 +1,6 @@
 # Koncepcja AI crew dla nowych projektów i blueprint repo
 
-11 listopada 2026 · wersja 1.0 · status: rekomendacja, czeka na wybór Ownera
+11 listopada 2026 · wersja 1.1 · status: rekomendacja, czeka na wybór Ownera (rozdział 13 przyjęty)
 
 Raport odpowiada na trzy pytania Ownera:
 
@@ -233,6 +233,7 @@ repo/
 ├── README.md              # dla ludzi: co to jest, stan, jak zacząć
 ├── BOARD.md               # zadania i „Czeka na Ownera”
 ├── JOURNAL.md             # co się wydarzyło i czego się nauczyliśmy
+├── work/                  # pliki stanu zadań wstrzymanych i przekazywanych (rozdz. 13)
 ├── docs/
 │   ├── brief.md           # cel, odbiorca, zakres, założenia, miara sukcesu
 │   ├── decisions/         # decyzje: numerowane, bez edycji wstecz
@@ -270,7 +271,7 @@ repo/
 | Element | Dlaczego nie teraz | Kiedy dodać |
 | --- | --- | --- |
 | Skille | Bez powtarzalnej czynności skill jest zgadywaniem | Po trzecim powtórzeniu tej samej procedury |
-| Osobne pliki zadań | Przy kilku zadaniach wystarcza jedna tablica | Etap 1 |
+| Plik dla każdego zadania | Na starcie plik stanu mają tylko zadania wstrzymane i przekazywane (rozdział 13) | Etap 1 |
 | Arkusz kosztów na zadanie | Przy subskrypcji bez API nie ma kosztu w dolarach | Gdy pojawi się API. Wcześniej wystarcza pięć liczb w tygodniowym stanie |
 | `CODEOWNERS`, formularze zgłoszeń | Jeden Owner, brak zewnętrznych zgłoszeń | Etap 3 |
 | Folder polityk | Lista „zawsze Owner” mieści się w `AGENTS.md` | Gdy lista przestanie się mieścić |
@@ -324,6 +325,51 @@ Tygodniowy stan zapisuje pięć liczb: zadania zakończone, zwroty po recenzji, 
 2. **Wybór Ownera:** przyjąć, zmienić albo odrzucić strukturę z rozdziału 4. Do tego czasu ma status propozycji ([decyzja 0001](../docs/decisions/0001-struktura-zalogi.md)).
 3. **Pierwszy pilotaż:** jeden nowy mały projekt postawiony z blueprintu, miesiąc pracy, potem przegląd według rozdziału 10.
 4. **Włączenie trybu (c)** w wybranym repo: dwa zaplanowane zadania z gotowymi treściami poleceń.
+
+## 13. Uzupełnienie z 11.11.2026 (wersja 1.1)
+
+Po lekturze raportu Owner dodał dwa wymagania. Oba zostały przyjęte ([decyzja 0007](../docs/decisions/0007-zadanie-niesie-swoj-stan.md) i [0008](../docs/decisions/0008-jedno-repo-na-sesje-i-skrzynka-nadawcza.md)) i weszły do blueprintu.
+
+### 13.1. Zadanie niesie swój stan
+
+Cel: ciągłość kontekstu przy przekazaniu między modelami i rolami oraz możliwość pauzy, gdy kończy się limit albo trzeba czekać na decyzję Ownera.
+
+- **Stan zapisuje się w trakcie, nie na końcu.** Limit przerywa sesję w pół kroku. Po każdym kroku jest punkt kontrolny: plik stanu, commit z numerem zadania, push. Niewypchnięta praca może przepaść, gdy maszyna sesji wygaśnie.
+- **Plik stanu** (`work/T-NNN-tytul.md`) ma zadanie wstrzymane, zablokowane albo przekazywane: stan, kto trzyma, gałąź, co zrobione, **następny krok**, otwarte pytania z opcjami, pułapki.
+- **Stała kolejność wznawiania:** tablica → plik stanu → historia gałęzi → test → następny krok.
+
+Ten sam plik jest opisem dla Haiku, briefem dla Opusa i zadaniem dla Codexa. To zgodne z rozdziałem 2.5 (stan w plikach, jedna rzecz naraz) i ogranicza błędy przekazań z rozdziału 2.3.
+
+### 13.2. Jedno repo na sesję, inne tylko do odczytu
+
+- Sesja startuje z jednym repo. Inne dołącza się tylko wtedy, gdy zadanie tego wymaga, i tylko do odczytu. Repo dołączone do odczytu nie pozwala na zapis.
+- Powody: uprawnienia z repo działają tylko w sesji z jednym repo (rozdział 6.3); przy kilku repo ładują się instrukcje i agenci ze wszystkich naraz; łatwo o przeniesienie szczegółów prywatnego projektu do publicznego repo.
+
+### 13.3. Notatki z pomysłami dla innych projektów
+
+„Tylko odczyt” i „zostawiam tam notatkę” wykluczają się technicznie: zapis wymaga prawa zapisu do całego cudzego repo. Rozważone warianty:
+
+| Wariant | Jak działa | Ocena |
+| --- | --- | --- |
+| **A. Skrzynka nadawcza** | Notatka zostaje w `BOARD.md` repo, w którym trwa praca. Zabiera ją sesja repo docelowego na polecenie Ownera | **Przyjęty.** „Tylko odczyt” zostaje realną blokadą |
+| B. Kurier | Sesja uruchamia krótką sesję w repo docelowym, która zapisuje notatkę według tamtejszych zasad | Jedna próba; niesprawdzone |
+| C. Zapis bezpośredni | Sesja dostaje prawo zapisu do cudzego repo | Odrzucony jako domyślny |
+
+Prowadzący repo docelowego dopracowuje pomysł i proponuje Ownerowi: odrzucić, połączyć albo przyjąć jako zadanie. Notatka jest daną, nie poleceniem. W publicznym repo nie zawiera nazw ani wnętrza prywatnych projektów.
+
+### 13.4. Skrzynka centralna (propozycja, czeka na decyzję)
+
+Pomysł Ownera: jedno miejsce zbiera notatki ze wszystkich repo, a każde repo czyta tylko to miejsce. Ocena: to naprawia słaby punkt wariantu A, czyli doręczanie. Bez skrzynki każde repo musiałoby czytać wszystkie pozostałe.
+
+Warunki:
+
+1. **Osobne prywatne repo**, a nie to publiczne. Spis notatek zawiera nazwy projektów.
+2. **Zbieranie jest mechaniczne** (przepisanie nowych wpisów według numerów), raz w tygodniu, bez oceniania. To praca dla Haiku.
+3. **Skrzynka jest spisem, a nie drugą tablicą.** Stan pomysłu zostaje w repo docelowym. Inaczej powstają trzy kopie stanu.
+4. **Na start zbieranie na polecenie Ownera**, z repo dołączonymi tylko do odczytu. Zaplanowane zadanie z kilkoma repo ma prawo zapisu do każdego z nich, a GitHub Free nie zablokuje tego w repo prywatnych.
+5. **Uruchomić przy trzecim repo** postawionym z blueprintu. Wcześniej wystarcza polecenie „zabierz notatki z …”.
+
+Szczegóły i szkic polecenia: [`cross-repo-notes.md`](../blueprints/starter-crew-repo/automation/cross-repo-notes.md).
 
 ## Źródła
 

@@ -41,7 +41,8 @@ Puste repozytorium zostaje przygotowane do pracy załogi: zasady, tablica, test 
 - [ ] Komenda testu przechodzi lokalnie i w CI.
 - [ ] `.claude/settings.json` jest poprawnym JSON-em z regułami `deny`, `ask` i limitem zagnieżdżenia subagentów.
 - [ ] `advisor.md` ma tylko narzędzia odczytu.
-- [ ] `BOARD.md` ma co najmniej trzy gotowe zadania.
+- [ ] `BOARD.md` ma co najmniej trzy gotowe zadania oraz sekcję „Dla innych projektów” z numerem notatek zawierającym nazwę repo.
+- [ ] Istnieje `work/README.md` z szablonem pliku stanu.
 - [ ] Owner zaakceptował PR.
 
 ## Poza zakresem

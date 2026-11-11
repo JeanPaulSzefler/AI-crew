@@ -16,3 +16,5 @@ Szablon: [`0000-szablon.md`](0000-szablon.md).
 | [0004](0004-jezyk-plikow.md) | Pliki dla agentów po angielsku, dla Ownera po polsku | założenie robocze |
 | [0005](0005-prywatne-projekty-tylko-w-formie-uogolnionej.md) | W tym repo nie ma nazw ani diagnoz innych projektów Ownera | przyjęta |
 | [0006](0006-subskrypcje-jako-punkt-odniesienia.md) | Claude Pro i ChatGPT Plus bez płatnego API jako punkt odniesienia | przyjęta |
+| [0007](0007-zadanie-niesie-swoj-stan.md) | Zadanie niesie swój stan: plik stanu, punkty kontrolne, stała kolejność wznawiania | przyjęta |
+| [0008](0008-jedno-repo-na-sesje-i-skrzynka-nadawcza.md) | Jedno repo na sesję, inne tylko do odczytu; pomysły dla innych projektów w skrzynce nadawczej | przyjęta |

@@ -24,11 +24,24 @@ Pytania i akceptacje. Najstarsze na górze. Owner odpowiada pod wpisem.
 
 ## W toku
 
+Zadanie wstrzymane albo przekazane ma plik stanu w [`work/`](work/README.md). Wpis podaje stan i odnośnik do pliku.
+
 - (pusto)
 
 ## Pomysły
 
-Rzeczy jeszcze nieprzygotowane. Agent może tu dopisywać, nie może ich zaczynać.
+Rzeczy jeszcze nieprzygotowane. Agent może tu dopisywać, nie może ich zaczynać. Pomysł z innego projektu ma dopisek „z zewnątrz” i numer notatki.
+
+- (pusto)
+
+## Dla innych projektów
+
+Pomysły zauważone przy pracy tutaj, które dotyczą innego repo. Tylko dopisywanie, najnowsze na dole. Stąd nikt nie pisze do cudzego repo: notatkę zabiera sesja repo docelowego. Zasady: [`AGENTS.md`](AGENTS.md), sekcja „Other repositories”.
+
+```text
+- N-{{repo}}-001 · dla: nazwa-repo · RRRR-MM-DD
+      Co zauważyłem: … Dlaczego to ważne: … Gdzie to widać: plik albo miejsce.
+```
 
 - (pusto)
 

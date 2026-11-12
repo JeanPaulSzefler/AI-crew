@@ -6,6 +6,8 @@ Read this file first. It applies to every agent from every vendor.
 
 A private mailbox for ideas that one project's crew noticed for another project. It holds a list, not tasks. Whether an idea was accepted or rejected is recorded in the target repository, never here.
 
+It also keeps preliminary analyses of ideas for new projects in `project-ideas/`, until a repository exists for them.
+
 ## Map
 
 | Path | Holds | Rule |
@@ -14,6 +16,7 @@ A private mailbox for ideas that one project's crew noticed for another project.
 | `index.md` | Every collected note with its source | Append only; written by `tools/collect.py` |
 | `for/<repo>.md` | Notes addressed to one repository | Append only; the only file a target repository reads |
 | `JOURNAL.md` | One line per collection | Append only |
+| `project-ideas/` | Analyses of ideas for new projects, with their sources | Written only at the owner's request; rules in its `README.md` |
 | `tools/` | The collector and the check | Owner-only changes |
 
 ## Commands
@@ -40,4 +43,4 @@ A private mailbox for ideas that one project's crew noticed for another project.
 
 ## Language
 
-Everything in this repository is in English: files, field names, script output. Note text is copied as written, in whatever language the source crew used.
+Files, field names and script output are in English. Note text is copied as written, in whatever language the source crew used. Analyses in `project-ideas/` are long texts for the owner and may be in Polish.

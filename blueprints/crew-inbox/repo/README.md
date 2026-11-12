@@ -12,6 +12,7 @@ This is a list, not a task board. Whether an idea becomes a task is the owner's 
 | pick up notes in a project | A session in the project's repository: "pick up notes from the inbox" |
 | connect another repository | A session in this repository: "connect owner/name, private" (or "public") |
 | see everything | [`index.md`](index.md) |
+| read the analyses of new project ideas | [`project-ideas/`](project-ideas/README.md) |
 
 The phrases can be in any language.
 
@@ -37,6 +38,7 @@ Note format in the outbox:
 | [`index.md`](index.md) | Every collected note with its source |
 | [`for/`](for/README.md) | One file per target repository |
 | [`JOURNAL.md`](JOURNAL.md) | One line per collection |
+| [`project-ideas/`](project-ideas/README.md) | Preliminary analyses of ideas for new projects |
 | `tools/collect.py`, `tools/check.py` | The collector and the check |
 
 ## Privacy

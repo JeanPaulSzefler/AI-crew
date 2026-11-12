@@ -28,6 +28,7 @@ Repo zakłada Owner: integracja Claude nie może tworzyć repozytoriów na konci
 | [`repos.md`](repo/repos.md) | Podłączone repo: nazwa, widoczność, plik ze skrzynką nadawczą |
 | [`index.md`](repo/index.md) | Spis wszystkich notatek ze źródłem |
 | [`for/`](repo/for/README.md) | Jeden plik na repo docelowe; plik repo publicznego nie podaje źródła |
+| [`project-ideas/`](repo/project-ideas/README.md) | Wstępne analizy pomysłów na nowe projekty, zanim powstanie dla nich repo (dodane 12.11.2026 na prośbę Ownera) |
 | [`tools/collect.py`](repo/tools/collect.py) | Zbieranie: odczyt jednego pliku z każdego repo, numeracja, dopisanie |
 | [`tools/check.py`](repo/tools/check.py) | Test: numery po kolei, żadna notatka dwa razy, każda w dokładnie jednym pliku `for/` |
 

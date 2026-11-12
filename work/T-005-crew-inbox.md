@@ -1,9 +1,9 @@
 # T-005: Start the central inbox `crew-inbox`
 
-- **State:** waiting for owner
-- **Holder:** owner
-- **Class:** B · **Branch:** `master` (blueprint); new repository: its main branch
-- **Last checkpoint:** 2026-11-12, blueprint `crew-inbox` switched to English names (decision 0010)
+- **State:** done
+- **Holder:** lead
+- **Class:** B · **Branch:** `master` (blueprint); `crew-inbox`: `master`
+- **Last checkpoint:** 2026-11-12, inbox set up and pushed; first collection found no notes; check passes
 
 ## Goal and acceptance
 
@@ -13,16 +13,17 @@ The private repository `crew-inbox` exists, holds the files from `blueprints/cre
 
 - Blueprint `blueprints/crew-inbox/`: rules, owner guide, collector script, check, CI.
 - Script and check tested on sample data and on reading a public repository.
-- Creating the repository through the integration was refused by GitHub (no permission to create repositories).
+- Creating the repository through the integration was refused by GitHub (no permission to create repositories). The owner created it on 2026-11-12.
+- Inbox set up from the blueprint; `AI-crew` connected; first collection and check passed.
+- Added `project-ideas/` to the inbox and the blueprint at the owner's request.
 
 ## Next step
 
-After the owner creates the repository: attach `crew-inbox` to the session with write access, do step 2 of "Założenie skrzynki" in `blueprints/crew-inbox/README.md`, list `AI-crew` (public, `BOARD.md`) in `repos.md`, run the collector and the check, push.
+None. Follow-ups are on the board: which repositories to connect, and automation later.
 
 ## Open questions
 
-- Owner: create the empty private repository `crew-inbox` · nothing can continue without it · waiting.
-- Owner: which repositories to connect besides `AI-crew`? · without an answer only `AI-crew` is connected.
+- Owner: which repositories to connect besides `AI-crew`? Moved to the board, "Waiting for owner", item 9.
 
 ## Pitfalls and findings
 

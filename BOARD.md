@@ -24,7 +24,7 @@ Questions and approvals. Oldest first. The owner answers under the entry.
 6. **Correction:** the hosting report v3 and a review in the public games repository record "consider" as "the owner's decision". A fix was proposed and waits for approval.
 7. **Git history** holds older report versions with details of private projects. Postponed by the owner on 2026-11-11.
 8. **Working assumption** to confirm: tasks and decisions live in files ([0002](docs/decisions/0002-zadania-i-decyzje-w-plikach.md)).
-9. **Create the empty private repository `crew-inbox`** (GitHub: New repository → Private). The Claude integration cannot create repositories. After that, say "start the inbox" in a session. Also to decide: which repositories to connect besides this one. State: [`work/T-005-crew-inbox.md`](work/T-005-crew-inbox.md).
+9. **Inbox: which repositories to connect besides this one?** The private inbox `crew-inbox` runs since 2026-11-12 with only this repository connected. Each further repository needs an outbox section ("For other projects"), added by its own session.
 
 ## Ready
 
@@ -37,7 +37,7 @@ Questions and approvals. Oldest first. The owner answers under the entry.
 
 A paused or handed-over task has a state file in [`work/`](work/README.md). The entry gives the state and links the file.
 
-- [ ] T-005 · Start the central inbox `crew-inbox` · who: lead · class: B · state: waiting for owner · [state file](work/T-005-crew-inbox.md)
+- [ ] T-007 · Assess the tools from an AI news report and write preliminary analyses of three new project ideas into the private inbox · who: lead · class: B · state: in progress (research done by five subagents; four writing subagents running)
 
 ## Ideas
 
@@ -69,3 +69,4 @@ The last 10. Older ones are in the git history and in `JOURNAL.md`.
 - [x] T-001 · Concept report, starter structure of this repository and the `starter-crew-repo` blueprint · who: lead · class: B · 2026-11-11
 - [x] T-004 · Blueprint v1.1: task state files, checkpoints, one repository per session, outbox for notes (decisions 0007 and 0008) · who: lead · class: B · 2026-11-11
 - [x] T-006 · English for agent-facing files, tags and file structure (decision 0010) · who: lead · class: B · 2026-11-12
+- [x] T-005 · Start the central inbox `crew-inbox` (decision 0009): files from the blueprint, first collection, check passing · who: lead · class: B · 2026-11-12 · [state file](work/T-005-crew-inbox.md)

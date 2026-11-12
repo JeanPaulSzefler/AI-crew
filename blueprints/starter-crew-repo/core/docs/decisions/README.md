@@ -1,13 +1,13 @@
-# Decyzje
+# Decisions
 
-Jedna decyzja na plik. Numer rośnie: `NNNN-krotki-tytul.md`.
+One decision per file. Numbers go up: `NNNN-short-title.md`.
 
-- Decyzji **nie edytuje się**. Zmiana to nowa decyzja, a stara dostaje na górze adnotację z datą i numerem nowej.
-- Obowiązuje decyzja o najwyższym numerze w danej sprawie.
-- Status mówi prawdę: `przyjęta` tylko wtedy, gdy Owner to potwierdził. Rekomendacja agenta ma status `propozycja`.
+- A decision is **never edited**. A change is a new decision; the old one gets a note at the top with the date and the number of the new one.
+- The highest-numbered decision on a matter is the one in force.
+- The status tells the truth: `accepted` only when the owner confirmed it. An agent's recommendation is a `proposal`. An assumption the owner neither rejected nor confirmed is a `working assumption`.
 
-Szablon: [`0000-szablon.md`](0000-szablon.md).
+Template: [`0000-template.md`](0000-template.md).
 
-| Nr | Decyzja | Status |
+| No. | Decision | Status |
 | --- | --- | --- |
 | — | — | — |

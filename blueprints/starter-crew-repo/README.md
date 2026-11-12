@@ -2,7 +2,9 @@
 
 Startowa struktura repo dla nowego, małego projektu prowadzonego przez załogę AI pod nadzorem jednego Ownera. Uzasadnienie i źródła: [raport z 11.11.2026](../../outputs/2026-11-11-koncepcja-ai-crew-i-blueprint-repo.md).
 
-Wersja 1.1 · 11.11.2026 · status: propozycja do pilotażu
+Wersja 1.2 · 12.11.2026 · status: propozycja do pilotażu
+
+Zmiana w 1.2 ([decyzja 0010](../../docs/decisions/0010-language.md)): wszystko, co czytają agenci, oraz tagi, nazwy pól i sekcji są po angielsku. Po polsku zostają przewodniki takie jak ten.
 
 Zmiany w 1.1 (przyjęte przez Ownera): zadanie niesie swój stan (plik stanu, punkty kontrolne, kolejność wznawiania); praca zawsze w jednym repo, inne tylko do odczytu; notatki dla innych projektów w skrzynce nadawczej.
 

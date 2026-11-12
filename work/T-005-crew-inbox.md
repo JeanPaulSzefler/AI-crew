@@ -1,31 +1,31 @@
-# T-005: Uruchomić skrzynkę centralną `crew-inbox`
+# T-005: Start the central inbox `crew-inbox`
 
-- **Stan:** czeka na Ownera
-- **Trzyma:** owner
-- **Klasa:** B · **Gałąź:** `master` (blueprint); nowe repo: gałąź główna
-- **Ostatni punkt kontrolny:** 2026-11-11, commit z blueprintem `crew-inbox`
+- **State:** waiting for owner
+- **Holder:** owner
+- **Class:** B · **Branch:** `master` (blueprint); new repository: its main branch
+- **Last checkpoint:** 2026-11-12, blueprint `crew-inbox` switched to English names (decision 0010)
 
-## Cel i odbiór
+## Goal and acceptance
 
-Prywatne repo `crew-inbox` istnieje, ma pliki z `blueprints/crew-inbox/repo/`, a pierwsze zbieranie i test przechodzą. Decyzja 0009.
+The private repository `crew-inbox` exists, holds the files from `blueprints/crew-inbox/repo/`, and the first collection and the check pass. Decision 0009.
 
-## Zrobione
+## Done
 
-- Blueprint `blueprints/crew-inbox/`: zasady, instrukcja, skrypt zbierający, test, CI.
-- Skrypt i test sprawdzone na danych próbnych i na odczycie publicznego repo.
-- Próba utworzenia repo przez integrację: odmowa GitHuba (brak uprawnienia do tworzenia repozytoriów).
+- Blueprint `blueprints/crew-inbox/`: rules, owner guide, collector script, check, CI.
+- Script and check tested on sample data and on reading a public repository.
+- Creating the repository through the integration was refused by GitHub (no permission to create repositories).
 
-## Następny krok
+## Next step
 
-Po utworzeniu repo przez Ownera: dołączyć `crew-inbox` do sesji z prawem zapisu, wykonać krok 2 z `blueprints/crew-inbox/README.md` („Założenie skrzynki”), wpisać do `repos.md` repo `AI-crew` (publiczne, `BOARD.md`), uruchomić zbieranie i test, wypchnąć.
+After the owner creates the repository: attach `crew-inbox` to the session with write access, do step 2 of "Założenie skrzynki" in `blueprints/crew-inbox/README.md`, list `AI-crew` (public, `BOARD.md`) in `repos.md`, run the collector and the check, push.
 
-## Otwarte pytania
+## Open questions
 
-- Owner: utworzyć puste prywatne repo `crew-inbox` · bez tego brak dalszych kroków · czekam.
-- Owner: które repo podłączyć oprócz `AI-crew`? · bez odpowiedzi podłączam tylko `AI-crew`.
+- Owner: create the empty private repository `crew-inbox` · nothing can continue without it · waiting.
+- Owner: which repositories to connect besides `AI-crew`? · without an answer only `AI-crew` is connected.
 
-## Pułapki i ustalenia
+## Pitfalls and findings
 
-- Jeśli aplikacja Claude na GitHubie ma dostęp tylko do wybranych repo, nowe repo trzeba do nich dodać.
-- Nazwy innych repo Ownera wpisuje się tylko w prywatnej skrzynce, nigdy tutaj.
-- Zbieranie na polecenie; zaplanowanego zadania nie tworzyć bez osobnej decyzji.
+- If the Claude app on GitHub has access to selected repositories only, the new repository must be added to them.
+- Names of the owner's other repositories are written only in the private inbox, never here.
+- Collecting is on command. Do not create a scheduled task without a separate decision.

@@ -1,55 +1,55 @@
-# Pliki stanu zadań
+# Task state files
 
-Zadanie niesie swój stan. Dzięki temu pracę może podjąć inna sesja, inny model albo inny dostawca, także po nagłym przerwaniu.
+A task carries its own state, so that another session, another model or another vendor can continue it, also after a sudden stop.
 
-## Kiedy powstaje plik
+## When a task gets a file
 
-Plik `T-NNN-tytul.md` powstaje, gdy zadanie:
+A file `T-NNN-title.md` is created when the task:
 
-- nie skończy się w jednym podejściu,
-- czeka na decyzję Ownera,
-- przechodzi do kogoś innego (worker, advisor, Codex).
+- will not be finished in one sitting,
+- waits for the owner's decision,
+- goes to someone else (worker, advisor, Codex).
 
-Zadanie zrobione w jednym podejściu zostaje linią na tablicy.
+A task finished in one sitting stays a line on the board.
 
-## Zasady
+## Rules
 
-1. **Punkt kontrolny po każdym kroku:** najpierw aktualizacja pliku stanu, potem commit i push. Sesję może przerwać limit w dowolnej chwili, więc stan zapisuje się w trakcie, nie na końcu.
-2. **„Następny krok” to jedno konkretne działanie**, które da się wykonać bez pytania o cokolwiek.
-3. **Jeden trzymający.** Pole „Trzyma” zmienia ten, kto przekazuje zadanie.
-4. **Wznowienie:** tablica → plik stanu → `git log` gałęzi zadania → test → następny krok.
-5. Po zakończeniu plik zostaje ze stanem „zrobione”. Wpis na tablicy przechodzi do „Zrobione”.
+1. **Checkpoint after every step:** update the state file first, then commit and push. A usage limit can stop the session at any moment, so state is written during the work, not at the end.
+2. **"Next step" is one concrete action** that can be done without asking anything.
+3. **One holder.** Whoever hands the task over changes the `Holder` field.
+4. **To resume:** board → state file → `git log` of the task branch → check → next step.
+5. When the task is finished the file stays, with state `done`. The board entry moves to "Done".
 
-## Rodzaje pauzy
+## Kinds of pause
 
-| Pauza | Co zapisać | Kto wznawia |
+| Pause | What to write | Who resumes |
 | --- | --- | --- |
-| Limit sesji | Nic dodatkowego: wystarcza ostatni punkt kontrolny | Ta sama sesja po odnowieniu limitu albo następne uruchomienie |
-| Decyzja Ownera | Pytanie z opcjami w pliku stanu i wpis w „Czeka na Ownera” | Dowolna sesja po odpowiedzi |
-| Przekazanie | Kto trzyma i co ma wrócić | Odbiorca, potem prowadzący |
+| Usage limit | Nothing extra: the last checkpoint is enough | The same session after the limit resets, or the next run |
+| Owner's decision | The question with options in the state file, and an entry under "Waiting for owner" | Any session, after the answer |
+| Handover | Who holds the task and what must come back | The receiver, then the lead |
 
-## Szablon
+## Template
 
 ```markdown
-# T-NNN: tytuł
+# T-NNN: title
 
-- **Stan:** w toku | wstrzymane: limit | czeka na Ownera | przekazane: worker / advisor / codex | zrobione
-- **Trzyma:** lead | worker | codex | owner
-- **Klasa:** A | B | C · **Gałąź:** `nazwa-gałęzi`
-- **Ostatni punkt kontrolny:** RRRR-MM-DD, commit `abc1234`
+- **State:** in progress | paused: limit | waiting for owner | handed over: worker / advisor / codex | done
+- **Holder:** lead | worker | codex | owner
+- **Class:** A | B | C · **Branch:** `branch-name`
+- **Last checkpoint:** YYYY-MM-DD, commit `abc1234`
 
-## Cel i odbiór
-Przepisane z tablicy. Nie zmieniać w trakcie pracy.
+## Goal and acceptance
+Copied from the board. Do not change it during the work.
 
-## Zrobione
+## Done
 - …
 
-## Następny krok
-Jedno konkretne działanie.
+## Next step
+One concrete action.
 
-## Otwarte pytania
-- Pytanie · opcje · co zrobię bez odpowiedzi (albo: „czekam”)
+## Open questions
+- Question · options · what I do without an answer (or: "waiting")
 
-## Pułapki i ustalenia
-Czego nie ruszać, co już próbowano bez skutku, wybory podjęte po drodze.
+## Pitfalls and findings
+What not to touch, what was already tried without success, choices made along the way.
 ```

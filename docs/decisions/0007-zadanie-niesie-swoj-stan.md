@@ -1,5 +1,7 @@
 # 0007: Zadanie niesie swój stan: plik stanu, punkty kontrolne, stała kolejność wznawiania
 
+> Note, 2026-11-12: field and section names in this record were renamed to English by [decision 0010](0010-language.md). The decision itself stands.
+
 - **Data:** 2026-11-11
 - **Status:** przyjęta
 - **Podstawa:** Owner 11.11.2026: zadania i ich przekazywanie między modelami i rolami mają zapewnić ciągłość kontekstu oraz możliwość pauzy, gdy kończy się limit sesji albo trzeba poczekać na decyzję Ownera; „Tak, przyjmij cz. 1”

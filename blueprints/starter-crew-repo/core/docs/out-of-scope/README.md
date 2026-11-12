@@ -1,9 +1,9 @@
-# Poza zakresem
+# Out of scope
 
-Pomysły rozważone i odrzucone. Jeden plik na pomysł: `krotki-tytul.md`.
+Ideas that were considered and rejected. One file per idea: `short-title.md`.
 
-Każdy wpis ma: datę, co odrzucono, konkretny przypadek, który wywołał temat, powód, co robić zamiast tego i **warunek powrotu**.
+Each entry has: the date, what was rejected, the concrete case that raised it, the reason, what to do instead, and the **revisit condition**.
 
-Agent sprawdza ten folder, zanim zaproponuje nowe narzędzie albo konwencję. Jeśli propozycja tu jest, przywołuje wpis. Jeśli warunek powrotu jest spełniony, mówi o tym.
+An agent checks this folder before proposing a new tool or convention. If the proposal is here, the agent cites the entry. If the revisit condition is now met, the agent says so.
 
-Wpis powstaje od razu przy odrzuceniu. Wpisów się nie edytuje; zmiana zdania to nowa decyzja w `docs/decisions/` i adnotacja na górze wpisu.
+An entry is written at the moment of rejection. Entries are not edited; a change of mind is a new decision in `docs/decisions/` and a note at the top of the entry.

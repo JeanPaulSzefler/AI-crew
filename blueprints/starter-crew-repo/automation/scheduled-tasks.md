@@ -21,23 +21,23 @@ Read AGENTS.md and CLAUDE.md first and follow them.
 
 0. If a crew pull request from an earlier run is still open: do not start new
    tasks. Act only on the owner's comments in it, then end.
-1. Open BOARD.md. If the owner answered something under "Czeka na Ownera",
+1. Open BOARD.md. If the owner answered something under "Waiting for owner",
    act on the answer first.
-2. Resume first: a task under "W toku" that you hold and that is paused
-   ("wstrzymane: limit") or now has the owner's answer continues from its
+2. Resume first: a task under "In progress" that you hold and that is paused
+   ("paused: limit") or now has the owner's answer continues from its
    state file in work/.
-3. Then take new tasks from "Gotowe do wzięcia" assigned to lead or worker,
+3. Then take new tasks from "Ready" assigned to lead or worker,
    top first, so that this run handles at most 2 tasks in total. Skip
-   class C and tasks marked "wymaga komputera".
+   class C and tasks marked "needs-pc".
 4. Work on one branch for this run. After every step: update the task's
    state file if it has one, commit with the task id, push. Run the check.
 5. Two failed attempts at a task: stop it, write what you tried in its state
    file, go on to the next.
-6. Missing information: write the question under "Czeka na Ownera" and go on.
+6. Missing information: write the question under "Waiting for owner" and go on.
    Do not guess.
 7. Last commit: update BOARD.md and add one line per task to JOURNAL.md.
 8. Class A only, at autonomy level 2: merge. Otherwise open one pull request
-   for the owner with a short summary in Polish.
+   for the owner with a short summary.
 If there is nothing to resume and no ready task, end without changes.
 ```
 
@@ -49,16 +49,16 @@ Harmonogram: raz w tygodniu.
 Unattended weekly status for this repository. Read AGENTS.md first.
 Do not start any task.
 
-Add an entry at the bottom of JOURNAL.md under today's date, in Polish,
-at most 15 lines:
+Add an entry at the bottom of JOURNAL.md under today's date, at most
+15 lines:
 - five numbers for the last 7 days: tasks finished, changes returned after
   review, advisor consultations, questions to the owner, limit hits. Use
-  JOURNAL.md, BOARD.md and the git log. Write "brak danych" where you cannot tell.
+  JOURNAL.md, BOARD.md and the git log. Write "no data" where you cannot tell.
 - what is waiting for the owner, oldest first.
 - one thing that went wrong or was slow, with a proposed fix.
-- notes added to "Dla innych projektów" in the last 7 days, and ideas marked
-  "z zewnątrz" that still have no decision.
-Add up to three proposed next tasks to "Pomysły" in BOARD.md.
+- notes added to "For other projects" in the last 7 days, and ideas marked
+  "external" that still have no decision.
+Add up to three proposed next tasks to "Ideas" in BOARD.md.
 Commit according to the repository's autonomy level.
 ```
 

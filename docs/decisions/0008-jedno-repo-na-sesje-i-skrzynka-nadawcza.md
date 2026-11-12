@@ -1,5 +1,7 @@
 # 0008: Jedno repo na sesję, inne tylko do odczytu; pomysły dla innych projektów w skrzynce nadawczej
 
+> Note, 2026-11-12: field and section names in this record were renamed to English by [decision 0010](0010-language.md). The decision itself stands.
+
 - **Data:** 2026-11-11
 - **Status:** przyjęta. Skrzynka centralna: osobna propozycja, czeka na decyzję
 - **Podstawa:** Owner 11.11.2026: praca zawsze na jednym repo, dostęp do innych tylko w trybie odczytu, z możliwością zostawienia pomysłu na przyszłe zadanie; „startujemy z wariantem A”

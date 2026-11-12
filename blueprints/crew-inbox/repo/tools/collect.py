@@ -19,11 +19,11 @@ import sys
 import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECTION = "## Dla innych projektów"
+SECTION = "## For other projects"
 REPO = re.compile(r"^[\w.-]+/[\w.-]+$")
 PATH = re.compile(r"^[\w][\w./ -]*$")
-NOTE = re.compile(r"^- (N-[\w.-]+-\d+)\s*·\s*dla:\s*([\w./-]+)\s*·\s*(\d{4}-\d{2}-\d{2})\s*$")
-INDEX = re.compile(r"^- H-(\d{4}) · z: (\S+) · (N-[\w.-]+-\d+) · ")
+NOTE = re.compile(r"^- (N-[\w.-]+-\d+)\s*·\s*for:\s*([\w./-]+)\s*·\s*(\d{4}-\d{2}-\d{2})\s*$")
+INDEX = re.compile(r"^- H-(\d{4}) · from: (\S+) · (N-[\w.-]+-\d+) · ")
 
 
 def registry():
@@ -32,7 +32,7 @@ def registry():
         cells = [c.strip().strip("`") for c in line.strip().strip("|").split("|")]
         if len(cells) >= 3 and REPO.match(cells[0]) and PATH.match(cells[2]):
             rows.append({"repo": cells[0], "name": cells[0].split("/")[1].lower(),
-                         "public": cells[1].lower().startswith("publ"), "path": cells[2]})
+                         "public": cells[1].lower().startswith("public"), "path": cells[2]})
     return rows
 
 
@@ -132,24 +132,24 @@ def main():
             name = target.split("/")[-1].lower()
             known_target = targets.get(name)
             file_name = name if known_target else "_unknown"
-            body_text = "".join(f"      {line}\n" for line in body) or "      (brak treści)\n"
+            body_text = "".join(f"      {line}\n" for line in body) or "      (no text)\n"
             added.setdefault(file_name, []).append(hub_id)
             if args.dry_run:
                 continue
             append(os.path.join(ROOT, "index.md"),
-                   f'- {hub_id} · z: {row["repo"]} · {source_id} · dla: {target} · notatka: {date} · zebrano: {today}\n{body_text}')
-            origin = "" if known_target and known_target["public"] else f' · z: {row["repo"].split("/")[1]} ({source_id})'
+                   f'- {hub_id} · from: {row["repo"]} · {source_id} · for: {target} · noted: {date} · collected: {today}\n{body_text}')
+            origin = "" if known_target and known_target["public"] else f' · from: {row["repo"].split("/")[1]} ({source_id})'
             append(os.path.join(ROOT, "for", file_name + ".md"), f"- {hub_id} · {date}{origin}\n{body_text}",
-                   header=f"# Notatki dla: {file_name}\n\nTylko dopisywanie. Najnowsze na dole.\n\n")
+                   header=f"# Notes for: {file_name}\n\nAppend only. Newest at the bottom.\n\n")
 
     total = sum(len(ids) for ids in added.values())
-    parts = ", ".join(f"{name}: {len(ids)}" for name, ids in sorted(added.items())) or "brak nowych"
-    summary = f"zebrano {total} ({parts}); nieodczytane repo: {len(unread)}; błędne wpisy: {len(malformed_all)}"
+    parts = ", ".join(f"{name}: {len(ids)}" for name, ids in sorted(added.items())) or "nothing new"
+    summary = f"collected {total} ({parts}); repositories not read: {len(unread)}; malformed entries: {len(malformed_all)}"
     print(("DRY RUN: " if args.dry_run else "") + summary)
     for repo in unread:
-        print(" - nie udało się odczytać:", repo)
+        print(" - could not read:", repo)
     for entry in malformed_all:
-        print(" - błędny wpis:", entry)
+        print(" - malformed entry:", entry)
     if not args.dry_run:
         append(os.path.join(ROOT, "JOURNAL.md"), f"- {today}: {summary}\n")
     sys.exit(2 if unread else 0)

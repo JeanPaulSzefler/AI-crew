@@ -1,7 +1,7 @@
-# Podłączone repo
+# Connected repositories
 
-Zmienia się tylko na wyraźne polecenie Ownera. Zbierający czyta z każdego repo wyłącznie plik podany w trzeciej kolumnie.
+Changes only on the owner's explicit instruction. From each repository the collector reads only the file in the third column. Visibility is `private` or `public`.
 
-| Repo | Widoczność | Plik ze skrzynką nadawczą |
+| Repository | Visibility | Outbox file |
 | --- | --- | --- |
-| `{{owner/repo}}` | prywatne | `BOARD.md` |
+| `{{owner/repo}}` | private | `BOARD.md` |

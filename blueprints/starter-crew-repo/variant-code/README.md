@@ -37,4 +37,4 @@ W `.claude/settings.json` warto dodać listę `allow` z komendami testów (np. `
 
 ## Praca wymagająca komputera
 
-Zadania, których nie da się wykonać w chmurze (np. podpisana paczka `.apk`), dostają na tablicy dopisek „wymaga komputera”. Załoga przygotowuje wszystko do tego kroku i opisuje go w zadaniu tak, żeby Owner wykonał go jedną komendą.
+Zadania, których nie da się wykonać w chmurze (np. podpisana paczka `.apk`), dostają na tablicy dopisek `needs-pc`. Załoga przygotowuje wszystko do tego kroku i opisuje go w zadaniu tak, żeby Owner wykonał go jedną komendą.

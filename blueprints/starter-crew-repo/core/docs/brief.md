@@ -1,32 +1,32 @@
-# Brief projektu
+# Project brief
 
-Jedna strona. Zmiany zatwierdza Owner.
+One page. The owner approves changes.
 
-## Po co
+## Why
 
-{{Jaki problem rozwiązujemy i dla kogo. Dwa–trzy zdania.}}
+{{What problem we solve and for whom. Two or three sentences.}}
 
-## Co jest sukcesem
+## What success is
 
-- {{Mierzalny albo obserwowalny wynik.}}
+- {{A measurable or observable result.}}
 
-## Zakres
+## Scope
 
-- **Robimy:** {{…}}
-- **Nie robimy:** {{…}} (szczegóły odrzuconych pomysłów: `docs/out-of-scope/`)
+- **In:** {{…}}
+- **Out:** {{…}} (details of rejected ideas: `docs/out-of-scope/`)
 
-## Założenia
+## Assumptions
 
-Punkt odniesienia, nie stała. Każde założenie ma warunek, przy którym do niego wracamy.
+A reference point, not a constant. Each assumption has a condition for revisiting it.
 
-| Założenie | Wrócić, gdy |
+| Assumption | Revisit when |
 | --- | --- |
-| Subskrypcje: {{Claude Pro, ChatGPT Plus, bez płatnego API}} | Zmieni się plan albo limity |
-| Miejsce pracy: {{sesje chmurowe z telefonu}} | Pojawi się praca wymagająca komputera |
+| Subscriptions: {{Claude Pro, ChatGPT Plus, no paid API}} | The plan or the limits change |
+| Where work happens: {{cloud sessions started from the phone}} | Work appears that needs a computer |
 | {{…}} | {{…}} |
 
-## Zawsze Owner
+## Always the owner
 
-Lista w [`AGENTS.md`](../AGENTS.md#always-the-owner-class-c). Tu tylko dodatki właściwe dla tego projektu:
+The list is in [`AGENTS.md`](../AGENTS.md#always-the-owner-class-c). Only project-specific additions here:
 
 - {{…}}

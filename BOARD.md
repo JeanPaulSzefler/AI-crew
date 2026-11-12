@@ -1,68 +1,71 @@
-# Tablica zadań
+# Task board
 
-Stan pracy w tym repo. Agent zaczyna od tego pliku. Zasady: [`AGENTS.md`](AGENTS.md).
+The state of work in this repository. Agents start here. Rules: [`AGENTS.md`](AGENTS.md).
 
-Format zadania:
-
-```text
-- [ ] T-001 · tytuł · kto: lead | worker | codex | owner · klasa: A | B | C
-      Cel: co ma powstać. Pliki: gdzie. Odbiór: po czym poznać, że gotowe.
-```
-
-Zadanie bez celu, plików i odbioru nie jest gotowe i zostaje w „Pomysłach”.
-
-## Czeka na Ownera
-
-Pytania i akceptacje. Najstarsze na górze. Owner odpowiada pod wpisem.
-
-1. **Struktura załogi** ([decyzja 0001](docs/decisions/0001-struktura-zalogi.md), [raport](outputs/2026-11-11-koncepcja-ai-crew-i-blueprint-repo.md) rozdz. 3–4): przyjąć, zmienić czy odrzucić? Do czasu odpowiedzi ma status propozycji.
-2. **Poziom autonomii tego repo:** zapisany jako 2 (załoga sama scala dziennik, tablicę, indeksy i literówki). Potwierdzić albo zmienić na 1 ([decyzja 0003](docs/decisions/0003-tryby-autonomii.md)).
-3. **Tryb (c):** w którym repo i od kiedy włączyć dwa zaplanowane zadania ([treści poleceń](blueprints/starter-crew-repo/automation/scheduled-tasks.md))? Włącza Owner albo załoga na jego wyraźne polecenie.
-4. **Pilotaż:** który nowy projekt postawić z blueprintu jako pierwszy?
-5. **Gałąź domyślna na GitHubie** jest nadal gałęzią sesji, a nie `master`. Zmiana: Settings → Branches (tylko Owner).
-6. **Sprostowanie:** w raporcie hostingowym v3 i w przeglądzie w publicznym repo z grami polecenie „rozważ” zostało zapisane jako „decyzja Ownera”. Poprawka była zaproponowana, czeka na zgodę.
-7. **Historia gita** zawiera starsze wersje raportów ze szczegółami prywatnych projektów. Odłożone przez Ownera 11.11.2026.
-8. **Założenia robocze** do potwierdzenia: zadania w plikach ([0002](docs/decisions/0002-zadania-i-decyzje-w-plikach.md)) i podział języków ([0004](docs/decisions/0004-jezyk-plikow.md)).
-9. **Utworzyć puste prywatne repo `crew-inbox`** (GitHub: New repository → Private). Integracja Claude nie może zakładać repozytoriów. Po utworzeniu wystarczy napisać w sesji „uruchom skrzynkę”. Do decyzji przy okazji: które repo podłączyć oprócz tego. Stan: [`work/T-005-crew-inbox.md`](work/T-005-crew-inbox.md).
-
-## Gotowe do wzięcia
-
-- [ ] T-002 · Dopasować zadanie startowe śpiewnika do nowego blueprintu · kto: lead · klasa: B
-      Cel: `TASK-000` śpiewnika korzysta z `starter-crew-repo` (wariant z kodem) zamiast własnej listy plików. Pliki: `blueprints/spiewnik-live/`. Odbiór: zadanie odsyła do blueprintu, nie powiela jego treści, test przechodzi.
-- [ ] T-003 · Dodać do blueprintu słowniczek pojęć dla Ownera · kto: lead · klasa: B
-      Cel: jedna strona po polsku: sesja, subagent, klasa ryzyka, poziom autonomii, zaplanowane zadanie, PR. Pliki: `blueprints/starter-crew-repo/`. Odbiór: każde pojęcie z README blueprintu ma objaśnienie w dwóch zdaniach.
-
-## W toku
-
-Zadanie wstrzymane albo przekazane ma plik stanu w [`work/`](work/README.md). Wpis podaje stan i odnośnik do pliku.
-
-- [ ] T-005 · Uruchomić skrzynkę centralną `crew-inbox` · kto: lead · klasa: B · stan: czeka na Ownera · [plik stanu](work/T-005-crew-inbox.md)
-
-## Pomysły
-
-Rzeczy jeszcze nieprzygotowane. Agent może tu dopisywać, nie może ich zaczynać. Pomysł z innego projektu ma dopisek „z zewnątrz” i numer notatki.
-
-- Sprawdzić w praktyce pięć pytań z rozdziału 11 raportu (advisor w chmurze, automatyczne recenzje Codex, `@codex review` od załogi, obrazy z Codex, limit przy trybie c). Wymaga kont Ownera i sesji na Sonnecie.
-- Wariant blueprintu dla aplikacji mobilnej albo gry, z krokiem „wymaga komputera” przy budowaniu paczki.
-- Po pilotażu: przegląd blueprintu według rozdziału 10 raportu.
-- Przejrzeć raport z 31.10 i rekomendację skilli pod kątem zgodności z decyzjami 0001–0006.
-- Jedna próba sesji-kuriera (wariant B z decyzji 0008): sesja uruchamia krótką sesję w repo docelowym, która zapisuje notatkę.
-- Automatyzacja zbierania w skrzynce (decyzja 0009: „potem na automat”). Warunki w `blueprints/crew-inbox/README.md`: dwa podłączone repo, trzy udane zbierania ręczne, zgoda Ownera na zaplanowane zadanie.
-
-## Dla innych projektów
-
-Pomysły zauważone przy pracy tutaj, które dotyczą innego repo. Tylko dopisywanie, najnowsze na dole. Stąd nikt nie pisze do cudzego repo: notatkę zabiera sesja repo docelowego. Zasady: [`AGENTS.md`](AGENTS.md), sekcja „Other repositories”.
+Task format:
 
 ```text
-- N-aicrew-001 · dla: nazwa-repo · RRRR-MM-DD
-      Co zauważyłem: … Dlaczego to ważne: … Gdzie to widać: plik albo miejsce.
+- [ ] T-001 · title · who: lead | worker | codex | owner · class: A | B | C
+      Goal: what must exist. Files: where. Accept: how to tell it is done.
 ```
 
-- (pusto)
+A task without goal, files and acceptance is not ready and stays under "Ideas".
+Optional tags: `needs-pc` (cannot be done in the cloud), `external` (an idea from another project, with its note id).
 
-## Zrobione
+## Waiting for owner
 
-Ostatnie 10. Starsze są w historii gita i w `JOURNAL.md`.
+Questions and approvals. Oldest first. The owner answers under the entry.
 
-- [x] T-001 · Raport koncepcyjny, struktura startowa tego repo i blueprint `starter-crew-repo` · kto: lead · klasa: B · 2026-11-11
-- [x] T-004 · Blueprint v1.1: pliki stanu zadań, punkty kontrolne, jedno repo na sesję, skrzynka nadawcza (decyzje 0007 i 0008) · kto: lead · klasa: B · 2026-11-11
+1. **Crew structure** ([decision 0001](docs/decisions/0001-struktura-zalogi.md), [report](outputs/2026-11-11-koncepcja-ai-crew-i-blueprint-repo.md) chapters 3 and 4): accept, change or reject? It is a proposal until answered.
+2. **Autonomy level of this repository:** recorded as 2 (the crew merges journal, board, index and typo changes itself). Confirm, or change to 1 ([decision 0003](docs/decisions/0003-tryby-autonomii.md)).
+3. **Mode (c):** in which repository and from when should the two scheduled tasks run ([prompts](blueprints/starter-crew-repo/automation/scheduled-tasks.md))? The owner turns them on, or the crew does on the owner's explicit instruction.
+4. **Pilot:** which new project is set up from the blueprint first?
+5. **Default branch on GitHub** is still the session branch, not `master`. Change: Settings → Branches (owner only).
+6. **Correction:** the hosting report v3 and a review in the public games repository record "consider" as "the owner's decision". A fix was proposed and waits for approval.
+7. **Git history** holds older report versions with details of private projects. Postponed by the owner on 2026-11-11.
+8. **Working assumption** to confirm: tasks and decisions live in files ([0002](docs/decisions/0002-zadania-i-decyzje-w-plikach.md)).
+9. **Create the empty private repository `crew-inbox`** (GitHub: New repository → Private). The Claude integration cannot create repositories. After that, say "start the inbox" in a session. Also to decide: which repositories to connect besides this one. State: [`work/T-005-crew-inbox.md`](work/T-005-crew-inbox.md).
+
+## Ready
+
+- [ ] T-002 · Align the songbook bootstrap task with the new blueprint · who: lead · class: B
+      Goal: the songbook `TASK-000` uses `starter-crew-repo` (code variant) instead of its own file list. Files: `blueprints/spiewnik-live/`. Accept: the task points to the blueprint, does not repeat its content, and the check passes.
+- [ ] T-003 · Add a glossary for the owner to the blueprint · who: lead · class: B
+      Goal: one page in Polish: session, subagent, risk class, autonomy level, scheduled task, pull request. Files: `blueprints/starter-crew-repo/`. Accept: every term used in the blueprint README is explained in two sentences.
+
+## In progress
+
+A paused or handed-over task has a state file in [`work/`](work/README.md). The entry gives the state and links the file.
+
+- [ ] T-005 · Start the central inbox `crew-inbox` · who: lead · class: B · state: waiting for owner · [state file](work/T-005-crew-inbox.md)
+
+## Ideas
+
+Not prepared yet. Agents may add here; they may not start these.
+
+- Check in practice the five questions from chapter 11 of the report (advisor in cloud sessions, automatic Codex reviews, `@codex review` posted by the crew, images from Codex, limit use in mode c). Needs the owner's accounts and a session on Sonnet.
+- A blueprint variant for a mobile app or a game, with a `needs-pc` step for building the package.
+- After the pilot: review the blueprint as chapter 10 of the report describes.
+- Review the 31 Oct report and the skills recommendation against decisions 0001 to 0010.
+- One trial of a courier session (variant B in decision 0008): a session starts a short session in the target repository, which writes the note there.
+- Automate collecting in the inbox (decision 0009: "automate later"). Conditions in `blueprints/crew-inbox/README.md`: two connected repositories, three successful manual collections, the owner's approval of a scheduled task.
+- Translate the prose of the blueprint guides to English if the owner prefers one language everywhere (decision 0010 allows both).
+
+## For other projects
+
+Ideas noticed while working here that concern another repository. Append only, newest at the bottom. Nobody writes into another repository from here; the target repository's own session picks the note up. Rules: [`AGENTS.md`](AGENTS.md), section "Other repositories".
+
+```text
+- N-aicrew-001 · for: repo-name · YYYY-MM-DD
+      Noticed: … Why it matters: … Where to see it: file or place.
+```
+
+- (empty)
+
+## Done
+
+The last 10. Older ones are in the git history and in `JOURNAL.md`.
+
+- [x] T-001 · Concept report, starter structure of this repository and the `starter-crew-repo` blueprint · who: lead · class: B · 2026-11-11
+- [x] T-004 · Blueprint v1.1: task state files, checkpoints, one repository per session, outbox for notes (decisions 0007 and 0008) · who: lead · class: B · 2026-11-11
+- [x] T-006 · English for agent-facing files, tags and file structure (decision 0010) · who: lead · class: B · 2026-11-12

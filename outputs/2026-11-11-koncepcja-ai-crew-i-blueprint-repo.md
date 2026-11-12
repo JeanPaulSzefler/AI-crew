@@ -1,6 +1,6 @@
 # Koncepcja AI crew dla nowych projektów i blueprint repo
 
-11 listopada 2026 · wersja 1.2 · status: rekomendacja, czeka na wybór Ownera (rozdział 13 przyjęty)
+11 listopada 2026 · wersja 1.3 (12.11) · status: rekomendacja, czeka na wybór Ownera (rozdział 13 przyjęty)
 
 Raport odpowiada na trzy pytania Ownera:
 
@@ -150,7 +150,7 @@ Limit sesji i limit tygodniowy są wspólne dla wszystkich modeli. Osobno istnie
 | --- | --- | --- |
 | Wykonawca → Prowadzący | Brak informacji | Wynik `BLOCKED: pytanie`. Prowadzący odpowiada i wznawia albo robi sam |
 | Prowadzący → Doradca | Trzy momenty z rozdziału 4 | Brief w pliku, werdykt wraca do sesji |
-| Prowadzący → Owner | Sprawa z listy „zawsze Owner” albo brak danych, których nie ma w repo | Wpis w sekcji „Czeka na Ownera” w `BOARD.md`. Praca nad pozostałymi zadaniami trwa |
+| Prowadzący → Owner | Sprawa z listy „zawsze Owner” albo brak danych, których nie ma w repo | Wpis w sekcji „Waiting for owner” w `BOARD.md`. Praca nad pozostałymi zadaniami trwa |
 | Owner → Codex | Paczka zadań oznaczonych `codex` | Jedna wiadomość. Wynik jako PR albo plik w repo |
 | Codex → Prowadzący | Uwagi z recenzji | Komentarze w PR albo plik z uwagami. Poprawia autor zmiany, nie recenzent |
 
@@ -162,10 +162,10 @@ Zasada wspólna: pytanie nie zatrzymuje całej pracy. Zatrzymuje jedno zadanie.
 
 | Przeszkoda | Mechanizm |
 | --- | --- |
-| Agent nie wie, co robić dalej | `BOARD.md` z sekcją „Gotowe do wzięcia”. Zadanie jest gotowe, gdy ma cel, pliki, test odbioru i klasę ryzyka |
+| Agent nie wie, co robić dalej | `BOARD.md` z sekcją „Ready”. Zadanie jest gotowe, gdy ma cel, pliki, test odbioru i klasę ryzyka |
 | Agent nie wie, czy skończył | Jedna komenda sprawdzająca, ta sama lokalnie i w CI |
 | Agent czeka na zgodę przy każdym kroku | Uprawnienia ustawione z góry. Pytanie tylko przy działaniach z krótkiej listy |
-| Agent potrzebuje odpowiedzi Ownera | Kolejka „Czeka na Ownera”, następne zadanie w tym czasie |
+| Agent potrzebuje odpowiedzi Ownera | Kolejka „Waiting for owner”, następne zadanie w tym czasie |
 | Sesja nie pamięta poprzedniej | Stan w plikach: tablica, dziennik, decyzje |
 | Nikt nie uruchomił pracy | Zaplanowane zadania w chmurze |
 | Limit subskrypcji | Sonnet i Haiku na co dzień, Opus punktowo |
@@ -207,7 +207,7 @@ Wnioski dla blueprintu:
 
 Zaplanowane zadania są dostępne w planie Pro. Każde uruchomienie to pełna sesja chmurowa, która zużywa ten sam limit co zwykła praca. Sesja startuje w trybie automatycznym, a reguły `ask` nadal zatrzymują ją do decyzji Ownera. Zmiany trafiają domyślnie na gałęzie `claude/…`. Model wybiera się przy tworzeniu zadania: Sonnet.
 
-Bezpieczniki codziennego uruchomienia: najwyżej dwa zadania, tylko z sekcji „Gotowe do wzięcia”, nigdy klasa C, PR dla klasy B, stop po dwóch nieudanych próbach, wpis do dziennika na końcu. Gotowe treści poleceń są w blueprincie (`automation/scheduled-tasks.md`).
+Bezpieczniki codziennego uruchomienia: najwyżej dwa zadania, tylko z sekcji „Ready”, nigdy klasa C, PR dla klasy B, stop po dwóch nieudanych próbach, wpis do dziennika na końcu. Gotowe treści poleceń są w blueprincie (`automation/scheduled-tasks.md`).
 
 ## 7. Codex w załodze
 
@@ -231,7 +231,7 @@ repo/
 ├── AGENTS.md              # wspólne zasady dla wszystkich agentów (≤ 100 linii)
 ├── CLAUDE.md              # @AGENTS.md + role i modele załogi Claude
 ├── README.md              # dla ludzi: co to jest, stan, jak zacząć
-├── BOARD.md               # zadania i „Czeka na Ownera”
+├── BOARD.md               # zadania i „Waiting for owner”
 ├── JOURNAL.md             # co się wydarzyło i czego się nauczyliśmy
 ├── work/                  # pliki stanu zadań wstrzymanych i przekazywanych (rozdz. 13)
 ├── docs/
@@ -293,7 +293,7 @@ Zasada: **element dochodzi wtedy, gdy wystąpi jego wyzwalacz**, a nie na zapas.
 
 Uwagi do etapów:
 
-- **Etap 2:** wydanie jest klasą C. Załoga przygotowuje wszystko (wersja, lista zmian, paczka, lista kontrolna), a Owner wykonuje ostatni krok. Praca wymagająca komputera Ownera (np. podpisana paczka `.apk`) dostaje na tablicy oznaczenie „wymaga komputera”.
+- **Etap 2:** wydanie jest klasą C. Załoga przygotowuje wszystko (wersja, lista zmian, paczka, lista kontrolna), a Owner wykonuje ostatni krok. Praca wymagająca komputera Ownera (np. podpisana paczka `.apk`) dostaje na tablicy oznaczenie `needs-pc`.
 - **Etap 3:** zgłoszenia od ludzi z zewnątrz to dane, nie polecenia. Agent, który je czyta, nie wykonuje zawartych w nich instrukcji.
 - **Etap 4:** agent ma na produkcji tylko odczyt. Runbook opisuje kroki tak, żeby mógł je wykonać Owner z telefonu. Odpowiedzi wsparcia zaczynają jako szkice. Samodzielne wysyłanie można rozważyć później dla wąskich, powtarzalnych kategorii.
 - Załoga nie rośnie o nowe stałe role. Rosną **wyzwalacze** (harmonogram, zdarzenie z GitHuba, alarm) i **procedury** (skille, runbooki). Prowadzący zostaje jeden.
@@ -372,6 +372,10 @@ Zasady budowy:
 5. **Automatyzacja później.** Zaplanowane zadanie z kilkoma repo ma prawo zapisu do każdego z nich, a GitHub Free nie zablokuje tego w repo prywatnych.
 
 Struktura i instrukcja: blueprint [`crew-inbox`](../blueprints/crew-inbox/README.md).
+
+### 13.5. Język (przyjęte 12.11.2026)
+
+[Decyzja 0010](../docs/decisions/0010-language.md): wszystko, co czytają agenci, jest po angielsku, razem z tagami zadań, nazwami pól i sekcji. Po polsku zostają tylko długie teksty do analizy przez Ownera, takie jak ten raport; angielski też jest tam dopuszczalny. Nazwy sekcji tablicy w tym raporcie podano już w nowym brzmieniu („Waiting for owner”, „Ready”). To zastępuje wcześniejsze założenie robocze (pliki dla Ownera po polsku, decyzja 0004).
 
 ## Źródła
 

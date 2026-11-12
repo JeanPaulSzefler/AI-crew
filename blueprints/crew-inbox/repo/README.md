@@ -1,42 +1,44 @@
 # crew-inbox
 
-Prywatna skrzynka na pomysły między projektami. Załoga pracująca w jednym repo zapisuje u siebie notatkę dla innego projektu. Skrzynka zbiera te notatki w jedno miejsce, a każdy projekt czyta tylko swój plik.
+A private inbox for ideas between projects. A crew working in one repository writes a note for another project in its own board. The inbox collects those notes in one place, and each project reads only its own file.
 
-To jest spis, nie tablica zadań. O tym, czy pomysł zostaje zadaniem, decyduje Owner w repo docelowym.
+This is a list, not a task board. Whether an idea becomes a task is the owner's decision in the target repository.
 
-## Jak używać z telefonu
+## How to use it from the phone
 
-| Chcę… | Co zrobić |
+| I want to… | What to do |
 | --- | --- |
-| zebrać nowe notatki | Sesja w tym repo (model Haiku), wiadomość: „zbierz notatki” |
-| odebrać notatki w projekcie | Sesja w repo projektu, wiadomość: „zabierz notatki ze skrzynki” |
-| podłączyć kolejne repo | Sesja w tym repo, wiadomość: „podłącz repo właściciel/nazwa, prywatne” (albo „publiczne”) |
-| zobaczyć wszystko | [`index.md`](index.md) |
+| collect new notes | A session in this repository (model Haiku): "collect notes" |
+| pick up notes in a project | A session in the project's repository: "pick up notes from the inbox" |
+| connect another repository | A session in this repository: "connect owner/name, private" (or "public") |
+| see everything | [`index.md`](index.md) |
 
-## Podłączenie repo
+The phrases can be in any language.
 
-1. W repo projektu musi istnieć skrzynka nadawcza: sekcja „Dla innych projektów” w `BOARD.md`. Repo bez tablicy może mieć plik `OUTBOX.md` z tym samym nagłówkiem sekcji. Dodaje ją sesja tamtego repo.
-2. W [`repos.md`](repos.md) dochodzi wiersz: repo, widoczność, plik.
+## Connecting a repository
 
-Format notatki w skrzynce nadawczej:
+1. The project's repository needs an outbox: the section "For other projects" in `BOARD.md`. A repository without a board can have a file `OUTBOX.md` with the same section heading. That repository's own session adds it.
+2. A row is added to [`repos.md`](repos.md): repository, visibility, file.
+
+Note format in the outbox:
 
 ```text
-## Dla innych projektów
+## For other projects
 
-- N-nazwarepo-001 · dla: nazwa-repo · RRRR-MM-DD
-      Co zauważyłem: … Dlaczego to ważne: … Gdzie to widać: plik albo miejsce.
+- N-reponame-001 · for: repo-name · YYYY-MM-DD
+      Noticed: … Why it matters: … Where to see it: file or place.
 ```
 
-## Pliki
+## Files
 
-| Plik | Co zawiera |
+| File | Holds |
 | --- | --- |
-| [`repos.md`](repos.md) | Podłączone repo |
-| [`index.md`](index.md) | Wszystkie zebrane notatki ze źródłem |
-| [`for/`](for/README.md) | Jeden plik na repo docelowe |
-| [`JOURNAL.md`](JOURNAL.md) | Jedna linia na każde zbieranie |
-| `tools/collect.py`, `tools/check.py` | Zbieranie i test |
+| [`repos.md`](repos.md) | Connected repositories |
+| [`index.md`](index.md) | Every collected note with its source |
+| [`for/`](for/README.md) | One file per target repository |
+| [`JOURNAL.md`](JOURNAL.md) | One line per collection |
+| `tools/collect.py`, `tools/check.py` | The collector and the check |
 
-## Prywatność
+## Privacy
 
-To repo jest prywatne i zawiera nazwy prywatnych projektów. Plik `for/<repo>.md` repo publicznego nie podaje, skąd pochodzi notatka. Treść notatki pisze załoga źródłowa; dla repo publicznego ma być uogólniona.
+This repository is private and names private projects. The file `for/<repo>.md` of a public repository does not say where a note came from. The source crew writes the note; for a public repository the text must be generalised.

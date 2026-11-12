@@ -1,52 +1,53 @@
-# Tablica zadań
+# Task board
 
-Stan pracy w tym repo. Agent zaczyna od tego pliku. Zasady: [`AGENTS.md`](AGENTS.md).
+The state of work in this repository. Agents start here. Rules: [`AGENTS.md`](AGENTS.md).
 
-Format zadania:
-
-```text
-- [ ] T-001 · tytuł · kto: lead | worker | codex | owner · klasa: A | B | C
-      Cel: co ma powstać. Pliki: gdzie. Odbiór: po czym poznać, że gotowe.
-```
-
-Zadanie bez celu, plików i odbioru nie jest gotowe i zostaje w „Pomysłach”.
-
-## Czeka na Ownera
-
-Pytania i akceptacje. Najstarsze na górze. Owner odpowiada pod wpisem.
-
-- (pusto)
-
-## Gotowe do wzięcia
-
-- [ ] T-001 · {{tytuł}} · kto: lead · klasa: B
-      Cel: {{…}}. Pliki: {{…}}. Odbiór: {{…}}.
-
-## W toku
-
-Zadanie wstrzymane albo przekazane ma plik stanu w [`work/`](work/README.md). Wpis podaje stan i odnośnik do pliku.
-
-- (pusto)
-
-## Pomysły
-
-Rzeczy jeszcze nieprzygotowane. Agent może tu dopisywać, nie może ich zaczynać. Pomysł z innego projektu ma dopisek „z zewnątrz” i numer notatki.
-
-- (pusto)
-
-## Dla innych projektów
-
-Pomysły zauważone przy pracy tutaj, które dotyczą innego repo. Tylko dopisywanie, najnowsze na dole. Stąd nikt nie pisze do cudzego repo: notatkę zabiera sesja repo docelowego. Zasady: [`AGENTS.md`](AGENTS.md), sekcja „Other repositories”.
+Task format:
 
 ```text
-- N-{{repo}}-001 · dla: nazwa-repo · RRRR-MM-DD
-      Co zauważyłem: … Dlaczego to ważne: … Gdzie to widać: plik albo miejsce.
+- [ ] T-001 · title · who: lead | worker | codex | owner · class: A | B | C
+      Goal: what must exist. Files: where. Accept: how to tell it is done.
 ```
 
-- (pusto)
+A task without goal, files and acceptance is not ready and stays under "Ideas".
+Optional tags: `needs-pc` (cannot be done in the cloud), `external` (an idea from another project, with its note id).
 
-## Zrobione
+## Waiting for owner
 
-Ostatnie 10. Starsze są w historii gita i w `JOURNAL.md`.
+Questions and approvals. Oldest first. The owner answers under the entry.
 
-- (pusto)
+- (empty)
+
+## Ready
+
+- [ ] T-001 · {{title}} · who: lead · class: B
+      Goal: {{…}}. Files: {{…}}. Accept: {{…}}.
+
+## In progress
+
+A paused or handed-over task has a state file in [`work/`](work/README.md). The entry gives the state and links the file.
+
+- (empty)
+
+## Ideas
+
+Not prepared yet. Agents may add here; they may not start these.
+
+- (empty)
+
+## For other projects
+
+Ideas noticed while working here that concern another repository. Append only, newest at the bottom. Nobody writes into another repository from here; the target repository's own session picks the note up. Rules: [`AGENTS.md`](AGENTS.md), section "Other repositories".
+
+```text
+- N-{{repo}}-001 · for: repo-name · YYYY-MM-DD
+      Noticed: … Why it matters: … Where to see it: file or place.
+```
+
+- (empty)
+
+## Done
+
+The last 10. Older ones are in the git history and in `JOURNAL.md`.
+
+- (empty)

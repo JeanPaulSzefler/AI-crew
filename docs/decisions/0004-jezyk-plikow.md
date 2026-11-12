@@ -1,5 +1,7 @@
 # 0004: Pliki dla agentów po angielsku, dla Ownera po polsku
 
+> Note, 2026-11-12: superseded by [decision 0010](0010-language.md).
+
 - **Data:** 2026-11-11
 - **Status:** założenie robocze. Przedstawione Ownerowi 11.11.2026; nie odrzucone, nie potwierdzone wprost
 - **Podstawa:** rozmowa z 11.11.2026

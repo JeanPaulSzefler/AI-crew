@@ -1,18 +1,18 @@
-# Dziennik
+# Journal
 
-Co się wydarzyło, co zostało ustalone i czego się nauczyliśmy. Najnowsze wpisy na dole. Wpisów się nie poprawia; sprostowanie to nowy wpis.
+What happened, what was learned, what is still open. Newest at the bottom. Entries are not corrected; a correction is a new entry.
 
-Gdzie co zapisać:
+Where a note goes:
 
-| Notatka | Miejsce |
+| The note is | It goes to |
 | --- | --- |
-| Co zrobić i czy zrobione | `BOARD.md` |
-| Wybór, który jest rozstrzygnięty | `docs/decisions/` |
-| Pomysł odrzucony, z powodem | `docs/out-of-scope/` |
-| Co się wydarzyło, wniosek, niespodzianka, sprawa otwarta | tutaj |
+| What to do and whether it is done | `BOARD.md` |
+| A choice that is settled | `docs/decisions/` |
+| An idea that was rejected, with the reason | `docs/out-of-scope/` |
+| What happened, a lesson, a surprise, an open matter | here |
 
-Stan tygodniowy ma pięć liczb: zadania zakończone, zwroty po recenzji, konsultacje z doradcą, pytania do Ownera, trafienia w limit.
+The weekly status has five numbers: tasks finished, changes returned after review, advisor consultations, questions to the owner, limit hits.
 
-## {{RRRR-MM-DD}}
+## {{YYYY-MM-DD}}
 
-- Repo utworzone z blueprintu `starter-crew-repo` (wariant: {{treściowy | z kodem}}).
+- Repository created from the `starter-crew-repo` blueprint (variant: {{content | code}}).

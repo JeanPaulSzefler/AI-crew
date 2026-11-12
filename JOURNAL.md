@@ -1,17 +1,17 @@
-# Dziennik
+# Journal
 
-Co się wydarzyło, co zostało ustalone i czego się nauczyliśmy. Najnowsze wpisy na dole. Wpisów się nie poprawia; sprostowanie to nowy wpis.
+What happened, what was learned, what is still open. Newest at the bottom. Entries are not corrected; a correction is a new entry. Entries before 2026-11-12 are in Polish, as written (decision 0010).
 
-Gdzie co zapisać:
+Where a note goes:
 
-| Notatka | Miejsce |
+| The note is | It goes to |
 | --- | --- |
-| Co zrobić i czy zrobione | `BOARD.md` |
-| Wybór, który jest rozstrzygnięty | `docs/decisions/` |
-| Pomysł odrzucony, z powodem | `docs/out-of-scope/` |
-| Co się wydarzyło, wniosek, niespodzianka, sprawa otwarta | tutaj |
+| What to do and whether it is done | `BOARD.md` |
+| A choice that is settled | `docs/decisions/` |
+| An idea that was rejected, with the reason | `docs/out-of-scope/` |
+| What happened, a lesson, a surprise, an open matter | here |
 
-Stan tygodniowy ma pięć liczb: zadania zakończone, zwroty po recenzji, konsultacje z doradcą, pytania do Ownera, trafienia w limit.
+The weekly status has five numbers: tasks finished, changes returned after review, advisor consultations, questions to the owner, limit hits.
 
 ## 2026-10-31 do 2026-11-10 (wpis zbiorczy, odtworzony z historii gita)
 
@@ -35,3 +35,8 @@ Stan tygodniowy ma pięć liczb: zadania zakończone, zwroty po recenzji, konsul
 - Pomysł Ownera: skrzynka centralna zbierająca notatki ze wszystkich repo. Ocena: naprawia doręczanie w wariancie A, ale musi być w prywatnym repo, bo spis notatek zawiera nazwy projektów. Ustalenie z dokumentacji: zaplanowane zadanie z kilkoma repo ma prawo zapisu do każdego z nich, więc zbieranie na start lepiej uruchamiać ręcznie, z repo dołączonymi do odczytu. Czeka na decyzję (tablica, punkt 9).
 - Owner zdecydował o skrzynce centralnej (decyzja 0009): osobne prywatne repo, start od razu, zbieranie na polecenie, potem automat. Powstał blueprint `crew-inbox` ze skryptem zbierającym i testem. Utworzenie repo przez integrację nie powiodło się (GitHub: brak uprawnienia), więc T-005 czeka na Ownera z plikiem stanu. Pierwsze użycie pliku stanu w praktyce.
 - Wniosek: zbieranie notatek jest czynnością mechaniczną, więc robi je skrypt, a model tylko go uruchamia. To tańsze i nie pozwala przerabiać treści notatek.
+
+## 2026-11-12
+
+- The owner set the language rule (decision 0010, supersedes 0004): English for everything agents read and for all tags, field names and section names; Polish only for long texts the owner analyses, where English is also fine. Board sections, task tags, state file fields and the note format were renamed in this repository, in both blueprints and in the collector script.
+- Kept in Polish on purpose: reports, recommendations, the prose of the blueprint guides, and all records written before today.

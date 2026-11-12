@@ -21,13 +21,13 @@ A private mailbox for ideas that one project's crew noticed for another project.
 - Collect: `python3 tools/collect.py`. Add `--local owner/name=/path` for a repository already cloned in the session, `--dry-run` to preview.
 - Check: `python3 tools/check.py`. Run it before every commit. Do not commit if it fails.
 
-## Collecting (the owner says "zbierz notatki")
+## Collecting (the owner asks to collect notes, for example "zbierz notatki")
 
 1. Read `repos.md`. Attach each private repository listed there to the session **read-only**. Never attach one with write access. Public repositories need no attaching.
 2. Run the collector. It reads only the outbox file named in `repos.md`.
 3. Run the check. If it fails, do not commit; report the output.
 4. Commit `index.md`, `for/` and `JOURNAL.md` with the message `Collect notes YYYY-MM-DD` and push to the main branch.
-5. Tell the owner in Polish: how many notes, for which repositories, which repositories could not be read, which entries were malformed.
+5. Tell the owner, in the owner's language: how many notes, for which repositories, which repositories could not be read, which entries were malformed.
 
 ## Rules
 
@@ -40,4 +40,4 @@ A private mailbox for ideas that one project's crew noticed for another project.
 
 ## Language
 
-Agent-facing files: English. Notes and owner-facing files stay as written, usually Polish.
+Everything in this repository is in English: files, field names, script output. Note text is copied as written, in whatever language the source crew used.

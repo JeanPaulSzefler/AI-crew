@@ -6,7 +6,7 @@
 
 | Element | Zasada |
 | --- | --- |
-| `CHANGELOG.md` | Dla ludzi, nie zrzut commitów. Sekcje: Dodane, Zmienione, Naprawione, Usunięte. Na górze zawsze „Niewydane” |
+| `CHANGELOG.md` | Dla ludzi, nie zrzut commitów. Sekcje: Added, Changed, Fixed, Removed. Na górze zawsze „Unreleased” |
 | Numer wersji | `GŁÓWNA.POBOCZNA.POPRAWKA`. Poprawka błędu podnosi ostatnią liczbę, nowa funkcja środkową, zmiana niezgodna wstecz pierwszą |
 | `docs/release.md` | Lista kontrolna wydania (niżej). Każde wydanie przechodzi ją od góry do dołu |
 | Tag w gicie | `vX.Y.Z` na commicie, z którego powstało wydanie |
@@ -16,17 +16,17 @@
 ## Lista kontrolna wydania (`docs/release.md`)
 
 ```markdown
-# Wydanie vX.Y.Z
+# Release vX.Y.Z
 
-- [ ] Wszystkie zadania wydania są w „Zrobione”
-- [ ] Test przechodzi na gałęzi głównej (wynik wklejony niżej)
-- [ ] `CHANGELOG.md`: sekcja „Niewydane” przeniesiona pod numer wersji z datą
-- [ ] Numer wersji zmieniony we wszystkich miejscach
-- [ ] Doradca (Opus): werdykt „go” na podstawie listy zmian i wyników testu
-- [ ] Codex: recenzja zmian od poprzedniego wydania, uwagi rozpatrzone
-- [ ] Paczka zbudowana i sprawdzona ręcznie na urządzeniu (jeśli dotyczy; „wymaga komputera”)
-- [ ] **Owner: zgoda na publikację**
-- [ ] Tag `vX.Y.Z`, publikacja, wpis w `JOURNAL.md`
+- [ ] All tasks of the release are under "Done"
+- [ ] The check passes on the main branch (output pasted below)
+- [ ] `CHANGELOG.md`: "Unreleased" moved under the version number with the date
+- [ ] Version number changed in every place it appears
+- [ ] Advisor (Opus): verdict "go", based on the change list and the check output
+- [ ] Codex: review of the changes since the last release; findings handled
+- [ ] Package built and tried by hand on a device (if it applies; `needs-pc`)
+- [ ] **Owner: approval to publish**
+- [ ] Tag `vX.Y.Z`, publication, a line in `JOURNAL.md`
 ```
 
 ## Zmiany w załodze

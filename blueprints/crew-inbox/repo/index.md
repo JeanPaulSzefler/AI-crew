@@ -1,4 +1,4 @@
-# Spis notatek
+# Index of notes
 
-Wszystkie zebrane notatki, ze źródłem. Tylko dopisywanie: wpisy dodaje `tools/collect.py`. Stan pomysłu (przyjęty, odrzucony) jest w repo docelowym, nie tutaj.
+Every collected note, with its source. Append only: `tools/collect.py` adds the entries. The state of an idea (accepted, rejected) is in the target repository, not here.
 

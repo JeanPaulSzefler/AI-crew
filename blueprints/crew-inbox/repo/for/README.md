@@ -1,7 +1,7 @@
-# Notatki według repo docelowego
+# Notes by target repository
 
-Jeden plik na repo: `nazwa-repo.md` (małymi literami). Sesja projektu czyta **tylko swój plik**.
+One file per repository: `repo-name.md` (lower case). A project's session reads **only its own file**.
 
-- Plik repo publicznego nie podaje źródła notatki.
-- `_unknown.md` zbiera notatki, których adresata nie ma w `repos.md`. Owner decyduje, co z nimi zrobić.
-- Tylko dopisywanie. Wpisy dodaje `tools/collect.py`.
+- The file of a public repository does not name the source of a note.
+- `_unknown.md` collects notes whose target is not in `repos.md`. The owner decides what to do with them.
+- Append only. `tools/collect.py` adds the entries.

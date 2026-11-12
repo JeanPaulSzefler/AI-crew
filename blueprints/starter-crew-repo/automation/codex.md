@@ -20,10 +20,10 @@ Codex (ChatGPT) jest niezależnym uczestnikiem: nie podlega Prowadzącemu i ma i
 
 Po `review` można dopisać, na czym się skupić. Codex stosuje sekcję „Review guidelines” z `AGENTS.md`. W ustawieniach Codex można włączyć automatyczne recenzje każdego nowego PR.
 
-**Paczka zadań:** na tablicy zadania mają `kto: codex`. Owner wysyła w Codex jedną wiadomość:
+**Paczka zadań:** na tablicy zadania mają `who: codex`. Owner wysyła w Codex jedną wiadomość:
 
 ```text
-Read AGENTS.md. Do the tasks marked "kto: codex" under "Gotowe do wzięcia"
+Read AGENTS.md. Do the tasks marked "who: codex" under "Ready"
 in BOARD.md. One commit per task, one pull request for the batch. Do not
 change AGENTS.md, CLAUDE.md, .claude/, .github/ or the check script.
 Update BOARD.md and add one line per task to JOURNAL.md in the last commit.

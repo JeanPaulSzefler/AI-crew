@@ -41,4 +41,4 @@ Write a brief of at most one page: question, options, constraints, files to read
 - A subagent that lacks information returns `BLOCKED: <question>`. It does not guess.
 - Raise the effort level or improve the task brief before adding another agent.
 - Checkpoint before you delegate or consult. If the task has a state file, the brief points to it instead of repeating it.
-- Unattended runs: resume your paused tasks first, then take new ones; at most {{2}} tasks from **Gotowe do wzięcia**, class A or B only, a pull request for class B, never class C. Stop after two failed attempts. End with a journal line.
+- Unattended runs: resume your paused tasks first, then take new ones; at most {{2}} tasks from **Ready**, class A or B only, a pull request for class B, never class C. Stop after two failed attempts. End with a journal line.

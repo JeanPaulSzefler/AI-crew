@@ -8,7 +8,7 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-INDEX = re.compile(r"^- (H-(\d{4})) · z: (\S+) · (N-[\w.-]+-\d+) · ")
+INDEX = re.compile(r"^- (H-(\d{4})) · from: (\S+) · (N-[\w.-]+-\d+) · ")
 ENTRY = re.compile(r"^- (H-\d{4}) · ")
 REPO_ROW = re.compile(r"^\|\s*`?[\w.-]+/[\w.-]+`?\s*\|")
 problems = []

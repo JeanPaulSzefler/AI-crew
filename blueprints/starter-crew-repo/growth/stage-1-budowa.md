@@ -23,4 +23,4 @@ Ten sam co w rdzeniu: [`../core/work/README.md`](../core/work/README.md). Epik t
 
 ## Sygnały, że etap 1 działa
 
-Agent po „co dalej” bierze zadanie bez dopytywania. Owner czyta tylko sekcję „Czeka na Ownera”. Zwroty po recenzji są rzadsze niż co trzecie zadanie.
+Agent po „co dalej” bierze zadanie bez dopytywania. Owner czyta tylko sekcję „Waiting for owner”. Zwroty po recenzji są rzadsze niż co trzecie zadanie.

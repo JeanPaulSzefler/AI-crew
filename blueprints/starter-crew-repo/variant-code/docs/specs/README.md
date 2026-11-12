@@ -1,27 +1,27 @@
-# Specyfikacje
+# Specs
 
-Źródło prawdy o tym, co program ma robić. Zmiana zachowania zaczyna się tutaj, potem zadanie na tablicy, potem kod i test.
+The source of truth for what the program must do. A behaviour change starts here, then becomes a task on the board, then code and a test.
 
-- Jeden plik na obszar: `SPEC-NNN-tytul.md`.
-- Wymagania są **numerowanymi klauzulami** (`SPEC-003.4`). Zadania, testy i commity przywołują numer klauzuli.
-- Każda klauzula ma kryterium odbioru, które da się sprawdzić testem.
-- Poprawka błędu, która przywraca opisane zachowanie, nie wymaga zmiany specyfikacji. Wystarczy wskazać klauzulę, którą przywraca.
-- Specyfikację pisze agent, zatwierdza Owner.
+- One file per area: `SPEC-NNN-title.md`.
+- Requirements are **numbered clauses** (`SPEC-003.4`). Tasks, tests and commits cite the clause number.
+- Every clause has an acceptance criterion that a test can check.
+- A bug fix that restores specified behaviour needs no spec change. Name the clause it restores.
+- The agent drafts a spec; the owner approves it.
 
-## Szablon
+## Template
 
 ```markdown
-# SPEC-NNN: tytuł
+# SPEC-NNN: title
 
-Status: szkic | zatwierdzona RRRR-MM-DD
+Status: draft | approved YYYY-MM-DD
 
-## Cel
-Jedno–dwa zdania.
+## Goal
+One or two sentences.
 
-## Klauzule
-1. Program … (Odbiór: …)
+## Clauses
+1. The program … (Accept: …)
 2. …
 
-## Poza zakresem
+## Out of scope
 - …
 ```

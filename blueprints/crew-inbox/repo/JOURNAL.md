@@ -1,4 +1,4 @@
-# Dziennik zbierania
+# Collection journal
 
-Jedna linia na każde zbieranie. Najnowsze na dole. Wpisy dodaje `tools/collect.py`.
+One line per collection. Newest at the bottom. `tools/collect.py` adds the entries.
 

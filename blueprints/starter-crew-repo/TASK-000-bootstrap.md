@@ -1,50 +1,50 @@
 ---
 id: TASK-000
-title: Postawienie nowego repo z blueprintu starter-crew-repo
-role: lead (Sonnet), advisor (Opus) raz, owner
+title: Set up a new repository from the starter-crew-repo blueprint
+who: lead (Sonnet), advisor (Opus) once, owner
 class: B
 ---
 
-# TASK-000: nowe repo z blueprintu
+# TASK-000: a new repository from the blueprint
 
-## Cel
+## Goal
 
-Puste repozytorium zostaje przygotowane do pracy załogi: zasady, tablica, test i role. Bez treści i bez kodu projektu.
+An empty repository is made ready for the crew: rules, board, check and roles. No project content and no project code.
 
-## Wejście od Ownera
+## Input from the owner
 
-- Nazwa projektu i jedno–trzy zdania: po co i dla kogo.
-- Wariant: treściowy albo z kodem.
-- Widoczność repo (publiczne albo prywatne) i nazwa gałęzi głównej.
+- The project name and one to three sentences: what for and for whom.
+- The variant: content or code.
+- Repository visibility (public or private) and the name of the main branch.
 
-## Kroki Ownera
+## Owner's steps
 
-1. Utworzyć puste repo na GitHubie i podłączyć je do sesji Claude. **Jedno repo na sesję.**
-2. Po akceptacji PR: w repo publicznym włączyć ochronę gałęzi głównej (wymagany test `check`). W prywatnym na planie Free ochrona nie działa; zostają zasady z `AGENTS.md` i reguły `ask`.
-3. Opcjonalnie: podłączyć repo w Codex i włączyć automatyczne recenzje.
+1. Create the empty repository on GitHub and open a Claude session on it. **One repository per session.**
+2. After approving the pull request: in a public repository, protect the main branch (required check `check`). In a private repository on the Free plan protection does not work; the rules in `AGENTS.md` and the `ask` rules remain.
+3. Optional: connect the repository in Codex and turn on automatic reviews.
 
-## Kroki Prowadzącego (jeden PR)
+## Lead's steps (one pull request)
 
-1. Skopiować `core/` do katalogu głównego repo. Zmienić nazwy: `dot-claude` → `.claude`, `dot-gitignore` → `.gitignore`.
-2. Dołożyć pliki wybranego wariantu (`variant-content/` albo `variant-code/`) **bez jego `README.md`**, który jest tylko instrukcją. Zmienić `dot-github` → `.github`, a w wariancie z kodem dołożyć `dot-claude/agents/reviewer.md` do `.claude/agents/`.
-3. Wypełnić wszystkie pola `{{…}}` w `AGENTS.md`, `CLAUDE.md`, `README.md`, `docs/brief.md`, `BOARD.md`, `JOURNAL.md`. Dopisać do `AGENTS.md` wiersze i zasady z README wariantu.
-4. Ustawić komendę testu w `AGENTS.md` i w `.github/workflows/check.yml`. Uruchomić ją. Musi przejść.
-5. Zapisać decyzję `0001`: wariant, poziom autonomii 1, założenia (subskrypcje, miejsce pracy) z warunkami powrotu.
-6. Wpisać do `BOARD.md` trzy–pięć pierwszych zadań w „Gotowe do wzięcia”, każde z celem, plikami, odbiorem i klasą.
-7. **Jedna konsultacja z Doradcą:** brief na jedną stronę z `docs/brief.md` i listą pierwszych zadań. Pytanie: czy zakres i kolejność mają sens, co jest największym ryzykiem. Werdykt dopisać do `JOURNAL.md`.
-8. Otworzyć PR dla Ownera.
+1. Copy `core/` to the repository root. Rename `dot-claude` to `.claude` and `dot-gitignore` to `.gitignore`.
+2. Add the files of the chosen variant (`variant-content/` or `variant-code/`) **without its `README.md`**, which is only a guide. Rename `dot-github` to `.github`. For the code variant also copy `dot-claude/agents/reviewer.md` to `.claude/agents/`.
+3. Fill every `{{…}}` field in `AGENTS.md`, `CLAUDE.md`, `README.md`, `docs/brief.md`, `BOARD.md`, `JOURNAL.md`. Add to `AGENTS.md` the rows and rules listed in the variant's README.
+4. Set the check command in `AGENTS.md` and in `.github/workflows/check.yml`. Run it. It must pass.
+5. Record decision `0001`: variant, autonomy level 1, assumptions (subscriptions, where work happens) with their revisit conditions.
+6. Put three to five first tasks under "Ready" in `BOARD.md`, each with goal, files, acceptance and class.
+7. **One advisor consultation:** a one-page brief built from `docs/brief.md` and the list of first tasks. Question: do scope and order make sense, and what is the biggest risk? Add the verdict to `JOURNAL.md`.
+8. Open the pull request for the owner.
 
-## Odbiór
+## Accept
 
-- [ ] W repo nie ma żadnego `{{` poza blokami przykładów.
-- [ ] `AGENTS.md` i `CLAUDE.md` mają razem mniej niż 200 linii.
-- [ ] Komenda testu przechodzi lokalnie i w CI.
-- [ ] `.claude/settings.json` jest poprawnym JSON-em z regułami `deny`, `ask` i limitem zagnieżdżenia subagentów.
-- [ ] `advisor.md` ma tylko narzędzia odczytu.
-- [ ] `BOARD.md` ma co najmniej trzy gotowe zadania oraz sekcję „Dla innych projektów” z numerem notatek zawierającym nazwę repo.
-- [ ] Istnieje `work/README.md` z szablonem pliku stanu.
-- [ ] Owner zaakceptował PR.
+- [ ] No `{{` is left in the repository outside example blocks.
+- [ ] `AGENTS.md` and `CLAUDE.md` together have fewer than 200 lines.
+- [ ] The check command passes locally and in CI.
+- [ ] `.claude/settings.json` is valid JSON with `deny` rules, `ask` rules and the subagent nesting limit.
+- [ ] `advisor.md` has read-only tools.
+- [ ] `BOARD.md` has at least three ready tasks, and the note id in "For other projects" contains the repository name.
+- [ ] `work/README.md` exists with the state file template.
+- [ ] The owner approved the pull request.
 
-## Poza zakresem
+## Out of scope
 
-Treść i kod projektu, skille, zaplanowane zadania (etap 1), wydania (etap 2), sekrety i konta.
+Project content and code, skills, scheduled tasks (stage 1), releases (stage 2), secrets and accounts.

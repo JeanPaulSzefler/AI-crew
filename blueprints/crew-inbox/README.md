@@ -2,13 +2,13 @@
 
 Prywatne repo, które zbiera w jedno miejsce notatki z pomysłami między projektami. Uzupełnia wariant A z [`cross-repo-notes.md`](../starter-crew-repo/automation/cross-repo-notes.md): każdy projekt czyta jedno miejsce zamiast wszystkich pozostałych repo.
 
-Wersja 1.0 · 11.11.2026 · przyjęty ([decyzja 0009](../../docs/decisions/0009-skrzynka-centralna-crew-inbox.md))
+Wersja 1.1 · 12.11.2026 · przyjęty ([decyzja 0009](../../docs/decisions/0009-skrzynka-centralna-crew-inbox.md)). Pliki w `repo/`, nazwy pól i komunikaty skryptu są po angielsku ([decyzja 0010](../../docs/decisions/0010-language.md)); ten przewodnik zostaje po polsku.
 
 ## Jak to działa
 
-1. **Zapis w projekcie.** Załoga dopisuje notatkę u siebie, w `BOARD.md`, w sekcji „Dla innych projektów”.
+1. **Zapis w projekcie.** Załoga dopisuje notatkę u siebie, w `BOARD.md`, w sekcji „For other projects”.
 2. **Zbieranie.** Owner pisze w sesji skrzynki „zbierz notatki”. Skrypt czyta z każdego podłączonego repo tylko skrzynkę nadawczą, nadaje nowym notatkom numer `H-NNNN` i dopisuje je do spisu oraz do pliku repo docelowego.
-3. **Odbiór.** Owner pisze w sesji projektu „zabierz notatki ze skrzynki”. Prowadzący dołącza skrzynkę tylko do odczytu, czyta `for/<nazwa-repo>.md` i przepisuje nowe wpisy do „Pomysłów” z dopiskiem „z zewnątrz”.
+3. **Odbiór.** Owner pisze w sesji projektu „zabierz notatki ze skrzynki”. Prowadzący dołącza skrzynkę tylko do odczytu, czyta `for/<nazwa-repo>.md` i przepisuje nowe wpisy do sekcji „Ideas” z dopiskiem `external`.
 
 Zbieranie robi skrypt, a nie model. Agent tylko dołącza repo, uruchamia skrypt i test, zapisuje wynik. Dzięki temu notatki nie są skracane ani przerabiane, a zużycie limitu jest minimalne (model Haiku).
 
